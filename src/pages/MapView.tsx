@@ -392,40 +392,6 @@ const MapView = () => {
                 </CardContent>
               )}
             </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Statistics</CardTitle>
-                <CardDescription>
-                  {loading ? "Loading..." : "Filtered results"}
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <div className="text-2xl font-bold text-copper">
-                    {filteredSections.length}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Visible Locations
-                  </div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-copper">
-                    {sections.length}
-                  </div>
-                  <div className="text-sm text-muted-foreground">Total Sections</div>
-                </div>
-                <div>
-                  <div className="text-2xl font-bold text-copper">
-                    {radiometricData.length}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Radiometric Ages
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
           </div>
         </div>
       </div>
