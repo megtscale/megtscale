@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { MapPin, Filter, X, Maximize2, Printer } from "lucide-react";
+import { MapPin, Filter, X } from "lucide-react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
@@ -205,10 +205,6 @@ const MapView = () => {
     };
   }, []);
 
-  const handlePrint = () => {
-    window.print();
-  };
-
   // Update markers when filtered data changes
   useEffect(() => {
     if (!markersLayer.current || loading) return;
@@ -267,17 +263,6 @@ const MapView = () => {
             <Card className="overflow-hidden shadow-elegant relative">
               <div ref={mapContainer} className="w-full h-[600px]" />
               
-              {/* Print button */}
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={handlePrint}
-                className="absolute top-4 right-4 z-[1001] shadow-lg"
-              >
-                <Printer className="w-4 h-4 mr-2" />
-                Print
-              </Button>
-
               {/* Legend toggle button */}
               <Button
                 variant="secondary"
