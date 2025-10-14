@@ -1,0 +1,4 @@
+id,sectionId,isotopeSystem,mineral,ageMa,errorMa,labMethod,reference,doi,notes
+rdt-0001,sec-om-001,U-Pb,Zircon,602.4,1.8,ID-TIMS,Author et al. (2019),10.5678/example.doi,Tonalite intrusion; concordant.
+rdt-0002,sec-uae-001,Rb-Sr,Whole Rock,580.0,3.0,TIMS,Smith et al. (2020),10.1234/uae.doi,Regional metamorphism event.
+rdt-0003,sec-bh-001,U-Pb,Zircon,565.0,2.5,LA-ICP-MS,Jones et al. (2021),10.9876/bahrain.doi,Volcanic ash layer.

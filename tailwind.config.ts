@@ -27,6 +27,18 @@ export default {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
+        copper: {
+          DEFAULT: "hsl(var(--copper))",
+          foreground: "hsl(var(--copper-foreground))",
+        },
+        basalt: {
+          DEFAULT: "hsl(var(--basalt))",
+          foreground: "hsl(var(--basalt-foreground))",
+        },
+        quartz: {
+          DEFAULT: "hsl(var(--quartz))",
+          foreground: "hsl(var(--quartz-foreground))",
+        },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
@@ -47,16 +59,11 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
-        },
+      },
+      fontFamily: {
+        sans: ['IBM Plex Sans', 'system-ui', 'sans-serif'],
+        heading: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['IBM Plex Mono', 'monospace'],
       },
       borderRadius: {
         lg: "var(--radius)",

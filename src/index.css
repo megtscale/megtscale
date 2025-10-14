@@ -8,89 +8,105 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    /* Geological Color Palette */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 217 33% 17%; /* Deep Slate */
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 217 33% 17%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 217 33% 17%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary: Deep Slate - main brand color */
+    --primary: 217 33% 17%;
+    --primary-foreground: 220 13% 91%; /* Quartz */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary: Sandstone - warm earth tone */
+    --secondary: 39 44% 69%;
+    --secondary-foreground: 217 33% 17%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Copper: Accent color for highlights */
+    --copper: 23 46% 50%;
+    --copper-foreground: 220 13% 91%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Basalt: Muted backgrounds */
+    --basalt: 217 19% 33%;
+    --basalt-foreground: 220 13% 91%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Quartz: Light neutrals */
+    --quartz: 220 13% 91%;
+    --quartz-foreground: 217 33% 17%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --muted: 39 20% 85%;
+    --muted-foreground: 217 19% 40%;
 
-    --radius: 0.5rem;
+    --accent: 23 46% 50%; /* Copper */
+    --accent-foreground: 220 13% 91%;
 
-    --sidebar-background: 0 0% 98%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --border: 39 20% 85%;
+    --input: 39 20% 85%;
+    --ring: 23 46% 50%;
 
-    --sidebar-primary: 240 5.9% 10%;
+    --radius: 0.75rem;
 
-    --sidebar-primary-foreground: 0 0% 98%;
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(217 33% 17%) 0%, hsl(217 19% 33%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(23 46% 50%) 0%, hsl(39 44% 69%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(39 20% 97%) 100%);
 
-    --sidebar-accent: 240 4.8% 95.9%;
+    /* Shadows */
+    --shadow-elegant: 0 10px 40px -10px hsl(217 33% 17% / 0.15);
+    --shadow-card: 0 4px 20px -4px hsl(217 33% 17% / 0.1);
 
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 217 33% 12%;
+    --foreground: 220 13% 91%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 217 28% 15%;
+    --card-foreground: 220 13% 91%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 217 28% 15%;
+    --popover-foreground: 220 13% 91%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 220 13% 91%;
+    --primary-foreground: 217 33% 17%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 39 30% 35%;
+    --secondary-foreground: 220 13% 91%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --copper: 23 50% 55%;
+    --copper-foreground: 217 33% 12%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --basalt: 217 19% 25%;
+    --basalt-foreground: 220 13% 91%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --muted: 217 19% 25%;
+    --muted-foreground: 220 13% 70%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --accent: 23 50% 55%;
+    --accent-foreground: 217 33% 12%;
+
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 217 19% 25%;
+    --input: 217 19% 25%;
+    --ring: 23 50% 55%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(217 33% 12%) 0%, hsl(217 19% 18%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(23 50% 55%) 0%, hsl(39 40% 50%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(217 33% 12%) 0%, hsl(217 28% 15%) 100%);
+
+    --shadow-elegant: 0 10px 40px -10px hsl(0 0% 0% / 0.4);
+    --shadow-card: 0 4px 20px -4px hsl(0 0% 0% / 0.3);
   }
 }
 
@@ -101,5 +117,41 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 600;
+  }
+
+  code, pre {
+    font-family: 'IBM Plex Mono', 'Courier New', monospace;
+  }
+}
+
+@layer utilities {
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .gradient-subtle {
+    background: var(--gradient-subtle);
+  }
+
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .transition-smooth {
+    transition: var(--transition-smooth);
   }
 }
