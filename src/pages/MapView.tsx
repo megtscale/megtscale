@@ -246,16 +246,16 @@ const MapView = () => {
 
               {/* Legend overlay */}
               {showLegend && (
-                <Card className="absolute bottom-16 left-4 w-64 shadow-lg z-[1000]">
+                <Card className="absolute bottom-16 left-4 w-72 shadow-lg z-[1000]">
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium">Map Legend</CardTitle>
+                    <CardTitle className="text-sm font-medium">Map Symbols</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2 pt-0">
                     <div className="flex items-center gap-2">
                       <div className="w-6 h-6 rounded-full bg-[#3388ff] text-white flex items-center justify-center text-xs font-bold shadow">
                         5
                       </div>
-                      <span className="text-xs">Cluster (click to zoom)</span>
+                      <span className="text-xs">Multiple samples (click to expand)</span>
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -269,7 +269,7 @@ const MapView = () => {
                           />
                         </svg>
                       </div>
-                      <span className="text-xs">Section (click for details)</span>
+                      <span className="text-xs">Individual sample location</span>
                     </div>
                   </CardContent>
                 </Card>
