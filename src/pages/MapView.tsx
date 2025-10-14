@@ -252,7 +252,7 @@ const MapView = () => {
                   </CardHeader>
                   <CardContent className="space-y-2 pt-0">
                     <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded-full bg-[#3388ff] text-white flex items-center justify-center text-xs font-bold shadow">
+                      <div className="w-6 h-6 rounded-full bg-[#4CAF50] text-white flex items-center justify-center text-xs font-bold shadow">
                         5
                       </div>
                       <span className="text-xs">Multiple samples (click to expand)</span>
