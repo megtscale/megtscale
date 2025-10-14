@@ -208,6 +208,97 @@ const TimelineView = () => {
             </p>
           </CardContent>
         </Card>
+
+        <Card className="mt-8">
+          <CardHeader>
+            <CardTitle>References</CardTitle>
+            <CardDescription>
+              Key publications defining the Ediacaran time scale and geological events
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4 text-sm">
+              <div className="border-l-2 border-copper pl-4">
+                <p className="font-medium text-foreground">
+                  Gradstein, F. M., Ogg, J. G., Schmitz, M. D., & Ogg, G. M. (Eds.). (2020).
+                </p>
+                <p className="text-muted-foreground italic">
+                  Geologic Time Scale 2020. Elsevier.
+                </p>
+                <a 
+                  href="https://doi.org/10.1016/C2020-1-02369-3" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                >
+                  DOI: 10.1016/C2020-1-02369-3
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+
+              <div className="border-l-2 border-copper pl-4">
+                <p className="font-medium text-foreground">
+                  Hoffmann, K. H., Condon, D. J., Bowring, S. A., & Crowley, J. L. (2004).
+                </p>
+                <p className="text-muted-foreground italic">
+                  U-Pb zircon date from the Neoproterozoic Ghaub Formation, Namibia: Constraints on Marinoan glaciation. 
+                  Geology, 32(9), 817-820.
+                </p>
+                <a 
+                  href="https://doi.org/10.1130/G20519.1" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                >
+                  DOI: 10.1130/G20519.1
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+
+              <div className="border-l-2 border-copper pl-4">
+                <p className="font-medium text-foreground">
+                  Narbonne, G. M., Xiao, S., & Shields, G. A. (2012).
+                </p>
+                <p className="text-muted-foreground italic">
+                  The Ediacaran Period. In The Geologic Time Scale 2012 (pp. 413-435). Elsevier.
+                </p>
+                <a 
+                  href="https://doi.org/10.1016/B978-0-444-59425-9.00018-4" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                >
+                  DOI: 10.1016/B978-0-444-59425-9.00018-4
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+
+              <div className="border-l-2 border-copper pl-4">
+                <p className="font-medium text-foreground">
+                  Bowring, S. A., Grotzinger, J. P., Condon, D. J., Ramezani, J., Newall, M. J., & Allen, P. A. (2007).
+                </p>
+                <p className="text-muted-foreground italic">
+                  Geochronologic constraints on the chronostratigraphic framework of the Neoproterozoic Huqf Supergroup, Sultanate of Oman.
+                  American Journal of Science, 307(10), 1097-1145.
+                </p>
+                <a 
+                  href="https://doi.org/10.2475/10.2007.01" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                >
+                  DOI: 10.2475/10.2007.01
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+
+              <p className="text-xs text-muted-foreground mt-6 pt-4 border-t">
+                Additional references for specific sections and radiometric ages are linked in the 
+                Data Portal and individual sample locations on the map.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
