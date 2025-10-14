@@ -229,8 +229,55 @@ const MapView = () => {
 
         <div className="grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
-            <Card className="overflow-hidden shadow-elegant">
+            <Card className="overflow-hidden shadow-elegant relative">
               <div ref={mapContainer} className="w-full h-[600px]" />
+              
+              {/* Legend overlay */}
+              <Card className="absolute bottom-4 left-4 w-80 shadow-lg z-[1000]">
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <MapPin className="w-4 h-4 text-copper" />
+                    Map Legend
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3 pt-0">
+                  <div>
+                    <div className="flex items-center gap-3 mb-1">
+                      <div className="w-8 h-8 rounded-full bg-[#3388ff] text-white flex items-center justify-center text-sm font-bold shadow-md">
+                        5
+                      </div>
+                      <span className="text-sm font-medium">Cluster</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground ml-11">
+                      Multiple sections grouped. Click to zoom and separate.
+                    </p>
+                  </div>
+
+                  <div>
+                    <div className="flex items-center gap-3 mb-1">
+                      <div className="w-8 h-8 flex items-center justify-center">
+                        <svg width="25" height="41" viewBox="0 0 25 41" className="drop-shadow-md">
+                          <path
+                            fill="#3388ff"
+                            stroke="#fff"
+                            strokeWidth="1"
+                            d="M12.5 0C5.6 0 0 5.6 0 12.5c0 9.4 12.5 28.5 12.5 28.5S25 21.9 25 12.5C25 5.6 19.4 0 12.5 0z"
+                          />
+                        </svg>
+                      </div>
+                      <span className="text-sm font-medium">Individual Section</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground ml-11">
+                      Single section with radiometric data:
+                    </p>
+                    <ul className="text-xs text-muted-foreground ml-11 mt-1 space-y-0.5">
+                      <li>• Name, terrane, rock type</li>
+                      <li>• Age range and isotope system</li>
+                      <li>• Reference and DOI</li>
+                    </ul>
+                  </div>
+                </CardContent>
+              </Card>
             </Card>
           </div>
 
@@ -383,46 +430,6 @@ const MapView = () => {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-copper" />
-                  Map Legend
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs font-bold">
-                      5
-                    </div>
-                    <span className="text-sm font-medium">Cluster</span>
-                  </div>
-                  <p className="text-xs text-muted-foreground ml-9">
-                    Multiple stratigraphic sections grouped together. Click to zoom in and separate.
-                  </p>
-                </div>
-
-                <div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="w-6 h-6 rounded-full bg-copper flex items-center justify-center">
-                      <MapPin className="w-3 h-3 text-white" />
-                    </div>
-                    <span className="text-sm font-medium">Individual Section</span>
-                  </div>
-                  <p className="text-xs text-muted-foreground ml-9">
-                    Single stratigraphic section with radiometric age data. Click for details including:
-                  </p>
-                  <ul className="text-xs text-muted-foreground ml-9 mt-1 space-y-1">
-                    <li>• Section name and location</li>
-                    <li>• Terrane and rock type</li>
-                    <li>• Age range (Ma)</li>
-                    <li>• Isotope system and method</li>
-                    <li>• Reference and DOI</li>
-                  </ul>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </div>
