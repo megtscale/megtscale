@@ -6,12 +6,14 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { MapPin, Filter, X } from "lucide-react";
+import { MapPin, Filter, X, Maximize2, Printer } from "lucide-react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.markercluster";
+import "leaflet-fullscreen/dist/leaflet.fullscreen.css";
+import "leaflet-fullscreen/dist/Leaflet.fullscreen";
 import Papa from "papaparse";
 
 interface StratigraphicSection {
@@ -157,6 +159,13 @@ const MapView = () => {
 
     map.current = L.map(mapContainer.current).setView([25, 50], 5);
 
+    // Add fullscreen control
+    if (map.current && (L.control as any).fullscreen) {
+      (L.control as any).fullscreen({
+        position: 'topleft'
+      }).addTo(map.current);
+    }
+
     // Define base map layers
     const baseMaps = {
       "Street Map": L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -195,6 +204,10 @@ const MapView = () => {
       map.current = null;
     };
   }, []);
+
+  const handlePrint = () => {
+    window.print();
+  };
 
   // Update markers when filtered data changes
   useEffect(() => {
@@ -254,6 +267,17 @@ const MapView = () => {
             <Card className="overflow-hidden shadow-elegant relative">
               <div ref={mapContainer} className="w-full h-[600px]" />
               
+              {/* Print button */}
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={handlePrint}
+                className="absolute top-4 right-4 z-[1001] shadow-lg"
+              >
+                <Printer className="w-4 h-4 mr-2" />
+                Print
+              </Button>
+
               {/* Legend toggle button */}
               <Button
                 variant="secondary"
