@@ -387,18 +387,40 @@ const MapView = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <MapPin className="w-5 h-5 text-copper" />
-                  Legend
+                  Map Legend
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-4 h-4 rounded-full bg-copper" />
-                  <span className="text-sm">Radiometric Sample Sites</span>
+              <CardContent className="space-y-4">
+                <div>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center text-xs font-bold">
+                      5
+                    </div>
+                    <span className="text-sm font-medium">Cluster</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground ml-9">
+                    Multiple stratigraphic sections grouped together. Click to zoom in and separate.
+                  </p>
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  Markers cluster when zoomed out. Click clusters to zoom in.
-                  Individual markers show detailed radiometric data.
-                </p>
+
+                <div>
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-6 h-6 rounded-full bg-copper flex items-center justify-center">
+                      <MapPin className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-sm font-medium">Individual Section</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground ml-9">
+                    Single stratigraphic section with radiometric age data. Click for details including:
+                  </p>
+                  <ul className="text-xs text-muted-foreground ml-9 mt-1 space-y-1">
+                    <li>• Section name and location</li>
+                    <li>• Terrane and rock type</li>
+                    <li>• Age range (Ma)</li>
+                    <li>• Isotope system and method</li>
+                    <li>• Reference and DOI</li>
+                  </ul>
+                </div>
               </CardContent>
             </Card>
           </div>
