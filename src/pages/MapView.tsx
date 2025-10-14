@@ -157,10 +157,31 @@ const MapView = () => {
 
     map.current = L.map(mapContainer.current).setView([25, 50], 5);
 
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '© OpenStreetMap contributors',
-      maxZoom: 19,
-    }).addTo(map.current);
+    // Define base map layers
+    const baseMaps = {
+      "Street Map": L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 19,
+      }),
+      "Satellite": L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", {
+        attribution: '© Esri, Maxar, Earthstar Geographics',
+        maxZoom: 19,
+      }),
+      "Terrain": L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+        attribution: '© OpenTopoMap contributors',
+        maxZoom: 17,
+      }),
+      "Light": L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+        attribution: '© OpenStreetMap, © CartoDB',
+        maxZoom: 19,
+      }),
+    };
+
+    // Add default layer
+    baseMaps["Street Map"].addTo(map.current);
+
+    // Add layer control
+    L.control.layers(baseMaps).addTo(map.current);
 
     markersLayer.current = L.markerClusterGroup({
       showCoverageOnHover: false,
