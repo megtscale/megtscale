@@ -50,6 +50,7 @@ const MapView = () => {
   const [sections, setSections] = useState<StratigraphicSection[]>([]);
   const [radiometricData, setRadiometricData] = useState<RadiometricData[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showLegend, setShowLegend] = useState(true);
 
   // Filter states
   const [searchTerm, setSearchTerm] = useState("");
@@ -232,31 +233,34 @@ const MapView = () => {
             <Card className="overflow-hidden shadow-elegant relative">
               <div ref={mapContainer} className="w-full h-[600px]" />
               
+              {/* Legend toggle button */}
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => setShowLegend(!showLegend)}
+                className="absolute bottom-4 left-4 z-[1001] shadow-lg"
+              >
+                <MapPin className="w-4 h-4 mr-2" />
+                {showLegend ? "Hide" : "Show"} Legend
+              </Button>
+
               {/* Legend overlay */}
-              <Card className="absolute bottom-4 left-4 w-80 shadow-lg z-[1000]">
-                <CardHeader className="pb-3">
-                  <CardTitle className="flex items-center gap-2 text-base">
-                    <MapPin className="w-4 h-4 text-copper" />
-                    Map Legend
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3 pt-0">
-                  <div>
-                    <div className="flex items-center gap-3 mb-1">
-                      <div className="w-8 h-8 rounded-full bg-[#3388ff] text-white flex items-center justify-center text-sm font-bold shadow-md">
+              {showLegend && (
+                <Card className="absolute bottom-16 left-4 w-64 shadow-lg z-[1000]">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-sm font-medium">Map Legend</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2 pt-0">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full bg-[#3388ff] text-white flex items-center justify-center text-xs font-bold shadow">
                         5
                       </div>
-                      <span className="text-sm font-medium">Cluster</span>
+                      <span className="text-xs">Cluster (click to zoom)</span>
                     </div>
-                    <p className="text-xs text-muted-foreground ml-11">
-                      Multiple sections grouped. Click to zoom and separate.
-                    </p>
-                  </div>
 
-                  <div>
-                    <div className="flex items-center gap-3 mb-1">
-                      <div className="w-8 h-8 flex items-center justify-center">
-                        <svg width="25" height="41" viewBox="0 0 25 41" className="drop-shadow-md">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 flex items-center justify-center">
+                        <svg width="20" height="32" viewBox="0 0 25 41" className="drop-shadow">
                           <path
                             fill="#3388ff"
                             stroke="#fff"
@@ -265,19 +269,11 @@ const MapView = () => {
                           />
                         </svg>
                       </div>
-                      <span className="text-sm font-medium">Individual Section</span>
+                      <span className="text-xs">Section (click for details)</span>
                     </div>
-                    <p className="text-xs text-muted-foreground ml-11">
-                      Single section with radiometric data:
-                    </p>
-                    <ul className="text-xs text-muted-foreground ml-11 mt-1 space-y-0.5">
-                      <li>• Name, terrane, rock type</li>
-                      <li>• Age range and isotope system</li>
-                      <li>• Reference and DOI</li>
-                    </ul>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              )}
             </Card>
           </div>
 
