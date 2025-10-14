@@ -1,16 +1,66 @@
+import { useState, useEffect, useMemo } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Clock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Clock, MapPin, ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
+import Papa from "papaparse";
+
+interface StratigraphicSection {
+  id: string;
+  name: string;
+  period: string;
+  ageMinMa: number;
+  ageMaxMa: number;
+  terrane: string;
+  rockType: string;
+  lat: number;
+  lng: number;
+  description: string;
+  photoUrl: string;
+  dataSourceDoi: string;
+}
 
 const TimelineView = () => {
+  const [sections, setSections] = useState<StratigraphicSection[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Load CSV data
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const response = await fetch("/data/stratigraphic_sections.csv");
+        const text = await response.text();
+        const parsed = Papa.parse<StratigraphicSection>(text, {
+          header: true,
+          dynamicTyping: true,
+          skipEmptyLines: true,
+        });
+        setSections(parsed.data);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
+
   const events = [
-    { age: 635, event: "Marinoan glaciation ends", type: "climate" },
-    { age: 610, event: "First appearance of Ediacaran biota", type: "biological" },
-    { age: 580, event: "Gaskiers glaciation", type: "climate" },
-    { age: 560, event: "Rise of complex macroscopic life", type: "biological" },
-    { age: 541, event: "Cambrian explosion begins", type: "biological" },
-    { age: 538, event: "Ediacaran Period ends", type: "boundary" },
+    { age: 635, event: "Marinoan glaciation ends", type: "climate", ageRange: [640, 630] },
+    { age: 610, event: "First appearance of Ediacaran biota", type: "biological", ageRange: [615, 605] },
+    { age: 580, event: "Gaskiers glaciation", type: "climate", ageRange: [585, 575] },
+    { age: 560, event: "Rise of complex macroscopic life", type: "biological", ageRange: [570, 550] },
+    { age: 541, event: "Cambrian explosion begins", type: "biological", ageRange: [545, 538] },
+    { age: 538, event: "Ediacaran Period ends", type: "boundary", ageRange: [540, 538] },
   ];
+
+  // Find related sections for each event
+  const getRelatedSections = (ageRange: number[]) => {
+    return sections.filter(section => 
+      (section.ageMinMa <= ageRange[1] && section.ageMaxMa >= ageRange[0])
+    );
+  };
 
   return (
     <div className="min-h-screen py-12 bg-gradient-subtle">
@@ -69,24 +119,72 @@ const TimelineView = () => {
 
               {/* Events */}
               <div className="space-y-6">
-                {events.map((item, index) => (
-                  <div key={index} className="relative pl-20">
-                    <div className="absolute left-6 w-5 h-5 rounded-full bg-copper border-4 border-background" />
-                    <div className="flex items-start gap-4">
-                      <div className="min-w-[80px]">
-                        <span className="font-mono font-bold text-lg text-copper">
-                          {item.age} Ma
-                        </span>
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-medium text-foreground mb-2">{item.event}</p>
-                        <Badge variant="secondary" className="text-xs">
-                          {item.type}
-                        </Badge>
+                {events.map((item, index) => {
+                  const relatedSections = getRelatedSections(item.ageRange);
+                  return (
+                    <div key={index} className="relative pl-20">
+                      <div className="absolute left-6 w-5 h-5 rounded-full bg-copper border-4 border-background" />
+                      <div className="flex items-start gap-4">
+                        <div className="min-w-[80px]">
+                          <span className="font-mono font-bold text-lg text-copper">
+                            {item.age} Ma
+                          </span>
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-medium text-foreground mb-2">{item.event}</p>
+                          <div className="flex items-center gap-2 mb-3">
+                            <Badge variant="secondary" className="text-xs">
+                              {item.type}
+                            </Badge>
+                            {relatedSections.length > 0 && (
+                              <Badge variant="outline" className="text-xs flex items-center gap-1">
+                                <MapPin className="w-3 h-3" />
+                                {relatedSections.length} location{relatedSections.length > 1 ? 's' : ''}
+                              </Badge>
+                            )}
+                          </div>
+                          
+                          {relatedSections.length > 0 && (
+                            <div className="bg-muted/50 rounded-lg p-3 mt-2">
+                              <p className="text-xs font-medium mb-2 text-muted-foreground">
+                                Related sample locations:
+                              </p>
+                              <div className="space-y-1">
+                                {relatedSections.slice(0, 3).map(section => (
+                                  <div key={section.id} className="text-xs flex items-start gap-2">
+                                    <MapPin className="w-3 h-3 text-copper mt-0.5 flex-shrink-0" />
+                                    <div>
+                                      <span className="font-medium">{section.name}</span>
+                                      <span className="text-muted-foreground"> - {section.terrane}</span>
+                                      <span className="text-muted-foreground block">
+                                        ({section.ageMinMa}–{section.ageMaxMa} Ma)
+                                      </span>
+                                    </div>
+                                  </div>
+                                ))}
+                                {relatedSections.length > 3 && (
+                                  <p className="text-xs text-muted-foreground italic">
+                                    +{relatedSections.length - 3} more...
+                                  </p>
+                                )}
+                              </div>
+                              <Link to="/map">
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  className="mt-3 w-full text-xs"
+                                >
+                                  <ExternalLink className="w-3 h-3 mr-1" />
+                                  View on Map
+                                </Button>
+                              </Link>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           </CardContent>
