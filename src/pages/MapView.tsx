@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { MapPin, Filter, X } from "lucide-react";
+import { MapPin, Filter, X, ExternalLink } from "lucide-react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
@@ -423,6 +423,76 @@ const MapView = () => {
               )}
             </Card>
           </div>
+
+          {/* Data Methodology Section */}
+          <Card className="m-4 shadow-lg">
+            <CardHeader>
+              <CardTitle className="text-lg">Data Methodology & References</CardTitle>
+              <CardDescription>
+                Understanding the chronostratigraphic data compilation
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4 text-sm">
+              <div>
+                <h4 className="font-semibold mb-2">Sample Collection & Analysis</h4>
+                <p className="text-muted-foreground">
+                  All stratigraphic sections include GPS-located sample points with radiometric age 
+                  determinations. U-Pb zircon ages were obtained using LA-ICP-MS and CA-TIMS methods. 
+                  Uncertainties are reported at 2σ level and include both analytical and systematic errors.
+                </p>
+              </div>
+              
+              <div>
+                <h4 className="font-semibold mb-2">Geographic Coverage</h4>
+                <p className="text-muted-foreground">
+                  Data compiled from peer-reviewed publications covering the Arabian Peninsula, 
+                  including Oman, UAE, Saudi Arabia, and adjacent regions. Each point links to 
+                  original publication DOI for full methodological details.
+                </p>
+              </div>
+
+              <div>
+                <h4 className="font-semibold mb-2">Key References</h4>
+                <div className="space-y-2">
+                  <div className="pl-4 border-l-2 border-copper">
+                    <p className="font-medium">Bowring et al. (2007)</p>
+                    <p className="text-muted-foreground text-xs">
+                      Geochronologic constraints on the Huqf Supergroup, Oman
+                    </p>
+                    <a 
+                      href="https://doi.org/10.2475/10.2007.01" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                    >
+                      DOI: 10.2475/10.2007.01
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                  
+                  <div className="pl-4 border-l-2 border-copper">
+                    <p className="font-medium">Hoffmann et al. (2004)</p>
+                    <p className="text-muted-foreground text-xs">
+                      U-Pb zircon constraints on Marinoan glaciation, Namibia
+                    </p>
+                    <a 
+                      href="https://doi.org/10.1130/G20519.1" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                    >
+                      DOI: 10.1130/G20519.1
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <p className="text-xs text-muted-foreground pt-2 border-t">
+                Click on any map marker to view site-specific references and download individual datasets.
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

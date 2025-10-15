@@ -21,6 +21,45 @@ interface StratigraphicSection {
   dataSourceDoi: string;
 }
 
+const references = [
+  {
+    id: "gradstein2020",
+    authors: "Gradstein, F. M., Ogg, J. G., Schmitz, M. D., & Ogg, G. M. (Eds.)",
+    year: 2020,
+    title: "Geologic Time Scale 2020",
+    publication: "Elsevier",
+    doi: "10.1016/C2020-1-02369-3",
+    relatedEvents: ["Cambrian explosion begins"]
+  },
+  {
+    id: "hoffmann2004",
+    authors: "Hoffmann, K. H., Condon, D. J., Bowring, S. A., & Crowley, J. L.",
+    year: 2004,
+    title: "U-Pb zircon date from the Neoproterozoic Ghaub Formation, Namibia: Constraints on Marinoan glaciation",
+    publication: "Geology, 32(9), 817-820",
+    doi: "10.1130/G20519.1",
+    relatedEvents: ["Marinoan glaciation ends", "Gaskiers glaciation"]
+  },
+  {
+    id: "narbonne2012",
+    authors: "Narbonne, G. M., Xiao, S., & Shields, G. A.",
+    year: 2012,
+    title: "The Ediacaran Period",
+    publication: "In The Geologic Time Scale 2012 (pp. 413-435). Elsevier",
+    doi: "10.1016/B978-0-444-59425-9.00018-4",
+    relatedEvents: ["First appearance of Ediacaran biota"]
+  },
+  {
+    id: "bowring2007",
+    authors: "Bowring, S. A., Grotzinger, J. P., Condon, D. J., Ramezani, J., Newall, M. J., & Allen, P. A.",
+    year: 2007,
+    title: "Geochronologic constraints on the chronostratigraphic framework of the Neoproterozoic Huqf Supergroup, Sultanate of Oman",
+    publication: "American Journal of Science, 307(10), 1097-1145",
+    doi: "10.2475/10.2007.01",
+    relatedEvents: []
+  },
+];
+
 const TimelineView = () => {
   const [sections, setSections] = useState<StratigraphicSection[]>([]);
   const [loading, setLoading] = useState(true);
@@ -213,84 +252,46 @@ const TimelineView = () => {
           <CardHeader>
             <CardTitle>References</CardTitle>
             <CardDescription>
-              Key publications defining the Ediacaran time scale and geological events
+              Click on a reference to see which timeline events it supports
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4 text-sm">
-              <div className="border-l-2 border-copper pl-4">
-                <p className="font-medium text-foreground">
-                  Gradstein, F. M., Ogg, J. G., Schmitz, M. D., & Ogg, G. M. (Eds.). (2020).
-                </p>
-                <p className="text-muted-foreground italic">
-                  Geologic Time Scale 2020. Elsevier.
-                </p>
-                <a 
-                  href="https://doi.org/10.1016/C2020-1-02369-3" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+              {references.map((ref) => (
+                <div 
+                  key={ref.id} 
+                  className={`border-l-2 border-copper pl-4 transition-all ${
+                    ref.relatedEvents.length > 0 ? 'hover:bg-accent/5 cursor-pointer' : ''
+                  }`}
                 >
-                  DOI: 10.1016/C2020-1-02369-3
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-
-              <div className="border-l-2 border-copper pl-4">
-                <p className="font-medium text-foreground">
-                  Hoffmann, K. H., Condon, D. J., Bowring, S. A., & Crowley, J. L. (2004).
-                </p>
-                <p className="text-muted-foreground italic">
-                  U-Pb zircon date from the Neoproterozoic Ghaub Formation, Namibia: Constraints on Marinoan glaciation. 
-                  Geology, 32(9), 817-820.
-                </p>
-                <a 
-                  href="https://doi.org/10.1130/G20519.1" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
-                >
-                  DOI: 10.1130/G20519.1
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-
-              <div className="border-l-2 border-copper pl-4">
-                <p className="font-medium text-foreground">
-                  Narbonne, G. M., Xiao, S., & Shields, G. A. (2012).
-                </p>
-                <p className="text-muted-foreground italic">
-                  The Ediacaran Period. In The Geologic Time Scale 2012 (pp. 413-435). Elsevier.
-                </p>
-                <a 
-                  href="https://doi.org/10.1016/B978-0-444-59425-9.00018-4" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
-                >
-                  DOI: 10.1016/B978-0-444-59425-9.00018-4
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
-
-              <div className="border-l-2 border-copper pl-4">
-                <p className="font-medium text-foreground">
-                  Bowring, S. A., Grotzinger, J. P., Condon, D. J., Ramezani, J., Newall, M. J., & Allen, P. A. (2007).
-                </p>
-                <p className="text-muted-foreground italic">
-                  Geochronologic constraints on the chronostratigraphic framework of the Neoproterozoic Huqf Supergroup, Sultanate of Oman.
-                  American Journal of Science, 307(10), 1097-1145.
-                </p>
-                <a 
-                  href="https://doi.org/10.2475/10.2007.01" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
-                >
-                  DOI: 10.2475/10.2007.01
-                  <ExternalLink className="w-3 h-3" />
-                </a>
-              </div>
+                  <p className="font-medium text-foreground">
+                    {ref.authors} ({ref.year}).
+                  </p>
+                  <p className="text-muted-foreground italic">
+                    {ref.title} {ref.publication}
+                  </p>
+                  <a 
+                    href={`https://doi.org/${ref.doi}`}
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                  >
+                    DOI: {ref.doi}
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                  
+                  {ref.relatedEvents.length > 0 && (
+                    <div className="mt-2 pt-2 border-t border-border/50">
+                      <p className="text-xs font-medium text-copper mb-1">Related Timeline Events:</p>
+                      <ul className="text-xs text-muted-foreground space-y-1">
+                        {ref.relatedEvents.map((eventName, idx) => (
+                          <li key={idx}>• {eventName}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              ))}
 
               <p className="text-xs text-muted-foreground mt-6 pt-4 border-t">
                 Additional references for specific sections and radiometric ages are linked in the 

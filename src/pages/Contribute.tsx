@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, Upload, FileText, CheckCircle } from "lucide-react";
+import { Download, Upload, FileText, CheckCircle, Map, Layers } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Contribute = () => {
   return (
@@ -15,6 +16,57 @@ const Contribute = () => {
             Your contributions strengthen the scientific foundation of this open-access resource.
           </p>
         </div>
+
+        <Card className="shadow-elegant mb-8 bg-gradient-accent text-white">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Layers className="w-6 h-6" />
+              How Stratigraphic Sections Are Used
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <div className="flex items-start gap-3">
+              <Map className="w-5 h-5 mt-0.5 flex-shrink-0" />
+              <div>
+                <h4 className="font-semibold mb-1">Interactive Map Display</h4>
+                <p className="text-sm opacity-90">
+                  Each stratigraphic section appears as a georeferenced point on the interactive map,
+                  allowing users to explore spatial distributions of Ediacaran rocks across the region.
+                </p>
+              </div>
+            </div>
+            
+            <div className="flex items-start gap-3">
+              <Layers className="w-5 h-5 mt-0.5 flex-shrink-0" />
+              <div>
+                <h4 className="font-semibold mb-1">Stratigraphic Visualization</h4>
+                <p className="text-sm opacity-90">
+                  Sections are visualized with their lithologic units, age constraints, and radiometric data.
+                  Users can compare multiple sections to understand regional stratigraphic relationships
+                  and construct chronostratigraphic frameworks.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+              <FileText className="w-5 h-5 mt-0.5 flex-shrink-0" />
+              <div>
+                <h4 className="font-semibold mb-1">Data Integration</h4>
+                <p className="text-sm opacity-90">
+                  Your stratigraphic sections are linked to radiometric ages, rock types, and terranes,
+                  creating a comprehensive database that researchers can query, filter, and export for
+                  their own analyses.
+                </p>
+              </div>
+            </div>
+
+            <Link to="/map">
+              <Button variant="scientific" size="sm" className="mt-2">
+                View Sections on Map →
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
 
         <Card className="shadow-elegant mb-8">
           <CardHeader>
@@ -133,21 +185,44 @@ const Contribute = () => {
           </Card>
         </div>
 
-        <Card className="bg-gradient-accent text-white shadow-elegant">
+        <Card className="shadow-elegant">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <FileText className="w-6 h-6" />
-              Guidelines & Documentation
+              Data Entry Guidelines
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="mb-4 opacity-90">
-              Detailed data entry guidelines, field definitions, and best practices are available
-              in our comprehensive documentation.
+            <p className="mb-4 text-muted-foreground">
+              Our comprehensive documentation provides detailed guidance on:
             </p>
-            <Button variant="scientific" size="sm">
-              View Full Documentation
-            </Button>
+            <ul className="space-y-2 text-sm mb-4">
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-copper mt-0.5 flex-shrink-0" />
+                <span>CSV template structure and required fields</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-copper mt-0.5 flex-shrink-0" />
+                <span>Data formatting standards and conventions</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-copper mt-0.5 flex-shrink-0" />
+                <span>How to properly cite and reference your data sources</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-copper mt-0.5 flex-shrink-0" />
+                <span>Quality control procedures and best practices</span>
+              </li>
+            </ul>
+            <a 
+              href="https://github.com/yourusername/ediacaran-chronostrat/wiki/Data-Entry-Guide" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <Button variant="scientific" size="sm">
+                View Documentation Guide
+              </Button>
+            </a>
           </CardContent>
         </Card>
       </div>
