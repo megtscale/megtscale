@@ -4,9 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { MapPin, Filter, X, ExternalLink } from "lucide-react";
+import { Filter, X, ExternalLink } from "lucide-react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
@@ -52,14 +51,13 @@ const MapView = () => {
   const [sections, setSections] = useState<StratigraphicSection[]>([]);
   const [radiometricData, setRadiometricData] = useState<RadiometricData[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showLegend, setShowLegend] = useState(true);
 
   // Filter states
   const [searchTerm, setSearchTerm] = useState("");
   const [ageRange, setAgeRange] = useState([538, 635]);
   const [selectedIsotopes, setSelectedIsotopes] = useState<string[]>([]);
   const [selectedTerranes, setSelectedTerranes] = useState<string[]>([]);
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(true);
 
   // Load CSV data
   useEffect(() => {
@@ -258,242 +256,209 @@ const MapView = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <Card className="overflow-hidden shadow-elegant relative">
-              <div ref={mapContainer} className="w-full h-[600px]" />
-              
-              {/* Legend toggle button */}
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() => setShowLegend(!showLegend)}
-                className="absolute bottom-4 left-4 z-[1001] shadow-lg"
-              >
-                <MapPin className="w-4 h-4 mr-2" />
-                {showLegend ? "Hide" : "Show"} Legend
-              </Button>
-
-              {/* Legend overlay */}
-              {showLegend && (
-                <Card className="absolute bottom-16 left-4 w-72 shadow-lg z-[1000]">
-                  <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium">Map Symbols</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-2 pt-0">
-                    <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 rounded-full bg-[#4CAF50] text-white flex items-center justify-center text-xs font-bold shadow">
-                        5
-                      </div>
-                      <span className="text-xs">Multiple samples (click to expand)</span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <div className="w-6 h-6 flex items-center justify-center">
-                        <svg width="20" height="32" viewBox="0 0 25 41" className="drop-shadow">
-                          <path
-                            fill="#3388ff"
-                            stroke="#fff"
-                            strokeWidth="1"
-                            d="M12.5 0C5.6 0 0 5.6 0 12.5c0 9.4 12.5 28.5 12.5 28.5S25 21.9 25 12.5C25 5.6 19.4 0 12.5 0z"
-                          />
-                        </svg>
-                      </div>
-                      <span className="text-xs">Individual sample location</span>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-            </Card>
-          </div>
-
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="flex items-center gap-2">
-                    <Filter className="w-5 h-5 text-copper" />
-                    Filters
-                  </CardTitle>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setShowFilters(!showFilters)}
-                  >
-                    {showFilters ? "Hide" : "Show"}
-                  </Button>
-                </div>
-              </CardHeader>
-              {showFilters && (
-                <CardContent className="space-y-4">
-                  <div>
-                    <Label htmlFor="search">Search</Label>
-                    <Input
-                      id="search"
-                      placeholder="Section name or terrane..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                  </div>
-
-                  <div>
-                    <Label>Age Range (Ma)</Label>
-                    <div className="flex items-center gap-2 mt-2">
-                      <span className="text-sm text-muted-foreground">{ageRange[0]}</span>
-                      <Slider
-                        min={538}
-                        max={635}
-                        step={1}
-                        value={ageRange}
-                        onValueChange={setAgeRange}
-                        className="flex-1"
-                      />
-                      <span className="text-sm text-muted-foreground">{ageRange[1]}</span>
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label className="mb-2 block">Isotope Systems</Label>
-                    <div className="space-y-2">
-                      {isotopeOptions.map((isotope) => (
-                        <div key={isotope} className="flex items-center gap-2">
-                          <Checkbox
-                            id={`isotope-${isotope}`}
-                            checked={selectedIsotopes.includes(isotope)}
-                            onCheckedChange={(checked) => {
-                              if (checked) {
-                                setSelectedIsotopes([...selectedIsotopes, isotope]);
-                              } else {
-                                setSelectedIsotopes(
-                                  selectedIsotopes.filter((i) => i !== isotope)
-                                );
-                              }
-                            }}
-                          />
-                          <Label
-                            htmlFor={`isotope-${isotope}`}
-                            className="text-sm cursor-pointer"
-                          >
-                            {isotope}
-                          </Label>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label className="mb-2 block">Terranes</Label>
-                    <div className="space-y-2 max-h-40 overflow-y-auto">
-                      {terraneOptions.map((terrane) => (
-                        <div key={terrane} className="flex items-center gap-2">
-                          <Checkbox
-                            id={`terrane-${terrane}`}
-                            checked={selectedTerranes.includes(terrane)}
-                            onCheckedChange={(checked) => {
-                              if (checked) {
-                                setSelectedTerranes([...selectedTerranes, terrane]);
-                              } else {
-                                setSelectedTerranes(
-                                  selectedTerranes.filter((t) => t !== terrane)
-                                );
-                              }
-                            }}
-                          />
-                          <Label
-                            htmlFor={`terrane-${terrane}`}
-                            className="text-sm cursor-pointer"
-                          >
-                            {terrane}
-                          </Label>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={clearFilters}
-                    className="w-full"
-                  >
-                    <X className="w-4 h-4 mr-2" />
-                    Clear Filters
-                  </Button>
-                </CardContent>
-              )}
-            </Card>
-          </div>
-
-          {/* Data Methodology Section */}
-          <Card className="m-4 shadow-lg">
+        {/* Filters Panel - Collapsible at top */}
+        {showFilters && (
+          <Card className="mb-6 shadow-elegant">
             <CardHeader>
-              <CardTitle className="text-lg">Data Methodology & References</CardTitle>
-              <CardDescription>
-                Understanding the chronostratigraphic data compilation
-              </CardDescription>
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-2">
+                  <Filter className="w-5 h-5 text-copper" />
+                  Data Filters
+                </CardTitle>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowFilters(false)}
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+              </div>
             </CardHeader>
-            <CardContent className="space-y-4 text-sm">
-              <div>
-                <h4 className="font-semibold mb-2">Sample Collection & Analysis</h4>
-                <p className="text-muted-foreground">
-                  All stratigraphic sections include GPS-located sample points with radiometric age 
-                  determinations. U-Pb zircon ages were obtained using LA-ICP-MS and CA-TIMS methods. 
-                  Uncertainties are reported at 2σ level and include both analytical and systematic errors.
-                </p>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold mb-2">Geographic Coverage</h4>
-                <p className="text-muted-foreground">
-                  Data compiled from peer-reviewed publications covering the Arabian Peninsula, 
-                  including Oman, UAE, Saudi Arabia, and adjacent regions. Each point links to 
-                  original publication DOI for full methodological details.
-                </p>
-              </div>
+            <CardContent>
+              <div className="grid md:grid-cols-4 gap-4">
+                <div>
+                  <Label htmlFor="search" className="text-sm font-medium">Search</Label>
+                  <Input
+                    id="search"
+                    placeholder="Section name or terrane..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                </div>
 
-              <div>
-                <h4 className="font-semibold mb-2">Key References</h4>
-                <div className="space-y-2">
-                  <div className="pl-4 border-l-2 border-copper">
-                    <p className="font-medium">Bowring et al. (2007)</p>
-                    <p className="text-muted-foreground text-xs">
-                      Geochronologic constraints on the Huqf Supergroup, Oman
-                    </p>
-                    <a 
-                      href="https://doi.org/10.2475/10.2007.01" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
-                    >
-                      DOI: 10.2475/10.2007.01
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">
+                    Age Range: {ageRange[0]} - {ageRange[1]} Ma
+                  </Label>
+                  <Slider
+                    min={538}
+                    max={635}
+                    step={1}
+                    value={ageRange}
+                    onValueChange={setAgeRange}
+                  />
+                </div>
+
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Isotope Systems</Label>
+                  <div className="space-y-1 max-h-32 overflow-y-auto">
+                    {isotopeOptions.map((isotope) => (
+                      <div key={isotope} className="flex items-center gap-2">
+                        <Checkbox
+                          id={`isotope-${isotope}`}
+                          checked={selectedIsotopes.includes(isotope)}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setSelectedIsotopes([...selectedIsotopes, isotope]);
+                            } else {
+                              setSelectedIsotopes(
+                                selectedIsotopes.filter((i) => i !== isotope)
+                              );
+                            }
+                          }}
+                        />
+                        <Label
+                          htmlFor={`isotope-${isotope}`}
+                          className="text-xs cursor-pointer"
+                        >
+                          {isotope}
+                        </Label>
+                      </div>
+                    ))}
                   </div>
-                  
-                  <div className="pl-4 border-l-2 border-copper">
-                    <p className="font-medium">Hoffmann et al. (2004)</p>
-                    <p className="text-muted-foreground text-xs">
-                      U-Pb zircon constraints on Marinoan glaciation, Namibia
-                    </p>
-                    <a 
-                      href="https://doi.org/10.1130/G20519.1" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
-                    >
-                      DOI: 10.1130/G20519.1
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
+                </div>
+
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Terranes</Label>
+                  <div className="space-y-1 max-h-32 overflow-y-auto">
+                    {terraneOptions.map((terrane) => (
+                      <div key={terrane} className="flex items-center gap-2">
+                        <Checkbox
+                          id={`terrane-${terrane}`}
+                          checked={selectedTerranes.includes(terrane)}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setSelectedTerranes([...selectedTerranes, terrane]);
+                            } else {
+                              setSelectedTerranes(
+                                selectedTerranes.filter((t) => t !== terrane)
+                              );
+                            }
+                          }}
+                        />
+                        <Label
+                          htmlFor={`terrane-${terrane}`}
+                          className="text-xs cursor-pointer"
+                        >
+                          {terrane}
+                        </Label>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
 
-              <p className="text-xs text-muted-foreground pt-2 border-t">
-                Click on any map marker to view site-specific references and download individual datasets.
-              </p>
+              <div className="flex justify-end mt-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={clearFilters}
+                >
+                  <X className="w-4 h-4 mr-2" />
+                  Clear All Filters
+                </Button>
+              </div>
             </CardContent>
           </Card>
-        </div>
+        )}
+
+        {/* Toggle Filters Button */}
+        {!showFilters && (
+          <div className="mb-6">
+            <Button
+              variant="secondary"
+              onClick={() => setShowFilters(true)}
+            >
+              <Filter className="w-4 h-4 mr-2" />
+              Show Filters
+            </Button>
+          </div>
+        )}
+
+        {/* Map - Full Width */}
+        <Card className="overflow-hidden shadow-elegant mb-6">
+          <div ref={mapContainer} className="w-full h-[600px]" />
+        </Card>
+
+        {/* Data Methodology Section */}
+        <Card className="shadow-lg">
+          <CardHeader>
+            <CardTitle className="text-lg">Data Methodology & References</CardTitle>
+            <CardDescription>
+              Understanding the chronostratigraphic data compilation
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4 text-sm">
+            <div>
+              <h4 className="font-semibold mb-2">Sample Collection & Analysis</h4>
+              <p className="text-muted-foreground">
+                All stratigraphic sections include GPS-located sample points with radiometric age 
+                determinations. U-Pb zircon ages were obtained using LA-ICP-MS and CA-TIMS methods. 
+                Uncertainties are reported at 2σ level and include both analytical and systematic errors.
+              </p>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold mb-2">Geographic Coverage</h4>
+              <p className="text-muted-foreground">
+                Data compiled from peer-reviewed publications covering the Arabian Peninsula, 
+                including Oman, UAE, Saudi Arabia, and adjacent regions. Each point links to 
+                original publication DOI for full methodological details.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-2">Key References</h4>
+              <div className="space-y-2">
+                <div className="pl-4 border-l-2 border-copper">
+                  <p className="font-medium">Bowring et al. (2007)</p>
+                  <p className="text-muted-foreground text-xs">
+                    Geochronologic constraints on the Huqf Supergroup, Oman
+                  </p>
+                  <a 
+                    href="https://doi.org/10.2475/10.2007.01" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                  >
+                    DOI: 10.2475/10.2007.01
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+                
+                <div className="pl-4 border-l-2 border-copper">
+                  <p className="font-medium">Hoffmann et al. (2004)</p>
+                  <p className="text-muted-foreground text-xs">
+                    U-Pb zircon constraints on Marinoan glaciation, Namibia
+                  </p>
+                  <a 
+                    href="https://doi.org/10.1130/G20519.1" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                  >
+                    DOI: 10.1130/G20519.1
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <p className="text-xs text-muted-foreground pt-2 border-t">
+              Click on any map marker to view site-specific references and download individual datasets.
+            </p>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
