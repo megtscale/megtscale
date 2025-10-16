@@ -318,59 +318,6 @@ const TimelineView = () => {
             </p>
           </CardContent>
         </Card>
-
-        <Card className="mt-8">
-          <CardHeader>
-            <CardTitle>References</CardTitle>
-            <CardDescription>
-              Click on a reference to see which timeline events it supports
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4 text-sm">
-              {references.map((ref) => (
-                <div 
-                  key={ref.id} 
-                  className={`border-l-2 border-copper pl-4 transition-all ${
-                    ref.relatedEvents.length > 0 ? 'hover:bg-accent/5 cursor-pointer' : ''
-                  }`}
-                >
-                  <p className="font-medium text-foreground">
-                    {ref.authors} ({ref.year}).
-                  </p>
-                  <p className="text-muted-foreground italic">
-                    {ref.title} {ref.publication}
-                  </p>
-                  <a 
-                    href={`https://doi.org/${ref.doi}`}
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
-                  >
-                    DOI: {ref.doi}
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                  
-                  {ref.relatedEvents.length > 0 && (
-                    <div className="mt-2 pt-2 border-t border-border/50">
-                      <p className="text-xs font-medium text-copper mb-1">Related Timeline Events:</p>
-                      <ul className="text-xs text-muted-foreground space-y-1">
-                        {ref.relatedEvents.map((eventName, idx) => (
-                          <li key={idx}>• {eventName}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              ))}
-
-              <p className="text-xs text-muted-foreground mt-6 pt-4 border-t">
-                Additional references for specific sections and radiometric ages are linked in the 
-                Data Portal and individual sample locations on the map.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
