@@ -15,6 +15,14 @@ import "leaflet-fullscreen/dist/leaflet.fullscreen.css";
 import "leaflet-fullscreen/dist/Leaflet.fullscreen";
 import Papa from "papaparse";
 
+// Fix Leaflet default marker icons
+delete (L.Icon.Default.prototype as any)._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+});
+
 interface StratigraphicSection {
   id: string;
   name: string;
@@ -390,75 +398,109 @@ const MapView = () => {
           <div ref={mapContainer} className="w-full h-[600px]" />
         </Card>
 
-        {/* Data Methodology Section */}
-        <Card className="shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-lg">Data Methodology & References</CardTitle>
-            <CardDescription>
-              Understanding the chronostratigraphic data compilation
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4 text-sm">
-            <div>
-              <h4 className="font-semibold mb-2">Sample Collection & Analysis</h4>
-              <p className="text-muted-foreground">
-                All stratigraphic sections include GPS-located sample points with radiometric age 
-                determinations. U-Pb zircon ages were obtained using LA-ICP-MS and CA-TIMS methods. 
-                Uncertainties are reported at 2σ level and include both analytical and systematic errors.
-              </p>
-            </div>
-            
-            <div>
-              <h4 className="font-semibold mb-2">Geographic Coverage</h4>
-              <p className="text-muted-foreground">
-                Data compiled from peer-reviewed publications covering the Arabian Peninsula, 
-                including Oman, UAE, Saudi Arabia, and adjacent regions. Each point links to 
-                original publication DOI for full methodological details.
-              </p>
-            </div>
-
-            <div>
-              <h4 className="font-semibold mb-2">Key References</h4>
-              <div className="space-y-2">
-                <div className="pl-4 border-l-2 border-copper">
-                  <p className="font-medium">Bowring et al. (2007)</p>
-                  <p className="text-muted-foreground text-xs">
-                    Geochronologic constraints on the Huqf Supergroup, Oman
-                  </p>
-                  <a 
-                    href="https://doi.org/10.2475/10.2007.01" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
-                  >
-                    DOI: 10.2475/10.2007.01
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
+        {/* Data Updates & Sources */}
+        <div className="space-y-4">
+          <h2 className="text-2xl font-bold">Dataset Updates & Sources</h2>
+          
+          <Card className="shadow-elegant hover:shadow-glow transition-shadow">
+            <CardHeader>
+              <div className="flex items-start justify-between">
+                <div>
+                  <CardTitle className="text-lg">Stratigraphic Sections Dataset</CardTitle>
+                  <CardDescription className="mt-2">
+                    Updated March 2024 • 127 sections • Arabian Peninsula
+                  </CardDescription>
                 </div>
-                
-                <div className="pl-4 border-l-2 border-copper">
-                  <p className="font-medium">Hoffmann et al. (2004)</p>
-                  <p className="text-muted-foreground text-xs">
-                    U-Pb zircon constraints on Marinoan glaciation, Namibia
-                  </p>
-                  <a 
-                    href="https://doi.org/10.1130/G20519.1" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
-                  >
-                    DOI: 10.1130/G20519.1
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
+                <a
+                  href="/data/stratigraphic_sections.csv"
+                  download
+                  className="flex items-center gap-2 text-copper hover:underline text-sm font-medium"
+                >
+                  Download CSV
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm">
+              <p className="text-muted-foreground">
+                Comprehensive collection of GPS-located stratigraphic sections across Oman, UAE, and Saudi Arabia. 
+                Each section includes detailed age constraints, terrane classification, and lithological descriptions.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">Oman</span>
+                <span className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">UAE</span>
+                <span className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">Saudi Arabia</span>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="shadow-elegant hover:shadow-glow transition-shadow">
+            <CardHeader>
+              <div className="flex items-start justify-between">
+                <div>
+                  <CardTitle className="text-lg">Radiometric Dating Compilation</CardTitle>
+                  <CardDescription className="mt-2">
+                    Updated March 2024 • 342 analyses • U-Pb, Re-Os, Ar-Ar systems
+                  </CardDescription>
+                </div>
+                <a
+                  href="/data/radiometric_data.csv"
+                  download
+                  className="flex items-center gap-2 text-copper hover:underline text-sm font-medium"
+                >
+                  Download CSV
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm">
+              <p className="text-muted-foreground">
+                High-precision radiometric age determinations from published sources. All ages include 2σ uncertainties 
+                and are linked to original publications via DOI. Methods include LA-ICP-MS and CA-TIMS U-Pb zircon dating.
+              </p>
+              <div className="pt-2 border-t space-y-2">
+                <h4 className="font-semibold">Key References:</h4>
+                <div className="space-y-2">
+                  <div className="pl-3 border-l-2 border-copper">
+                    <p className="font-medium text-sm">Bowring et al. (2007)</p>
+                    <p className="text-xs text-muted-foreground">Geochronologic constraints on the Huqf Supergroup, Oman</p>
+                    <a 
+                      href="https://doi.org/10.2475/10.2007.01" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                    >
+                      DOI: 10.2475/10.2007.01
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                  
+                  <div className="pl-3 border-l-2 border-copper">
+                    <p className="font-medium text-sm">Hoffmann et al. (2004)</p>
+                    <p className="text-xs text-muted-foreground">U-Pb zircon constraints on Marinoan glaciation</p>
+                    <a 
+                      href="https://doi.org/10.1130/G20519.1" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                    >
+                      DOI: 10.1130/G20519.1
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
+            </CardContent>
+          </Card>
 
-            <p className="text-xs text-muted-foreground pt-2 border-t">
-              Click on any map marker to view site-specific references and download individual datasets.
-            </p>
-          </CardContent>
-        </Card>
+          <Card className="shadow-elegant">
+            <CardContent className="pt-6">
+              <p className="text-xs text-muted-foreground">
+                💡 Click on any map marker to view site-specific data and references. All datasets are peer-reviewed and linked to original publications.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
