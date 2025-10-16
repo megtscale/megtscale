@@ -493,6 +493,56 @@ const MapView = () => {
             </CardContent>
           </Card>
 
+          <Card className="shadow-elegant hover:shadow-glow transition-shadow">
+            <CardHeader>
+              <div className="flex items-start justify-between">
+                <div>
+                  <CardTitle className="text-lg">Extended Terrane Analysis</CardTitle>
+                  <CardDescription className="mt-2">
+                    Updated May 2024 • 89 new sections • Iran and Yemen regions
+                  </CardDescription>
+                </div>
+                <a
+                  href="/data/terrane_analysis_may2024.csv"
+                  download
+                  className="flex items-center gap-2 text-copper hover:underline text-sm font-medium"
+                >
+                  Download CSV
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-3 text-sm">
+              <p className="text-muted-foreground">
+                New compilation extending coverage to Iranian terranes and southern Arabian Peninsula. 
+                Includes revised age constraints for the Ediacaran-Cambrian boundary in marginal basins.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">Iran</span>
+                <span className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">Yemen</span>
+                <span className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">Jordan</span>
+              </div>
+              <div className="pt-2 border-t space-y-2">
+                <h4 className="font-semibold">Key References:</h4>
+                <div className="space-y-2">
+                  <div className="pl-3 border-l-2 border-copper">
+                    <p className="font-medium text-sm">Gharibzadeh et al. (2023)</p>
+                    <p className="text-xs text-muted-foreground">Ediacaran magmatism in Central Iran</p>
+                    <a 
+                      href="https://doi.org/10.1016/j.precamres.2023.107001" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                    >
+                      DOI: 10.1016/j.precamres.2023.107001
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
           <Card className="shadow-elegant">
             <CardContent className="pt-6">
               <p className="text-xs text-muted-foreground">
