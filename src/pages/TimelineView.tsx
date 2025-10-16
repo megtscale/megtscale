@@ -86,12 +86,48 @@ const TimelineView = () => {
   }, []);
 
   const events = [
-    { age: 635, event: "Marinoan glaciation ends", type: "climate", ageRange: [640, 630] },
-    { age: 610, event: "First appearance of Ediacaran biota", type: "biological", ageRange: [615, 605] },
-    { age: 580, event: "Gaskiers glaciation", type: "climate", ageRange: [585, 575] },
-    { age: 560, event: "Rise of complex macroscopic life", type: "biological", ageRange: [570, 550] },
-    { age: 541, event: "Cambrian explosion begins", type: "biological", ageRange: [545, 538] },
-    { age: 538, event: "Ediacaran Period ends", type: "boundary", ageRange: [540, 538] },
+    { 
+      age: 635, 
+      event: "Marinoan glaciation ends", 
+      type: "climate", 
+      ageRange: [640, 630],
+      referenceIds: ["hoffmann2004"]
+    },
+    { 
+      age: 610, 
+      event: "First appearance of Ediacaran biota", 
+      type: "biological", 
+      ageRange: [615, 605],
+      referenceIds: ["narbonne2012"]
+    },
+    { 
+      age: 580, 
+      event: "Gaskiers glaciation", 
+      type: "climate", 
+      ageRange: [585, 575],
+      referenceIds: ["hoffmann2004"]
+    },
+    { 
+      age: 560, 
+      event: "Rise of complex macroscopic life", 
+      type: "biological", 
+      ageRange: [570, 550],
+      referenceIds: ["narbonne2012"]
+    },
+    { 
+      age: 541, 
+      event: "Cambrian explosion begins", 
+      type: "biological", 
+      ageRange: [545, 538],
+      referenceIds: ["gradstein2020"]
+    },
+    { 
+      age: 538, 
+      event: "Ediacaran Period ends", 
+      type: "boundary", 
+      ageRange: [540, 538],
+      referenceIds: ["gradstein2020"]
+    },
   ];
 
   // Find related sections for each event
@@ -182,6 +218,41 @@ const TimelineView = () => {
                               </Badge>
                             )}
                           </div>
+
+                          {/* References for this event */}
+                          {item.referenceIds && item.referenceIds.length > 0 && (
+                            <div className="bg-accent/10 rounded-lg p-3 mb-3 border border-copper/20">
+                              <p className="text-xs font-semibold text-copper mb-2 flex items-center gap-1">
+                                <ExternalLink className="w-3 h-3" />
+                                References:
+                              </p>
+                              <div className="space-y-2">
+                                {item.referenceIds.map(refId => {
+                                  const ref = references.find(r => r.id === refId);
+                                  if (!ref) return null;
+                                  return (
+                                    <div key={refId} className="text-xs">
+                                      <p className="font-medium text-foreground">
+                                        {ref.authors} ({ref.year})
+                                      </p>
+                                      <p className="text-muted-foreground italic text-xs">
+                                        {ref.title}
+                                      </p>
+                                      <a 
+                                        href={`https://doi.org/${ref.doi}`}
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                                      >
+                                        DOI: {ref.doi}
+                                        <ExternalLink className="w-3 h-3" />
+                                      </a>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          )}
                           
                           {relatedSections.length > 0 && (
                             <div className="bg-muted/50 rounded-lg p-3 mt-2">
