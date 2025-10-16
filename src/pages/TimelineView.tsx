@@ -302,19 +302,21 @@ const TimelineView = () => {
 
         <Card className="mt-8">
           <CardHeader>
-            <CardTitle>About the Ediacaran Period</CardTitle>
+            <CardTitle>About the MEGTScale</CardTitle>
           </CardHeader>
           <CardContent className="prose prose-sm max-w-none">
             <p className="text-foreground">
-              The Ediacaran Period (635-538 Ma) marks a critical transition in Earth's history.
-              Following the end of the Marinoan glaciation ("Snowball Earth"), this period
-              witnessed the emergence of complex multicellular life and significant tectonic
-              reorganization, including the assembly of the Arabian Plate from multiple terranes.
+              The Middle East Geologic Time Scale (MEGTScale) focuses on the Ediacaran Period 
+              (635-538 Ma), a critical transition in Earth history following the Marinoan 
+              glaciation ("Snowball Earth"). This platform compiles radiometrically-dated 
+              stratigraphic sections to build a comprehensive chronostratigraphic framework 
+              for the region.
             </p>
             <p className="text-foreground mt-4">
-              This timeline will be enhanced with radiometric age data from stratigraphic
-              sections across the Middle East, allowing precise temporal correlation of tectonic
-              and stratigraphic events.
+              The time scale integrates U-Pb zircon ages, stratigraphic correlations, and 
+              tectonic events to reconstruct how the Arabian Plate was assembled from multiple 
+              terranes. All data are linked to peer-reviewed publications and are openly 
+              accessible for research and education.
             </p>
           </CardContent>
         </Card>

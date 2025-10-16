@@ -24,14 +24,14 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-gradient-accent flex items-center justify-center shadow-card">
-              <span className="text-white font-bold text-lg">E</span>
+              <span className="text-white font-bold text-lg">M</span>
             </div>
             <div className="hidden md:block">
               <span className="font-heading font-bold text-lg text-foreground">
-                Middle East
+                MEGTScale
               </span>
               <span className="block text-xs text-muted-foreground">
-                Geological Time Scale
+                Middle East Geologic Time Scale
               </span>
             </div>
           </Link>

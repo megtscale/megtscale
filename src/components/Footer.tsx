@@ -7,11 +7,12 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8">
           <div>
             <h3 className="font-heading font-bold text-lg mb-3">
-              Middle East Geological Time Scale
+              MEGTScale
             </h3>
             <p className="text-sm text-primary-foreground/80">
-              An open-access platform for exploring and contributing to the
-              chronostratigraphic understanding of the Ediacaran Period in the Middle East.
+              Middle East Geologic Time Scale - An open-access platform for exploring and 
+              contributing to the chronostratigraphic understanding of the Ediacaran Period 
+              in the Middle East.
             </p>
           </div>
 
@@ -60,7 +61,7 @@ const Footer = () => {
               </a>
             </div>
             <p className="text-sm mt-4 text-primary-foreground/80">
-              © {new Date().getFullYear()} Middle East Geological Time Scale Project
+              © {new Date().getFullYear()} MEGTScale Project
             </p>
           </div>
         </div>
