@@ -138,46 +138,33 @@ const TimelineView = () => {
   };
 
   return (
-    <div className="min-h-screen py-12 bg-gradient-subtle">
-      <div className="container mx-auto px-4">
-        <div className="mb-8">
-          <h1 className="font-heading text-4xl font-bold mb-4">
-            Geological Time Scale Explorer
+    <div className="min-h-screen bg-gradient-subtle">
+      <div className="container mx-auto px-4 py-16">
+        {/* Enhanced Header */}
+        <div className="mb-16 text-center">
+          <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-copper to-secondary bg-clip-text text-transparent">
+            Ediacaran Time Scale
           </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl">
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
             Navigate through 97 million years of Ediacaran history. This interactive timeline
             shows major geological and biological events during the assembly of the Arabian Plate.
           </p>
+          <div className="mt-6 flex items-center justify-center gap-6 text-sm text-muted-foreground">
+            <span className="flex items-center gap-2">
+              <span className="font-bold text-copper">635 Ma</span> Period Start
+            </span>
+            <span className="text-border">•</span>
+            <span className="flex items-center gap-2">
+              <span className="font-bold text-copper">538 Ma</span> Period End
+            </span>
+            <span className="text-border">•</span>
+            <span className="flex items-center gap-2">
+              <span className="font-bold text-copper">97 My</span> Duration
+            </span>
+          </div>
         </div>
 
-        <div className="grid lg:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl">635 Ma</CardTitle>
-              <CardDescription>Period Start</CardDescription>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl">538 Ma</CardTitle>
-              <CardDescription>Period End</CardDescription>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl">97 My</CardTitle>
-              <CardDescription>Duration</CardDescription>
-            </CardHeader>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-2xl">Neoproterozoic</CardTitle>
-              <CardDescription>Era</CardDescription>
-            </CardHeader>
-          </Card>
-        </div>
-
-        <Card className="shadow-elegant">
+        <Card className="shadow-elegant max-w-5xl mx-auto">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Clock className="w-6 h-6 text-copper" />
@@ -187,32 +174,33 @@ const TimelineView = () => {
               Key tectonic, climatic, and biological events during the Ediacaran Period
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-8">
             <div className="relative">
               {/* Timeline line */}
-              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-copper to-secondary" />
+              <div className="absolute left-12 top-0 bottom-0 w-1 bg-gradient-to-b from-copper via-primary to-secondary rounded-full" />
 
               {/* Events */}
-              <div className="space-y-6">
+              <div className="space-y-10">
                 {events.map((item, index) => {
                   const relatedSections = getRelatedSections(item.ageRange);
                   return (
-                    <div key={index} className="relative pl-20">
-                      <div className="absolute left-6 w-5 h-5 rounded-full bg-copper border-4 border-background" />
-                      <div className="flex items-start gap-4">
-                        <div className="min-w-[80px]">
-                          <span className="font-mono font-bold text-lg text-copper">
-                            {item.age} Ma
+                    <div key={index} className="relative pl-28">
+                      <div className="absolute left-9 w-7 h-7 rounded-full bg-gradient-to-br from-copper to-primary border-4 border-background shadow-lg" />
+                      <div className="flex items-start gap-6">
+                        <div className="min-w-[100px]">
+                          <span className="font-mono font-bold text-2xl text-copper">
+                            {item.age}
                           </span>
+                          <span className="font-mono text-lg text-muted-foreground ml-1">Ma</span>
                         </div>
                         <div className="flex-1">
-                          <p className="font-medium text-foreground mb-2">{item.event}</p>
-                          <div className="flex items-center gap-2 mb-3">
-                            <Badge variant="secondary" className="text-xs">
+                          <h3 className="font-semibold text-xl text-foreground mb-3">{item.event}</h3>
+                          <div className="flex items-center gap-2 mb-4">
+                            <Badge variant="secondary" className="text-sm">
                               {item.type}
                             </Badge>
                             {relatedSections.length > 0 && (
-                              <Badge variant="outline" className="text-xs flex items-center gap-1">
+                              <Badge variant="outline" className="text-sm flex items-center gap-1">
                                 <MapPin className="w-3 h-3" />
                                 {relatedSections.length} location{relatedSections.length > 1 ? 's' : ''}
                               </Badge>
@@ -221,31 +209,31 @@ const TimelineView = () => {
 
                           {/* References for this event */}
                           {item.referenceIds && item.referenceIds.length > 0 && (
-                            <div className="bg-accent/10 rounded-lg p-3 mb-3 border border-copper/20">
-                              <p className="text-xs font-semibold text-copper mb-2 flex items-center gap-1">
-                                <ExternalLink className="w-3 h-3" />
+                            <div className="bg-accent/10 rounded-lg p-4 mb-4 border border-copper/20">
+                              <p className="text-sm font-semibold text-copper mb-3 flex items-center gap-1">
+                                <ExternalLink className="w-4 h-4" />
                                 References:
                               </p>
-                              <div className="space-y-2">
+                              <div className="space-y-3">
                                 {item.referenceIds.map(refId => {
                                   const ref = references.find(r => r.id === refId);
                                   if (!ref) return null;
                                   return (
-                                    <div key={refId} className="text-xs">
+                                    <div key={refId} className="text-sm">
                                       <p className="font-medium text-foreground">
                                         {ref.authors} ({ref.year})
                                       </p>
-                                      <p className="text-muted-foreground italic text-xs">
+                                      <p className="text-muted-foreground italic">
                                         {ref.title}
                                       </p>
                                       <a 
                                         href={`https://doi.org/${ref.doi}`}
                                         target="_blank" 
                                         rel="noopener noreferrer"
-                                        className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                                        className="text-copper hover:underline flex items-center gap-1 mt-1"
                                       >
                                         DOI: {ref.doi}
-                                        <ExternalLink className="w-3 h-3" />
+                                        <ExternalLink className="w-4 h-4" />
                                       </a>
                                     </div>
                                   );
@@ -255,14 +243,14 @@ const TimelineView = () => {
                           )}
                           
                           {relatedSections.length > 0 && (
-                            <div className="bg-muted/50 rounded-lg p-3 mt-2">
-                              <p className="text-xs font-medium mb-2 text-muted-foreground">
+                            <div className="bg-muted/50 rounded-lg p-4 mt-2">
+                              <p className="text-sm font-medium mb-3 text-muted-foreground">
                                 Related sample locations:
                               </p>
-                              <div className="space-y-1">
+                              <div className="space-y-2">
                                 {relatedSections.slice(0, 3).map(section => (
-                                  <div key={section.id} className="text-xs flex items-start gap-2">
-                                    <MapPin className="w-3 h-3 text-copper mt-0.5 flex-shrink-0" />
+                                  <div key={section.id} className="text-sm flex items-start gap-2">
+                                    <MapPin className="w-4 h-4 text-copper mt-0.5 flex-shrink-0" />
                                     <div>
                                       <span className="font-medium">{section.name}</span>
                                       <span className="text-muted-foreground"> - {section.terrane}</span>
@@ -273,7 +261,7 @@ const TimelineView = () => {
                                   </div>
                                 ))}
                                 {relatedSections.length > 3 && (
-                                  <p className="text-xs text-muted-foreground italic">
+                                  <p className="text-sm text-muted-foreground italic">
                                     +{relatedSections.length - 3} more...
                                   </p>
                                 )}
@@ -282,9 +270,9 @@ const TimelineView = () => {
                                 <Button 
                                   variant="outline" 
                                   size="sm" 
-                                  className="mt-3 w-full text-xs"
+                                  className="mt-4 w-full"
                                 >
-                                  <ExternalLink className="w-3 h-3 mr-1" />
+                                  <ExternalLink className="w-4 h-4 mr-2" />
                                   View on Map
                                 </Button>
                               </Link>
@@ -300,9 +288,9 @@ const TimelineView = () => {
           </CardContent>
         </Card>
 
-        <Card className="mt-8">
+        <Card className="mt-12 max-w-5xl mx-auto">
           <CardHeader>
-            <CardTitle>About the MEGTScale</CardTitle>
+            <CardTitle className="text-2xl">About the MEGTScale</CardTitle>
           </CardHeader>
           <CardContent className="prose prose-sm max-w-none">
             <p className="text-foreground">
