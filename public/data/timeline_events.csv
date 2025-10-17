@@ -1,0 +1,7 @@
+id,age,event,type,ageRangeMin,ageRangeMax,referenceIds,period,description
+evt-001,635,Marinoan glaciation ends,climate,630,640,hoffmann2004,Ediacaran,End of the last major Snowball Earth glaciation event
+evt-002,610,First appearance of Ediacaran biota,biological,605,615,narbonne2012,Ediacaran,Emergence of complex multicellular organisms in the fossil record
+evt-003,580,Gaskiers glaciation,climate,575,585,hoffmann2004,Ediacaran,Brief glaciation event during the late Ediacaran
+evt-004,560,Rise of complex macroscopic life,biological,550,570,narbonne2012,Ediacaran,Diversification of large soft-bodied organisms
+evt-005,541,Cambrian explosion begins,biological,538,545,gradstein2020,Cambrian,Rapid diversification of animal life forms
+evt-006,538,Ediacaran Period ends,boundary,538,540,gradstein2020,Ediacaran-Cambrian,Boundary between Ediacaran and Cambrian periods
