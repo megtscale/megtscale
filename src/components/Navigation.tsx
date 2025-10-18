@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Map, Clock, Database, Upload, Info, Menu, X } from "lucide-react";
 import { useState } from "react";
+import logo from "@/assets/megtscale-logo.png";
 
 const Navigation = () => {
   const location = useLocation();
@@ -22,9 +23,11 @@ const Navigation = () => {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center gap-4 group">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-copper via-primary to-secondary flex items-center justify-center shadow-elegant transition-transform group-hover:scale-105">
-              <span className="text-white font-bold text-xl">M</span>
-            </div>
+            <img 
+              src={logo} 
+              alt="MEGTScale Logo" 
+              className="w-12 h-12 rounded-xl shadow-elegant transition-transform group-hover:scale-105"
+            />
             <div className="hidden md:block">
               <span className="font-heading font-bold text-xl text-foreground block leading-tight">
                 MEGTScale
