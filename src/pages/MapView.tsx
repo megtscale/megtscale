@@ -559,14 +559,6 @@ const MapView = () => {
               </AccordionItem>
             ))}
           </Accordion>
-
-          <Card className="shadow-elegant">
-            <CardContent className="pt-6">
-              <p className="text-xs text-muted-foreground">
-                💡 Click on any map marker to view site-specific data and references. All datasets are peer-reviewed and linked to original publications.
-              </p>
-            </CardContent>
-          </Card>
         </div>
       </div>
 
