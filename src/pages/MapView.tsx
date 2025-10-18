@@ -73,7 +73,7 @@ const MapView = () => {
   const [ageRange, setAgeRange] = useState([538, 635]);
   const [selectedIsotopes, setSelectedIsotopes] = useState<string[]>([]);
   const [selectedTerranes, setSelectedTerranes] = useState<string[]>([]);
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
 
   // Load CSV data
   useEffect(() => {
