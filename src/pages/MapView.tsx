@@ -187,6 +187,20 @@ const MapView = () => {
       metric: true
     }).addTo(map.current);
 
+    // Add north arrow
+    const NorthArrow = L.Control.extend({
+      onAdd: function() {
+        const div = L.DomUtil.create('div', 'leaflet-control-north');
+        div.innerHTML = `
+          <div style="background: white; padding: 8px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); font-size: 20px; font-weight: bold; text-align: center; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+            <span style="display: inline-block;">↑<br/><span style="font-size: 10px;">N</span></span>
+          </div>
+        `;
+        return div;
+      }
+    });
+    new NorthArrow({ position: 'topleft' }).addTo(map.current);
+
     // Define base map layers
     const baseMaps = {
       "Street Map": L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
