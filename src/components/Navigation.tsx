@@ -8,8 +8,7 @@ const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
-    { path: "/", label: "Home", icon: null },
-    { path: "/map", label: "Interactive Map", icon: Map },
+    { path: "/", label: "Interactive Map", icon: Map },
     { path: "/timeline", label: "Time Scale", icon: Clock },
     { path: "/data", label: "Data Portal", icon: Database },
     { path: "/contribute", label: "Contribute", icon: Upload },

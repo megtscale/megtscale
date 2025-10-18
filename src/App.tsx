@@ -3,7 +3,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
 import MapView from "./pages/MapView";
 import TimelineView from "./pages/TimelineView";
 import DataPortal from "./pages/DataPortal";
@@ -25,8 +24,7 @@ const App = () => (
           <Navigation />
           <main className="flex-1">
             <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/map" element={<MapView />} />
+              <Route path="/" element={<MapView />} />
               <Route path="/timeline" element={<TimelineView />} />
               <Route path="/data" element={<DataPortal />} />
               <Route path="/contribute" element={<Contribute />} />

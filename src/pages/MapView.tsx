@@ -99,7 +99,6 @@ const MapView = () => {
           skipEmptyLines: true,
         });
 
-        console.log("Loaded sections:", sectionsParsed.data);
         setSections(sectionsParsed.data);
         setRadiometricData(radiometricParsed.data);
       } catch (error) {
