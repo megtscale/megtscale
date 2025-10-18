@@ -1,73 +1,81 @@
-# Welcome to your Lovable project
+# MEGTScale - Middle East Geologic Time Scale
 
-## Project info
+An interactive web application for exploring stratigraphic sections and radiometric data from the Ediacaran Period in the Middle East.
 
 **URL**: https://lovable.dev/projects/10cd6de9-e228-43c9-aacb-e9a2eda13747
 
-## How can I edit this code?
+## 🚀 Deploy to GitHub Pages
 
-There are several ways of editing your application.
+### Quick Setup (3 Steps)
 
-**Use Lovable**
+#### 1. Connect to GitHub (in Lovable)
+- Click **GitHub** → **Connect to GitHub**
+- Authorize Lovable GitHub App
+- Click **Create Repository**
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/10cd6de9-e228-43c9-aacb-e9a2eda13747) and start prompting.
+#### 2. Enable GitHub Pages
+- Go to your GitHub repository
+- **Settings** → **Pages**
+- Under **Source**, select **GitHub Actions**
+- Save
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+#### 3. Deploy!
+Push code to main branch (happens automatically in Lovable) and your site goes live at:
+```
+https://[your-username].github.io/ediacara-timescape-me/
 ```
 
-**Edit a file directly in GitHub**
+**Check Status**: Go to the **Actions** tab in GitHub to watch deployment
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+---
 
-**Use GitHub Codespaces**
+## 📦 Features
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- **Interactive Map**: Explore GPS-located stratigraphic sections with filtering
+- **Time Scale**: Browse geological events and timeline
+- **Data Portal**: Search and visualize radiometric data
+- **Dataset Updates**: Detailed sections with photos, DOIs, and radiometric data
 
-## What technologies are used for this project?
+## 🛠️ Local Development
 
-This project is built with:
+```bash
+# Install dependencies
+npm install
 
+# Run development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## 📁 Adding Data
+
+### Stratigraphic Sections (`public/data/stratigraphic_sections.csv`)
+- `id`, `name`, `period`, `ageMinMa`, `ageMaxMa`
+- `terrane`, `rockType`, `lat`, `lng`
+- `description`, `photoUrl`, `dataSourceDoi`
+
+### Radiometric Data (`public/data/radiometric_data.csv`)
+- `id`, `sectionId` (links to section)
+- `isotopeSystem`, `mineral`, `ageMa`, `errorMa`
+- `labMethod`, `reference`, `doi`, `notes`
+
+## 🔗 Custom Domain
+
+1. Add `CNAME` file to `public/` with your domain
+2. GitHub: **Settings** → **Pages** → **Custom domain**
+3. Update DNS records
+
+## 📖 Documentation
+
+- [Full Deployment Guide](DEPLOYMENT.md)
+- [Lovable Docs](https://docs.lovable.dev)
+
+## 🏗️ Tech Stack
+
+- React + TypeScript
 - Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/10cd6de9-e228-43c9-aacb-e9a2eda13747) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+- Tailwind CSS + shadcn/ui
+- Leaflet for maps
+- Recharts for visualizations
