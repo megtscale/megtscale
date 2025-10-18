@@ -466,33 +466,31 @@ const MapView = () => {
                 className="border-0"
               >
                 <Card className="shadow-elegant hover:shadow-glow transition-shadow scroll-mt-24">
-                  <CardHeader>
-                    <AccordionTrigger className="hover:no-underline">
-                      <div className="flex items-start justify-between w-full pr-4">
-                        <div className="text-left">
-                          <CardTitle className="text-lg">{section.name}</CardTitle>
-                          <CardDescription className="mt-2">
-                            {section.period} • {section.ageMinMa}–{section.ageMaxMa} Ma • {section.rockType}
-                          </CardDescription>
-                        </div>
-                        {section.dataSourceDoi && (
-                          <a
-                            href={`https://doi.org/${section.dataSourceDoi}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-2 text-copper hover:underline text-sm font-medium"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            View Publication
-                            <ExternalLink className="w-4 h-4" />
-                          </a>
-                        )}
+                  <AccordionTrigger className="hover:no-underline px-6 py-4">
+                    <div className="flex items-center justify-between w-full pr-4">
+                      <div className="flex items-center gap-4 text-left">
+                        <CardTitle className="text-base font-semibold">{section.name}</CardTitle>
+                        <span className="text-sm text-muted-foreground">
+                          {section.ageMinMa}–{section.ageMaxMa} Ma • {section.rockType}
+                        </span>
                       </div>
-                    </AccordionTrigger>
-                  </CardHeader>
+                      {section.dataSourceDoi && (
+                        <a
+                          href={`https://doi.org/${section.dataSourceDoi}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 text-copper hover:underline text-xs font-medium"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          DOI
+                        </a>
+                      )}
+                    </div>
+                  </AccordionTrigger>
                   
                   <AccordionContent>
-                    <CardContent className="space-y-3 text-sm pt-0">
+                    <CardContent className="space-y-3 text-sm pt-0 pb-6">
                       <div className="flex gap-4">
                         {/* Left side - Photo */}
                         {section.photoUrl && (
@@ -510,38 +508,42 @@ const MapView = () => {
                         <div className="flex-1 space-y-3">
                           <div className="grid grid-cols-2 gap-4">
                             <div>
-                              <p className="font-semibold text-xs text-muted-foreground">Location</p>
-                              <p>{section.lat.toFixed(2)}°N, {section.lng.toFixed(2)}°E</p>
+                              <p className="font-semibold text-xs text-muted-foreground">Period</p>
+                              <p>{section.period}</p>
                             </div>
                             <div>
                               <p className="font-semibold text-xs text-muted-foreground">Terrane</p>
                               <p>{section.terrane}</p>
                             </div>
+                            <div>
+                              <p className="font-semibold text-xs text-muted-foreground">Location</p>
+                              <p>{section.lat.toFixed(2)}°N, {section.lng.toFixed(2)}°E</p>
+                            </div>
                           </div>
                           
-                          <p className="text-muted-foreground pt-2 border-t">
-                            {section.description}
-                          </p>
+                          <div className="pt-2 border-t">
+                            <p className="text-muted-foreground">{section.description}</p>
+                          </div>
                         </div>
                       </div>
 
                       {section.radiometricData && section.radiometricData.length > 0 && (
-                        <div className="pt-2 border-t space-y-2">
+                        <div className="pt-3 border-t space-y-2">
                           <h4 className="font-semibold">Radiometric Data:</h4>
                           <div className="space-y-2">
                             {section.radiometricData.map((data) => (
-                              <div key={data.id} className="pl-3 border-l-2 border-copper">
-                                <p className="font-medium text-sm">
+                              <div key={data.id} className="pl-3 border-l-2 border-copper text-xs">
+                                <p className="font-medium">
                                   {data.isotopeSystem} ({data.mineral}): {data.ageMa} ± {data.errorMa} Ma
                                 </p>
-                                <p className="text-xs text-muted-foreground">{data.reference}</p>
-                                <p className="text-xs text-muted-foreground">{data.notes}</p>
+                                <p className="text-muted-foreground">{data.reference}</p>
+                                <p className="text-muted-foreground italic">{data.notes}</p>
                                 {data.doi && (
                                   <a 
                                     href={`https://doi.org/${data.doi}`}
                                     target="_blank" 
                                     rel="noopener noreferrer"
-                                    className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                                    className="text-copper hover:underline flex items-center gap-1 mt-1"
                                   >
                                     DOI: {data.doi}
                                     <ExternalLink className="w-3 h-3" />
