@@ -347,8 +347,8 @@ const MapView = () => {
                     Age Range (Ma)
                   </Label>
                   <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <div className="w-20">
                         <Label htmlFor="minAge" className="text-xs text-muted-foreground">Min</Label>
                         <Input
                           id="minAge"
@@ -363,8 +363,8 @@ const MapView = () => {
                           className="mt-1"
                         />
                       </div>
-                      <span className="text-muted-foreground pt-6">to</span>
-                      <div className="flex-1">
+                      <span className="text-muted-foreground pt-6">-</span>
+                      <div className="w-20">
                         <Label htmlFor="maxAge" className="text-xs text-muted-foreground">Max</Label>
                         <Input
                           id="maxAge"
