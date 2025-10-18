@@ -17,7 +17,7 @@ const Contribute = () => {
           </p>
         </div>
 
-        <Card className="shadow-elegant mb-8 bg-gradient-accent text-white">
+        <Card className="shadow-elegant mb-8 gradient-accent text-white">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Layers className="w-6 h-6" />
