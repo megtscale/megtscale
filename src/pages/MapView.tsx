@@ -192,8 +192,12 @@ const MapView = () => {
       onAdd: function() {
         const div = L.DomUtil.create('div', 'leaflet-control-north');
         div.innerHTML = `
-          <div style="background: white; padding: 8px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); font-size: 20px; font-weight: bold; text-align: center; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
-            <span style="display: inline-block;">↑<br/><span style="font-size: 10px;">N</span></span>
+          <div style="background: white; padding: 10px; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,0.3); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; border: 2px solid #333;">
+            <svg width="30" height="30" viewBox="0 0 30 30" style="display: block;">
+              <polygon points="15,5 20,20 15,17 10,20" fill="#DC143C" stroke="#333" stroke-width="1"/>
+              <polygon points="15,25 20,20 15,17 10,20" fill="#fff" stroke="#333" stroke-width="1"/>
+              <text x="15" y="8" text-anchor="middle" font-size="8" font-weight="bold" fill="white">N</text>
+            </svg>
           </div>
         `;
         return div;
