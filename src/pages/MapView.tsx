@@ -180,6 +180,13 @@ const MapView = () => {
       }).addTo(map.current);
     }
 
+    // Add scale bar
+    L.control.scale({
+      position: 'bottomleft',
+      imperial: false,
+      metric: true
+    }).addTo(map.current);
+
     // Define base map layers
     const baseMaps = {
       "Street Map": L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -201,7 +208,7 @@ const MapView = () => {
     };
 
     // Add default layer
-    baseMaps["Street Map"].addTo(map.current);
+    baseMaps["Satellite"].addTo(map.current);
 
     // Add layer control
     L.control.layers(baseMaps).addTo(map.current);
