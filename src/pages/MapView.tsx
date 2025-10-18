@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Filter, X, ExternalLink } from "lucide-react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -59,6 +60,9 @@ const MapView = () => {
   const [sections, setSections] = useState<StratigraphicSection[]>([]);
   const [radiometricData, setRadiometricData] = useState<RadiometricData[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Image dialog state
+  const [enlargedImage, setEnlargedImage] = useState<{ url: string; title: string } | null>(null);
 
   // Filter states
   const [searchTerm, setSearchTerm] = useState("");
@@ -232,7 +236,7 @@ const MapView = () => {
 
       marker.bindPopup(`
         <div style="min-width: 250px; max-width: 300px;">
-          ${section.photoUrl ? `<img src="${section.photoUrl}" alt="${section.name}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 12px;" />` : ""}
+          ${section.photoUrl ? `<img src="${section.photoUrl}" alt="${section.name}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 12px; cursor: pointer;" class="section-photo" data-photo-url="${section.photoUrl}" data-section-name="${section.name}" />` : ""}
           <h3 class="font-bold text-base mb-2">${section.name}</h3>
           <p class="text-sm mb-2"><strong>Terrane:</strong> ${section.terrane}</p>
           <p class="text-sm mb-2"><strong>Rock Type:</strong> ${section.rockType}</p>
@@ -243,6 +247,19 @@ const MapView = () => {
 
       markersLayer.current!.addLayer(marker);
     });
+
+    // Add click handler for images in popups
+    setTimeout(() => {
+      document.querySelectorAll('.section-photo').forEach((img) => {
+        img.addEventListener('click', (e) => {
+          const target = e.target as HTMLImageElement;
+          setEnlargedImage({
+            url: target.getAttribute('data-photo-url') || '',
+            title: target.getAttribute('data-section-name') || '',
+          });
+        });
+      });
+    }, 100);
   }, [filteredSections, loading]);
 
   const clearFilters = () => {
@@ -553,6 +570,22 @@ const MapView = () => {
           </Card>
         </div>
       </div>
+
+      {/* Image enlargement dialog */}
+      <Dialog open={!!enlargedImage} onOpenChange={() => setEnlargedImage(null)}>
+        <DialogContent className="max-w-4xl">
+          {enlargedImage && (
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold">{enlargedImage.title}</h3>
+              <img 
+                src={enlargedImage.url} 
+                alt={enlargedImage.title}
+                className="w-full h-auto rounded-lg"
+              />
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
