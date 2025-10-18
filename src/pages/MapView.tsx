@@ -466,7 +466,7 @@ const MapView = () => {
                 id={`section-${section.id}`}
                 className="border rounded-lg shadow-elegant hover:shadow-glow transition-shadow bg-card"
               >
-                <AccordionTrigger className="hover:no-underline px-6 py-4">
+                <AccordionTrigger className="hover:no-underline px-6 py-3">
                   <div className="flex items-center justify-between w-full pr-4">
                     <div className="flex items-center gap-4 text-left">
                       <h3 className="text-base font-semibold">{section.name}</h3>
@@ -474,86 +474,71 @@ const MapView = () => {
                         {section.ageMinMa}–{section.ageMaxMa} Ma • {section.rockType}
                       </span>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <a
-                        href="/data"
-                        className="flex items-center gap-1 text-blue-600 hover:underline text-xs font-medium"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        <FileText className="w-3 h-3" />
-                        Data Portal
-                      </a>
-                      {section.dataSourceDoi && (
-                        <a
-                          href={`https://doi.org/${section.dataSourceDoi}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1 text-copper hover:underline text-xs font-medium"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <ExternalLink className="w-3 h-3" />
-                          DOI
-                        </a>
-                      )}
-                    </div>
+                    <a
+                      href="/data"
+                      className="flex items-center gap-1 text-blue-600 hover:underline text-xs font-medium"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <FileText className="w-3 h-3" />
+                      Data Portal
+                    </a>
                   </div>
                 </AccordionTrigger>
                 
-                <AccordionContent className="px-6 pb-6">
-                  <div className="space-y-3 text-sm pt-2">
+                <AccordionContent className="px-6 pb-4">
+                  <div className="space-y-2 text-sm pt-1">
                     <div className="flex gap-4">
                       {/* Left side - Photo */}
                       {section.photoUrl && (
-                        <div className="flex-shrink-0 w-48">
+                        <div className="flex-shrink-0 w-40">
                           <img 
                             src={section.photoUrl} 
                             alt={section.name}
-                            className="w-full h-32 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+                            className="w-full h-28 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
                             onClick={() => setEnlargedImage({ url: section.photoUrl, title: section.name })}
                           />
                         </div>
                       )}
                       
                       {/* Right side - Content */}
-                      <div className="flex-1 space-y-3">
-                        <div className="grid grid-cols-2 gap-4">
+                      <div className="flex-1 space-y-2">
+                        <div className="grid grid-cols-3 gap-3 text-xs">
                           <div>
-                            <p className="font-semibold text-xs text-muted-foreground">Period</p>
+                            <p className="font-semibold text-muted-foreground">Period</p>
                             <p>{section.period}</p>
                           </div>
                           <div>
-                            <p className="font-semibold text-xs text-muted-foreground">Terrane</p>
+                            <p className="font-semibold text-muted-foreground">Terrane</p>
                             <p>{section.terrane}</p>
                           </div>
                           <div>
-                            <p className="font-semibold text-xs text-muted-foreground">Location</p>
+                            <p className="font-semibold text-muted-foreground">Location</p>
                             <p>{section.lat.toFixed(2)}°N, {section.lng.toFixed(2)}°E</p>
                           </div>
                         </div>
                         
-                        <div className="pt-2 border-t">
-                          <p className="text-muted-foreground">{section.description}</p>
+                        <div className="pt-1 border-t">
+                          <p className="text-muted-foreground text-xs">{section.description}</p>
                         </div>
                       </div>
                     </div>
 
                     {section.radiometricData && section.radiometricData.length > 0 && (
-                      <div className="pt-3 border-t space-y-2">
-                        <h4 className="font-semibold">Radiometric Data:</h4>
-                        <div className="space-y-2">
+                      <div className="pt-2 border-t space-y-1">
+                        <h4 className="font-semibold text-xs">Radiometric Data:</h4>
+                        <div className="space-y-1">
                           {section.radiometricData.map((data) => (
-                            <div key={data.id} className="pl-3 border-l-2 border-copper text-xs">
+                            <div key={data.id} className="pl-2 border-l-2 border-copper text-xs">
                               <p className="font-medium">
                                 {data.isotopeSystem} ({data.mineral}): {data.ageMa} ± {data.errorMa} Ma
                               </p>
-                              <p className="text-muted-foreground">{data.reference}</p>
-                              <p className="text-muted-foreground italic">{data.notes}</p>
+                              <p className="text-muted-foreground">{data.reference} • {data.notes}</p>
                               {data.doi && (
                                 <a 
                                   href={`https://doi.org/${data.doi}`}
                                   target="_blank" 
                                   rel="noopener noreferrer"
-                                  className="text-copper hover:underline flex items-center gap-1 mt-1"
+                                  className="text-copper hover:underline flex items-center gap-1"
                                 >
                                   DOI: {data.doi}
                                   <ExternalLink className="w-3 h-3" />
