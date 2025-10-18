@@ -65,6 +65,9 @@ const MapView = () => {
   // Image dialog state
   const [enlargedImage, setEnlargedImage] = useState<{ url: string; title: string } | null>(null);
 
+  // Accordion state for auto-expanding on hash navigation
+  const [expandedSection, setExpandedSection] = useState<string>("");
+
   // Filter states
   const [searchTerm, setSearchTerm] = useState("");
   const [ageRange, setAgeRange] = useState([538, 635]);
@@ -271,6 +274,31 @@ const MapView = () => {
     setSelectedTerranes([]);
   };
 
+  // Handle hash navigation to expand accordion
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#section-')) {
+        const sectionId = hash.replace('#section-', '');
+        setExpandedSection(sectionId);
+        // Small delay to ensure accordion expands before scrolling
+        setTimeout(() => {
+          const element = document.getElementById(hash.substring(1));
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      }
+    };
+
+    // Check on mount
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
   return (
     <div className="min-h-screen py-12 bg-gradient-subtle">
       <div className="container mx-auto px-4">
@@ -423,7 +451,13 @@ const MapView = () => {
           <h2 className="text-2xl font-bold">Dataset Updates & Sources</h2>
           
           {/* Individual Section Details */}
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion 
+            type="single" 
+            collapsible 
+            className="space-y-4"
+            value={expandedSection}
+            onValueChange={setExpandedSection}
+          >
             {filteredSections.map((section) => (
               <AccordionItem 
                 key={section.id} 
