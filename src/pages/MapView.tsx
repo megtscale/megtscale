@@ -26,7 +26,7 @@ L.Icon.Default.mergeOptions({
 });
 
 interface StratigraphicSection {
-  sectionId: string;
+  id: string;
   name: string;
   period: string;
   ageMinMa: number;
@@ -127,7 +127,7 @@ const MapView = () => {
   const enrichedSections = useMemo(() => {
     return sections.map((section) => {
       const relatedData = radiometricData.filter(
-        (data) => data.sectionId === section.sectionId
+        (data) => data.sectionId === section.id
       );
       return { ...section, radiometricData: relatedData };
     });
@@ -259,7 +259,7 @@ const MapView = () => {
           <p class="text-sm mb-1"><strong>Terrane:</strong> ${section.terrane}</p>
           <p class="text-sm mb-1"><strong>Rock Type:</strong> ${section.rockType}</p>
           <p class="text-sm mb-2"><strong>Age Range:</strong> ${section.ageMinMa}–${section.ageMaxMa} Ma</p>
-          <a href="#section-${section.sectionId}" class="text-blue-600 hover:underline text-xs block mb-2">📊 View Full Details</a>
+          <a href="#section-${section.id}" class="text-blue-600 hover:underline text-xs block mb-2">📊 View Full Details</a>
           ${radiometricInfo ? `<hr class="my-2"/><div class="text-xs font-semibold mb-1">Radiometric Data:</div>${radiometricInfo}` : ""}
         </div>
       `);
@@ -461,9 +461,9 @@ const MapView = () => {
           >
             {filteredSections.map((section) => (
               <AccordionItem 
-                key={section.sectionId} 
-                value={section.sectionId}
-                id={`section-${section.sectionId}`}
+                key={section.id} 
+                value={section.id}
+                id={`section-${section.id}`}
                 className="border rounded-lg shadow-elegant hover:shadow-glow transition-shadow bg-card"
               >
                 <AccordionTrigger className="hover:no-underline px-6 py-4">
