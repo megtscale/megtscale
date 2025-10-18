@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Filter, X, ExternalLink } from "lucide-react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -422,92 +423,107 @@ const MapView = () => {
           <h2 className="text-2xl font-bold">Dataset Updates & Sources</h2>
           
           {/* Individual Section Details */}
-          {filteredSections.map((section) => (
-            <Card key={section.id} id={`section-${section.id}`} className="shadow-elegant hover:shadow-glow transition-shadow scroll-mt-24">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <CardTitle className="text-lg">{section.name}</CardTitle>
-                    <CardDescription className="mt-2">
-                      {section.period} • {section.ageMinMa}–{section.ageMaxMa} Ma • {section.rockType}
-                    </CardDescription>
-                  </div>
-                  {section.dataSourceDoi && (
-                    <a
-                      href={`https://doi.org/${section.dataSourceDoi}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-copper hover:underline text-sm font-medium"
-                    >
-                      View Publication
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  )}
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-3 text-sm">
-                <div className="flex gap-4">
-                  {/* Left side - Photo */}
-                  {section.photoUrl && (
-                    <div className="flex-shrink-0 w-48">
-                      <img 
-                        src={section.photoUrl} 
-                        alt={section.name}
-                        className="w-full h-32 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
-                        onClick={() => setEnlargedImage({ url: section.photoUrl, title: section.name })}
-                      />
-                    </div>
-                  )}
-                  
-                  {/* Right side - Content */}
-                  <div className="flex-1 space-y-3">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <p className="font-semibold text-xs text-muted-foreground">Location</p>
-                        <p>{section.lat.toFixed(2)}°N, {section.lng.toFixed(2)}°E</p>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-xs text-muted-foreground">Terrane</p>
-                        <p>{section.terrane}</p>
-                      </div>
-                    </div>
-                    
-                    <p className="text-muted-foreground pt-2 border-t">
-                      {section.description}
-                    </p>
-                  </div>
-                </div>
-
-                {section.radiometricData && section.radiometricData.length > 0 && (
-                  <div className="pt-2 border-t space-y-2">
-                    <h4 className="font-semibold">Radiometric Data:</h4>
-                    <div className="space-y-2">
-                      {section.radiometricData.map((data) => (
-                        <div key={data.id} className="pl-3 border-l-2 border-copper">
-                          <p className="font-medium text-sm">
-                            {data.isotopeSystem} ({data.mineral}): {data.ageMa} ± {data.errorMa} Ma
-                          </p>
-                          <p className="text-xs text-muted-foreground">{data.reference}</p>
-                          <p className="text-xs text-muted-foreground">{data.notes}</p>
-                          {data.doi && (
-                            <a 
-                              href={`https://doi.org/${data.doi}`}
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
-                            >
-                              DOI: {data.doi}
-                              <ExternalLink className="w-3 h-3" />
-                            </a>
-                          )}
+          <Accordion type="single" collapsible className="space-y-4">
+            {filteredSections.map((section) => (
+              <AccordionItem 
+                key={section.id} 
+                value={section.id}
+                id={`section-${section.id}`}
+                className="border-0"
+              >
+                <Card className="shadow-elegant hover:shadow-glow transition-shadow scroll-mt-24">
+                  <CardHeader>
+                    <AccordionTrigger className="hover:no-underline">
+                      <div className="flex items-start justify-between w-full pr-4">
+                        <div className="text-left">
+                          <CardTitle className="text-lg">{section.name}</CardTitle>
+                          <CardDescription className="mt-2">
+                            {section.period} • {section.ageMinMa}–{section.ageMaxMa} Ma • {section.rockType}
+                          </CardDescription>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          ))}
+                        {section.dataSourceDoi && (
+                          <a
+                            href={`https://doi.org/${section.dataSourceDoi}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-copper hover:underline text-sm font-medium"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            View Publication
+                            <ExternalLink className="w-4 h-4" />
+                          </a>
+                        )}
+                      </div>
+                    </AccordionTrigger>
+                  </CardHeader>
+                  
+                  <AccordionContent>
+                    <CardContent className="space-y-3 text-sm pt-0">
+                      <div className="flex gap-4">
+                        {/* Left side - Photo */}
+                        {section.photoUrl && (
+                          <div className="flex-shrink-0 w-48">
+                            <img 
+                              src={section.photoUrl} 
+                              alt={section.name}
+                              className="w-full h-32 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+                              onClick={() => setEnlargedImage({ url: section.photoUrl, title: section.name })}
+                            />
+                          </div>
+                        )}
+                        
+                        {/* Right side - Content */}
+                        <div className="flex-1 space-y-3">
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <p className="font-semibold text-xs text-muted-foreground">Location</p>
+                              <p>{section.lat.toFixed(2)}°N, {section.lng.toFixed(2)}°E</p>
+                            </div>
+                            <div>
+                              <p className="font-semibold text-xs text-muted-foreground">Terrane</p>
+                              <p>{section.terrane}</p>
+                            </div>
+                          </div>
+                          
+                          <p className="text-muted-foreground pt-2 border-t">
+                            {section.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      {section.radiometricData && section.radiometricData.length > 0 && (
+                        <div className="pt-2 border-t space-y-2">
+                          <h4 className="font-semibold">Radiometric Data:</h4>
+                          <div className="space-y-2">
+                            {section.radiometricData.map((data) => (
+                              <div key={data.id} className="pl-3 border-l-2 border-copper">
+                                <p className="font-medium text-sm">
+                                  {data.isotopeSystem} ({data.mineral}): {data.ageMa} ± {data.errorMa} Ma
+                                </p>
+                                <p className="text-xs text-muted-foreground">{data.reference}</p>
+                                <p className="text-xs text-muted-foreground">{data.notes}</p>
+                                {data.doi && (
+                                  <a 
+                                    href={`https://doi.org/${data.doi}`}
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                                  >
+                                    DOI: {data.doi}
+                                    <ExternalLink className="w-3 h-3" />
+                                  </a>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </CardContent>
+                  </AccordionContent>
+                </Card>
+              </AccordionItem>
+            ))}
+          </Accordion>
 
           <Card className="shadow-elegant">
             <CardContent className="pt-6">
