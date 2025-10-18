@@ -254,7 +254,8 @@ const MapView = () => {
           <p class="text-sm mb-1"><strong>Terrane:</strong> ${section.terrane}</p>
           <p class="text-sm mb-1"><strong>Rock Type:</strong> ${section.rockType}</p>
           <p class="text-sm mb-2"><strong>Age Range:</strong> ${section.ageMinMa}–${section.ageMaxMa} Ma</p>
-          ${section.dataSourceDoi ? `<a href="/data" class="text-blue-600 hover:underline text-xs block mb-2">📊 View in Data Portal</a>` : ''}
+          ${section.dataSourceDoi ? `<p class="text-xs mb-2"><strong>Source DOI:</strong> <a href="https://doi.org/${section.dataSourceDoi}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">${section.dataSourceDoi}</a></p>` : ''}
+          <a href="#dataset-info" class="text-blue-600 hover:underline text-xs block mb-2">📊 Dataset Details & Downloads</a>
           ${radiometricInfo ? `<hr class="my-2"/><div class="text-xs font-semibold mb-1">Radiometric Data:</div>${radiometricInfo}` : ""}
         </div>
       `);
@@ -418,7 +419,7 @@ const MapView = () => {
         </Card>
 
         {/* Data Updates & Sources */}
-        <div className="space-y-4">
+        <div className="space-y-4" id="dataset-info">
           <h2 className="text-2xl font-bold">Dataset Updates & Sources</h2>
           
           <Card className="shadow-elegant hover:shadow-glow transition-shadow">
