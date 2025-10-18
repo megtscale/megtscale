@@ -574,7 +574,7 @@ const MapView = () => {
 
       {/* Image enlargement dialog */}
       <Dialog open={!!enlargedImage} onOpenChange={() => setEnlargedImage(null)}>
-        <DialogContent className="max-w-4xl">
+        <DialogContent className="max-w-4xl z-[10000]">
           {enlargedImage && (
             <div className="space-y-4">
               <h3 className="text-xl font-bold">{enlargedImage.title}</h3>
