@@ -255,7 +255,7 @@ const MapView = () => {
           <p class="text-sm mb-1"><strong>Rock Type:</strong> ${section.rockType}</p>
           <p class="text-sm mb-2"><strong>Age Range:</strong> ${section.ageMinMa}–${section.ageMaxMa} Ma</p>
           ${section.dataSourceDoi ? `<p class="text-xs mb-2"><strong>Source DOI:</strong> <a href="https://doi.org/${section.dataSourceDoi}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">${section.dataSourceDoi}</a></p>` : ''}
-          <a href="#dataset-info" class="text-blue-600 hover:underline text-xs block mb-2">📊 Dataset Details & Downloads</a>
+          <a href="#section-${section.id}" class="text-blue-600 hover:underline text-xs block mb-2">📊 View Full Details</a>
           ${radiometricInfo ? `<hr class="my-2"/><div class="text-xs font-semibold mb-1">Radiometric Data:</div>${radiometricInfo}` : ""}
         </div>
       `);
@@ -422,146 +422,87 @@ const MapView = () => {
         <div className="space-y-4" id="dataset-info">
           <h2 className="text-2xl font-bold">Dataset Updates & Sources</h2>
           
-          <Card className="shadow-elegant hover:shadow-glow transition-shadow">
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="text-lg">Stratigraphic Sections Dataset</CardTitle>
-                  <CardDescription className="mt-2">
-                    Updated March 2024 • 127 sections • Arabian Peninsula
-                  </CardDescription>
+          {/* Individual Section Details */}
+          {filteredSections.map((section) => (
+            <Card key={section.id} id={`section-${section.id}`} className="shadow-elegant hover:shadow-glow transition-shadow scroll-mt-24">
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <CardTitle className="text-lg">{section.name}</CardTitle>
+                    <CardDescription className="mt-2">
+                      {section.period} • {section.ageMinMa}–{section.ageMaxMa} Ma • {section.rockType}
+                    </CardDescription>
+                  </div>
+                  {section.dataSourceDoi && (
+                    <a
+                      href={`https://doi.org/${section.dataSourceDoi}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-copper hover:underline text-sm font-medium"
+                    >
+                      View Publication
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  )}
                 </div>
-                <a
-                  href="/data/stratigraphic_sections.csv"
-                  download
-                  className="flex items-center gap-2 text-copper hover:underline text-sm font-medium"
-                >
-                  Download CSV
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm">
-              <p className="text-muted-foreground">
-                Comprehensive collection of GPS-located stratigraphic sections across Oman, UAE, and Saudi Arabia. 
-                Each section includes detailed age constraints, terrane classification, and lithological descriptions.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">Oman</span>
-                <span className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">UAE</span>
-                <span className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">Saudi Arabia</span>
-              </div>
-            </CardContent>
-          </Card>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="font-semibold text-xs text-muted-foreground">Location</p>
+                    <p>{section.lat.toFixed(2)}°N, {section.lng.toFixed(2)}°E</p>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-xs text-muted-foreground">Terrane</p>
+                    <p>{section.terrane}</p>
+                  </div>
+                </div>
+                
+                <p className="text-muted-foreground pt-2 border-t">
+                  {section.description}
+                </p>
 
-          <Card className="shadow-elegant hover:shadow-glow transition-shadow">
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="text-lg">Radiometric Dating Compilation</CardTitle>
-                  <CardDescription className="mt-2">
-                    Updated March 2024 • 342 analyses • U-Pb, Re-Os, Ar-Ar systems
-                  </CardDescription>
-                </div>
-                <a
-                  href="/data/radiometric_data.csv"
-                  download
-                  className="flex items-center gap-2 text-copper hover:underline text-sm font-medium"
-                >
-                  Download CSV
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm">
-              <p className="text-muted-foreground">
-                High-precision radiometric age determinations from published sources. All ages include 2σ uncertainties 
-                and are linked to original publications via DOI. Methods include LA-ICP-MS and CA-TIMS U-Pb zircon dating.
-              </p>
-              <div className="pt-2 border-t space-y-2">
-                <h4 className="font-semibold">Key References:</h4>
-                <div className="space-y-2">
-                  <div className="pl-3 border-l-2 border-copper">
-                    <p className="font-medium text-sm">Bowring et al. (2007)</p>
-                    <p className="text-xs text-muted-foreground">Geochronologic constraints on the Huqf Supergroup, Oman</p>
-                    <a 
-                      href="https://doi.org/10.2475/10.2007.01" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
-                    >
-                      DOI: 10.2475/10.2007.01
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
+                {section.radiometricData && section.radiometricData.length > 0 && (
+                  <div className="pt-2 border-t space-y-2">
+                    <h4 className="font-semibold">Radiometric Data:</h4>
+                    <div className="space-y-2">
+                      {section.radiometricData.map((data) => (
+                        <div key={data.id} className="pl-3 border-l-2 border-copper">
+                          <p className="font-medium text-sm">
+                            {data.isotopeSystem} ({data.mineral}): {data.ageMa} ± {data.errorMa} Ma
+                          </p>
+                          <p className="text-xs text-muted-foreground">{data.reference}</p>
+                          <p className="text-xs text-muted-foreground">{data.notes}</p>
+                          {data.doi && (
+                            <a 
+                              href={`https://doi.org/${data.doi}`}
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
+                            >
+                              DOI: {data.doi}
+                              <ExternalLink className="w-3 h-3" />
+                            </a>
+                          )}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  
-                  <div className="pl-3 border-l-2 border-copper">
-                    <p className="font-medium text-sm">Hoffmann et al. (2004)</p>
-                    <p className="text-xs text-muted-foreground">U-Pb zircon constraints on Marinoan glaciation</p>
-                    <a 
-                      href="https://doi.org/10.1130/G20519.1" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
-                    >
-                      DOI: 10.1130/G20519.1
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+                )}
 
-          <Card className="shadow-elegant hover:shadow-glow transition-shadow">
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="text-lg">Extended Terrane Analysis</CardTitle>
-                  <CardDescription className="mt-2">
-                    Updated May 2024 • 89 new sections • Iran and Yemen regions
-                  </CardDescription>
-                </div>
-                <a
-                  href="/data/terrane_analysis_may2024.csv"
-                  download
-                  className="flex items-center gap-2 text-copper hover:underline text-sm font-medium"
-                >
-                  Download CSV
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm">
-              <p className="text-muted-foreground">
-                New compilation extending coverage to Iranian terranes and southern Arabian Peninsula. 
-                Includes revised age constraints for the Ediacaran-Cambrian boundary in marginal basins.
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">Iran</span>
-                <span className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">Yemen</span>
-                <span className="px-2 py-1 bg-primary/10 text-primary rounded text-xs">Jordan</span>
-              </div>
-              <div className="pt-2 border-t space-y-2">
-                <h4 className="font-semibold">Key References:</h4>
-                <div className="space-y-2">
-                  <div className="pl-3 border-l-2 border-copper">
-                    <p className="font-medium text-sm">Gharibzadeh et al. (2023)</p>
-                    <p className="text-xs text-muted-foreground">Ediacaran magmatism in Central Iran</p>
-                    <a 
-                      href="https://doi.org/10.1016/j.precamres.2023.107001" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-copper hover:underline text-xs flex items-center gap-1 mt-1"
-                    >
-                      DOI: 10.1016/j.precamres.2023.107001
-                      <ExternalLink className="w-3 h-3" />
-                    </a>
+                {section.photoUrl && (
+                  <div className="pt-2">
+                    <img 
+                      src={section.photoUrl} 
+                      alt={section.name}
+                      className="w-full h-48 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+                      onClick={() => setEnlargedImage({ url: section.photoUrl, title: section.name })}
+                    />
                   </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+                )}
+              </CardContent>
+            </Card>
+          ))}
 
           <Card className="shadow-elegant">
             <CardContent className="pt-6">
