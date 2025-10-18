@@ -242,7 +242,7 @@ const MapView = () => {
             `<div class="text-sm mb-2">
               <strong>${d.isotopeSystem}</strong> (${d.mineral}): ${d.ageMa} ± ${d.errorMa} Ma
               <br/><em>${d.reference}</em>
-              ${d.doi && d.doi !== section.dataSourceDoi ? `<br/><a href="https://doi.org/${d.doi}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline text-xs">DOI: ${d.doi}</a>` : ''}
+              ${d.doi ? `<br/><a href="https://doi.org/${d.doi}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline text-xs">DOI: ${d.doi}</a>` : ''}
             </div>`
         )
         .join("<hr class='my-1'/>");
@@ -254,7 +254,6 @@ const MapView = () => {
           <p class="text-sm mb-1"><strong>Terrane:</strong> ${section.terrane}</p>
           <p class="text-sm mb-1"><strong>Rock Type:</strong> ${section.rockType}</p>
           <p class="text-sm mb-2"><strong>Age Range:</strong> ${section.ageMinMa}–${section.ageMaxMa} Ma</p>
-          ${section.dataSourceDoi ? `<p class="text-xs mb-2"><strong>DOI:</strong> <a href="https://doi.org/${section.dataSourceDoi}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">${section.dataSourceDoi}</a></p>` : ''}
           <a href="#section-${section.id}" class="text-blue-600 hover:underline text-xs block mb-2">📊 View Full Details</a>
           ${radiometricInfo ? `<hr class="my-2"/><div class="text-xs font-semibold mb-1">Radiometric Data:</div>${radiometricInfo}` : ""}
         </div>
