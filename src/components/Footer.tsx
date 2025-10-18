@@ -20,7 +20,7 @@ const Footer = () => {
             <h4 className="font-heading font-semibold mb-3">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="/map" className="hover:text-copper transition-smooth">
+                <a href="/" className="hover:text-copper transition-smooth">
                   Interactive Map
                 </a>
               </li>
@@ -61,7 +61,15 @@ const Footer = () => {
               </a>
             </div>
             <p className="text-sm mt-4 text-primary-foreground/80">
-              © {new Date().getFullYear()} MEGTScale Project
+              Developed and maintained by{" "}
+              <a 
+                href="https://digitalgeosciences.com/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:text-copper transition-smooth underline"
+              >
+                Digital Geosciences
+              </a>
             </p>
           </div>
         </div>
