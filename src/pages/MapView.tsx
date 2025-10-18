@@ -446,20 +446,37 @@ const MapView = () => {
                 </div>
               </CardHeader>
               <CardContent className="space-y-3 text-sm">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <p className="font-semibold text-xs text-muted-foreground">Location</p>
-                    <p>{section.lat.toFixed(2)}°N, {section.lng.toFixed(2)}°E</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-xs text-muted-foreground">Terrane</p>
-                    <p>{section.terrane}</p>
+                <div className="flex gap-4">
+                  {/* Left side - Photo */}
+                  {section.photoUrl && (
+                    <div className="flex-shrink-0 w-48">
+                      <img 
+                        src={section.photoUrl} 
+                        alt={section.name}
+                        className="w-full h-32 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+                        onClick={() => setEnlargedImage({ url: section.photoUrl, title: section.name })}
+                      />
+                    </div>
+                  )}
+                  
+                  {/* Right side - Content */}
+                  <div className="flex-1 space-y-3">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <p className="font-semibold text-xs text-muted-foreground">Location</p>
+                        <p>{section.lat.toFixed(2)}°N, {section.lng.toFixed(2)}°E</p>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-xs text-muted-foreground">Terrane</p>
+                        <p>{section.terrane}</p>
+                      </div>
+                    </div>
+                    
+                    <p className="text-muted-foreground pt-2 border-t">
+                      {section.description}
+                    </p>
                   </div>
                 </div>
-                
-                <p className="text-muted-foreground pt-2 border-t">
-                  {section.description}
-                </p>
 
                 {section.radiometricData && section.radiometricData.length > 0 && (
                   <div className="pt-2 border-t space-y-2">
@@ -486,17 +503,6 @@ const MapView = () => {
                         </div>
                       ))}
                     </div>
-                  </div>
-                )}
-
-                {section.photoUrl && (
-                  <div className="pt-2">
-                    <img 
-                      src={section.photoUrl} 
-                      alt={section.name}
-                      className="w-full h-32 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
-                      onClick={() => setEnlargedImage({ url: section.photoUrl, title: section.name })}
-                    />
                   </div>
                 )}
               </CardContent>
