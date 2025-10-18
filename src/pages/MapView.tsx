@@ -209,6 +209,18 @@ const MapView = () => {
 
     map.current.addLayer(markersLayer.current);
 
+    // Event delegation for image clicks in popups
+    mapContainer.current.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('section-photo')) {
+        const photoUrl = target.getAttribute('data-photo-url');
+        const sectionName = target.getAttribute('data-section-name');
+        if (photoUrl && sectionName) {
+          setEnlargedImage({ url: photoUrl, title: sectionName });
+        }
+      }
+    });
+
     return () => {
       map.current?.remove();
       map.current = null;
@@ -227,39 +239,28 @@ const MapView = () => {
       const radiometricInfo = section.radiometricData
         .map(
           (d) =>
-            `<div class="text-sm">
+            `<div class="text-sm mb-2">
               <strong>${d.isotopeSystem}</strong> (${d.mineral}): ${d.ageMa} ± ${d.errorMa} Ma
               <br/><em>${d.reference}</em>
+              ${d.doi ? `<br/><a href="https://doi.org/${d.doi}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline text-xs">DOI: ${d.doi}</a>` : ''}
             </div>`
         )
-        .join("<hr class='my-2'/>");
+        .join("<hr class='my-1'/>");
 
       marker.bindPopup(`
         <div style="min-width: 250px; max-width: 300px;">
-          ${section.photoUrl ? `<img src="${section.photoUrl}" alt="${section.name}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 12px; cursor: pointer;" class="section-photo" data-photo-url="${section.photoUrl}" data-section-name="${section.name}" />` : ""}
+          ${section.photoUrl ? `<img src="${section.photoUrl}" alt="${section.name}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 12px; cursor: pointer;" class="section-photo" data-photo-url="${section.photoUrl}" data-section-name="${section.name}" title="Click to enlarge" />` : ""}
           <h3 class="font-bold text-base mb-2">${section.name}</h3>
-          <p class="text-sm mb-2"><strong>Terrane:</strong> ${section.terrane}</p>
-          <p class="text-sm mb-2"><strong>Rock Type:</strong> ${section.rockType}</p>
+          <p class="text-sm mb-1"><strong>Terrane:</strong> ${section.terrane}</p>
+          <p class="text-sm mb-1"><strong>Rock Type:</strong> ${section.rockType}</p>
           <p class="text-sm mb-2"><strong>Age Range:</strong> ${section.ageMinMa}–${section.ageMaxMa} Ma</p>
-          ${radiometricInfo ? `<hr class="my-2"/><div class="text-xs">${radiometricInfo}</div>` : ""}
+          ${section.dataSourceDoi ? `<a href="/data" class="text-blue-600 hover:underline text-xs block mb-2">📊 View in Data Portal</a>` : ''}
+          ${radiometricInfo ? `<hr class="my-2"/><div class="text-xs font-semibold mb-1">Radiometric Data:</div>${radiometricInfo}` : ""}
         </div>
       `);
 
       markersLayer.current!.addLayer(marker);
     });
-
-    // Add click handler for images in popups
-    setTimeout(() => {
-      document.querySelectorAll('.section-photo').forEach((img) => {
-        img.addEventListener('click', (e) => {
-          const target = e.target as HTMLImageElement;
-          setEnlargedImage({
-            url: target.getAttribute('data-photo-url') || '',
-            title: target.getAttribute('data-section-name') || '',
-          });
-        });
-      });
-    }, 100);
   }, [filteredSections, loading]);
 
   const clearFilters = () => {
