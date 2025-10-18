@@ -231,7 +231,8 @@ const MapView = () => {
         .join("<hr class='my-2'/>");
 
       marker.bindPopup(`
-        <div style="min-width: 200px;">
+        <div style="min-width: 250px; max-width: 300px;">
+          ${section.photoUrl ? `<img src="${section.photoUrl}" alt="${section.name}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 12px;" />` : ""}
           <h3 class="font-bold text-base mb-2">${section.name}</h3>
           <p class="text-sm mb-2"><strong>Terrane:</strong> ${section.terrane}</p>
           <p class="text-sm mb-2"><strong>Rock Type:</strong> ${section.rockType}</p>
