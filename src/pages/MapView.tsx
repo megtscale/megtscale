@@ -466,10 +466,10 @@ const MapView = () => {
                 className="border-0"
               >
                 <Card className="shadow-elegant hover:shadow-glow transition-shadow scroll-mt-24">
-                  <AccordionTrigger className="hover:no-underline px-6 py-4">
-                    <div className="flex items-center justify-between w-full pr-4">
+                  <AccordionTrigger className="hover:no-underline w-full">
+                    <div className="flex items-center justify-between w-full px-6 py-4">
                       <div className="flex items-center gap-4 text-left">
-                        <CardTitle className="text-base font-semibold">{section.name}</CardTitle>
+                        <h3 className="text-base font-semibold">{section.name}</h3>
                         <span className="text-sm text-muted-foreground">
                           {section.ageMinMa}–{section.ageMaxMa} Ma • {section.rockType}
                         </span>
@@ -489,8 +489,8 @@ const MapView = () => {
                     </div>
                   </AccordionTrigger>
                   
-                  <AccordionContent>
-                    <CardContent className="space-y-3 text-sm pt-0 pb-6">
+                  <AccordionContent className="px-6 pb-6">
+                    <div className="space-y-3 text-sm pt-2">
                       <div className="flex gap-4">
                         {/* Left side - Photo */}
                         {section.photoUrl && (
@@ -554,7 +554,7 @@ const MapView = () => {
                           </div>
                         </div>
                       )}
-                    </CardContent>
+                    </div>
                   </AccordionContent>
                 </Card>
               </AccordionItem>
