@@ -331,7 +331,7 @@ const MapView = () => {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-3 gap-4">
+              <div className="grid md:grid-cols-4 gap-4">
                 <div>
                   <Label htmlFor="search" className="text-sm font-medium">Search</Label>
                   <Input
@@ -342,43 +342,37 @@ const MapView = () => {
                   />
                 </div>
 
-                <div className="md:col-span-2">
+                <div>
                   <Label className="text-sm font-medium mb-2 block">
                     Age Range (Ma)
                   </Label>
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <div className="w-20">
-                        <Label htmlFor="minAge" className="text-xs text-muted-foreground">Min</Label>
-                        <Input
-                          id="minAge"
-                          type="number"
-                          min={538}
-                          max={635}
-                          value={ageRange[0]}
-                          onChange={(e) => {
-                            const val = parseInt(e.target.value) || 538;
-                            setAgeRange([Math.min(val, ageRange[1]), ageRange[1]]);
-                          }}
-                          className="mt-1"
-                        />
-                      </div>
-                      <span className="text-muted-foreground pt-6">-</span>
-                      <div className="w-20">
-                        <Label htmlFor="maxAge" className="text-xs text-muted-foreground">Max</Label>
-                        <Input
-                          id="maxAge"
-                          type="number"
-                          min={538}
-                          max={635}
-                          value={ageRange[1]}
-                          onChange={(e) => {
-                            const val = parseInt(e.target.value) || 635;
-                            setAgeRange([ageRange[0], Math.max(val, ageRange[0])]);
-                          }}
-                          className="mt-1"
-                        />
-                      </div>
+                      <Input
+                        type="number"
+                        min={538}
+                        max={635}
+                        value={ageRange[0]}
+                        onChange={(e) => {
+                          const val = parseInt(e.target.value) || 538;
+                          setAgeRange([Math.min(val, ageRange[1]), ageRange[1]]);
+                        }}
+                        className="w-16 h-8 text-xs"
+                        placeholder="Min"
+                      />
+                      <span className="text-xs text-muted-foreground">-</span>
+                      <Input
+                        type="number"
+                        min={538}
+                        max={635}
+                        value={ageRange[1]}
+                        onChange={(e) => {
+                          const val = parseInt(e.target.value) || 635;
+                          setAgeRange([ageRange[0], Math.max(val, ageRange[0])]);
+                        }}
+                        className="w-16 h-8 text-xs"
+                        placeholder="Max"
+                      />
                     </div>
                     <Slider
                       min={538}
@@ -386,6 +380,7 @@ const MapView = () => {
                       step={1}
                       value={ageRange}
                       onValueChange={setAgeRange}
+                      className="w-full"
                     />
                   </div>
                 </div>
