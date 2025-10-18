@@ -46,7 +46,7 @@ const Footer = () => {
             <h4 className="font-heading font-semibold mb-3">Connect</h4>
             <div className="flex gap-4">
               <a
-                href="https://github.com"
+                href="https://github.com/digitalgeosciences"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-copper transition-smooth"
@@ -54,7 +54,7 @@ const Footer = () => {
                 <Github className="w-5 h-5" />
               </a>
               <a
-                href="mailto:contact@example.com"
+                href="mailto:info@digitalgeosciences.com"
                 className="hover:text-copper transition-smooth"
               >
                 <Mail className="w-5 h-5" />
