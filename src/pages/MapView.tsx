@@ -7,7 +7,7 @@ import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Filter, X, ExternalLink } from "lucide-react";
+import { Filter, X, ExternalLink, FileText } from "lucide-react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
@@ -474,18 +474,28 @@ const MapView = () => {
                         {section.ageMinMa}–{section.ageMaxMa} Ma • {section.rockType}
                       </span>
                     </div>
-                    {section.dataSourceDoi && (
+                    <div className="flex items-center gap-3">
                       <a
-                        href={`https://doi.org/${section.dataSourceDoi}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-copper hover:underline text-xs font-medium"
+                        href="/data"
+                        className="flex items-center gap-1 text-blue-600 hover:underline text-xs font-medium"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <ExternalLink className="w-3 h-3" />
-                        DOI
+                        <FileText className="w-3 h-3" />
+                        Data Portal
                       </a>
-                    )}
+                      {section.dataSourceDoi && (
+                        <a
+                          href={`https://doi.org/${section.dataSourceDoi}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-1 text-copper hover:underline text-xs font-medium"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          DOI
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </AccordionTrigger>
                 
