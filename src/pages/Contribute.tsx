@@ -60,7 +60,7 @@ const Contribute = () => {
               </div>
             </div>
 
-            <Link to="/map">
+            <Link to="/">
               <Button variant="scientific" size="sm" className="mt-2">
                 View Sections on Map →
               </Button>
