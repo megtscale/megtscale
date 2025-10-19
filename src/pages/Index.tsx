@@ -106,7 +106,7 @@ const Index = () => {
                   <div className="w-12 h-12 rounded-lg bg-gradient-accent flex items-center justify-center mb-4 group-hover:scale-110 transition-smooth">
                     <Clock className="w-6 h-6 text-white" />
                   </div>
-                  <CardTitle>Time Scale Explorer</CardTitle>
+                  <CardTitle>Time Scale</CardTitle>
                   <CardDescription>
                     Navigate through 97 million years of Ediacaran geological history
                   </CardDescription>

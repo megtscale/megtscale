@@ -11,8 +11,7 @@ const Footer = () => {
             </h3>
             <p className="text-sm text-primary-foreground/80">
               Middle East Geologic Time Scale - An open-access platform for exploring and 
-              contributing to the chronostratigraphic understanding of the Ediacaran Period 
-              in the Middle East.
+              contributing to the chronostratigraphic understanding of the region's geology.
             </p>
           </div>
 
@@ -26,7 +25,7 @@ const Footer = () => {
               </li>
               <li>
                 <a href="/timeline" className="hover:text-copper transition-smooth">
-                  Time Scale Explorer
+                  Time Scale
                 </a>
               </li>
               <li>

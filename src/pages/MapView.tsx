@@ -333,7 +333,6 @@ const MapView = () => {
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl">
             Explore radiometrically dated stratigraphic sections across the Middle East.
-            Use filters to refine your search through thousands of data points.
           </p>
         </div>
 
