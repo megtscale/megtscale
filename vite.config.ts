@@ -15,16 +15,5 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          react: ['react', 'react-dom'],
-          leaflet: ['react-leaflet', 'leaflet']
-        }
-      }
-    },
-    chunkSizeWarningLimit: 1000 // optional: raises the limit to 1 MB
-  }
+  base: process.env.GITHUB_PAGES ? '/' : '/',
 }));
