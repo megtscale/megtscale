@@ -19,7 +19,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter basename="/megtscale">
+      <BrowserRouter>
         <div className="flex flex-col min-h-screen">
           <Navigation />
           <main className="flex-1">
