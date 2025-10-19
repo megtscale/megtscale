@@ -1,2 +1,4 @@
 id,name,period,ageMinMa,ageMaxMa,terrane,rockType,lat,lng,description,photoUrl,dataSourceDoi
-
+sec-om-001,Jabal Example Section,Ediacaran,602.4,560,Oman Ophiolite margin,Volcaniclastic,22.9,58.6,Composite section with volcanics and carbonates.,/images/sections/jabal-example.jpg,10.5678/example.doi
+sec-uae-001,UAE Outcrop,Ediacaran,580,538,Arabian Shield,Granite,24.5,54.4,Intrusive granite body with zircon dating.,/images/sections/uae-outcrop.jpg,10.1234/uae.doi
+sec-bh-001,Bahrain Site,Ediacaran,565,550,Foreland Basin,Carbonate,26.0,50.5,Marine carbonate platform deposits.,/images/sections/bahrain-site.jpg,10.9876/bahrain.doi
