@@ -32,9 +32,8 @@ const Index = () => {
           </h1>
 
           <p className="text-lg md:text-xl text-primary-foreground/90 max-w-4xl mx-auto mb-8 leading-relaxed">
-            During the Ediacaran Period (635–538 million years ago), the Arabian Plate was
-            assembled in its present-day shape between several tectonic terranes. To reconstruct
-            how it was assembled in space and time, we have built this interactive website to
+            This website was built to reconstruct the Arabian Plate to
+            how it was assembled in space and time. We have built this interactive website to
             compile tectono-stratigraphic data with a view to building a chronostratigraphic chart
             of the Middle East.
           </p>

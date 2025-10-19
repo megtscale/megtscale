@@ -27,7 +27,7 @@ The deployment happens automatically! Every time you:
 
 The site will be automatically built and deployed to:
 ```
-https://[your-username].github.io/ediacara-timescape-me/
+https://megtscale.github.io/megtscale/
 ```
 
 ### 4. Check Deployment Status
