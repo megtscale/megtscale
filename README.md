@@ -2,7 +2,6 @@
 
 An interactive web application for exploring stratigraphic sections and radiometric data from the Ediacaran Period in the Middle East.
 
-**URL**: https://lovable.dev/projects/10cd6de9-e228-43c9-aacb-e9a2eda13747
 
 ## 🚀 Deploy to GitHub Pages
 
@@ -22,7 +21,7 @@ An interactive web application for exploring stratigraphic sections and radiomet
 #### 3. Deploy!
 Push code to main branch (happens automatically in Lovable) and your site goes live at:
 ```
-https://[your-username].github.io/ediacara-timescape-me/
+https://[your-username].github.io/megtscale/
 ```
 
 **Check Status**: Go to the **Actions** tab in GitHub to watch deployment
@@ -67,10 +66,6 @@ npm run build
 2. GitHub: **Settings** → **Pages** → **Custom domain**
 3. Update DNS records
 
-## 📖 Documentation
-
-- [Full Deployment Guide](DEPLOYMENT.md)
-- [Lovable Docs](https://docs.lovable.dev)
 
 ## 🏗️ Tech Stack
 
