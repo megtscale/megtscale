@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: process.env.GITHUB_PAGES ? '/megtscale/' : '/',
+  base: '/megtscale/',
   
   build: {
     rollupOptions: {
