@@ -113,25 +113,13 @@ const TimelineView = () => {
         {/* Enhanced Header */}
         <div className="mb-16 text-center">
           <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-copper to-secondary bg-clip-text text-transparent">
-            Ediacaran Time Scale
+            Middle East Geologic Time Scale
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Navigate through 97 million years of Ediacaran history. This interactive timeline
-            shows major geological and biological events during the assembly of the Arabian Plate.
+            Navigate through million years of geological history. This interactive timeline
+            shows major geological events during the assembly of the Arabian Plate.
           </p>
-          <div className="mt-6 flex items-center justify-center gap-6 text-sm text-muted-foreground">
-            <span className="flex items-center gap-2">
-              <span className="font-bold text-copper">635 Ma</span> Period Start
-            </span>
-            <span className="text-border">•</span>
-            <span className="flex items-center gap-2">
-              <span className="font-bold text-copper">538 Ma</span> Period End
-            </span>
-            <span className="text-border">•</span>
-            <span className="flex items-center gap-2">
-              <span className="font-bold text-copper">97 My</span> Duration
-            </span>
-          </div>
+          
         </div>
 
         <Card className="shadow-elegant max-w-5xl mx-auto">
@@ -286,17 +274,12 @@ const TimelineView = () => {
           </CardHeader>
           <CardContent className="prose prose-sm max-w-none">
             <p className="text-foreground">
-              The Middle East Geologic Time Scale (MEGTScale) focuses on the Ediacaran Period 
-              (635-538 Ma), a critical transition in Earth history following the Marinoan 
-              glaciation ("Snowball Earth"). This platform compiles radiometrically-dated 
-              stratigraphic sections to build a comprehensive chronostratigraphic framework 
-              for the region.
+              The Middle East Geologic Time Scale (MEGTScale) provides a comprehensive framework for understanding the geological evolution of the region across Earth’s history.
+              This platform compiles radiometrically dated stratigraphic sections to construct a unified chronostratigraphic and tectonic reference for the Middle East.
             </p>
             <p className="text-foreground mt-4">
-              The time scale integrates U-Pb zircon ages, stratigraphic correlations, and 
-              tectonic events to reconstruct how the Arabian Plate was assembled from multiple 
-              terranes. All data are linked to peer-reviewed publications and are openly 
-              accessible for research and education.
+              The time scale integrates geochronological data, stratigraphic correlations, and major tectonic events to reconstruct how the Arabian Plate and surrounding regions developed through time.
+              All datasets are linked to peer-reviewed publications and are openly accessible for research and educational use.
             </p>
           </CardContent>
         </Card>
