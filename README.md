@@ -21,7 +21,7 @@ An interactive web application for exploring stratigraphic sections and radiomet
 #### 3. Deploy!
 Push code to main branch (happens automatically in Lovable) and your site goes live at:
 ```
-https://[your-username].github.io/ediacara-timescape-me/
+https://[your-username].github.io/megtscale/
 ```
 
 **Check Status**: Go to the **Actions** tab in GitHub to watch deployment
