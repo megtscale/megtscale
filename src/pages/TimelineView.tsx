@@ -122,7 +122,7 @@ const TimelineView = () => {
           
         </div>
 
-        <Card className="shadow-elegant max-w-5xl mx-auto">
+        <Card className="shadow-elegant">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Clock className="w-6 h-6 text-copper" />
@@ -268,7 +268,7 @@ const TimelineView = () => {
           </CardContent>
         </Card>
 
-        <Card className="mt-12 max-w-5xl mx-auto">
+        <Card className="mt-12">
           <CardHeader>
             <CardTitle className="text-2xl">About the MEGTScale</CardTitle>
           </CardHeader>

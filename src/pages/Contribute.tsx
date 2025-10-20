@@ -4,9 +4,18 @@ import { Download, Upload, FileText, CheckCircle, Map, Layers } from "lucide-rea
 import { Link } from "react-router-dom";
 
 const Contribute = () => {
+  const downloadTemplate = (filename: string) => {
+    const link = document.createElement('a');
+    link.href = `/data/templates/${filename}`;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="min-h-screen py-12 bg-gradient-subtle">
-      <div className="container mx-auto px-4 max-w-4xl">
+      <div className="container mx-auto px-4">
         <div className="mb-8">
           <h1 className="font-heading text-4xl font-bold mb-4">
             Contribute to the Database
@@ -87,11 +96,19 @@ const Contribute = () => {
                   detailed column descriptions and example entries.
                 </p>
                 <div className="flex gap-3">
-                  <Button variant="scientific" size="sm">
+                  <Button 
+                    variant="scientific" 
+                    size="sm"
+                    onClick={() => downloadTemplate('stratigraphic_sections_template.csv')}
+                  >
                     <Download className="w-4 h-4" />
                     Stratigraphic Sections
                   </Button>
-                  <Button variant="scientific" size="sm">
+                  <Button 
+                    variant="scientific" 
+                    size="sm"
+                    onClick={() => downloadTemplate('radiometric_data_template.csv')}
+                  >
                     <Download className="w-4 h-4" />
                     Radiometric Data
                   </Button>

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 const About = () => {
   return (
     <div className="min-h-screen py-12 bg-gradient-subtle">
-      <div className="container mx-auto px-4 max-w-4xl">
+      <div className="container mx-auto px-4">
         <div className="mb-8">
           <h1 className="font-heading text-4xl font-bold mb-4">
             About the Project
