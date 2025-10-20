@@ -25,7 +25,7 @@ const About = () => {
           <CardContent className="prose prose-sm max-w-none">
             <p className="text-foreground">
               The Middle East Geological Time Scale project aims to create the most comprehensive
-              and accurate chronostratigraphic chart of the Ediacaran Period (635-538 Ma) in the
+              and accurate chronostratigraphic chart of the geological Periods in the
               Middle East. By compiling radiometric ages, stratigraphic data, and tectonic
               interpretations from across the region, we seek to understand how the Arabian Plate
               was assembled from multiple terranes during this critical period in Earth history.
@@ -47,7 +47,7 @@ const About = () => {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-foreground mb-3">
-                The Ediacaran Period represents a major transition in Earth's history, marking the
+                The Arabian Plate geology represents a major transition in Earth's history, marking the
                 emergence of complex life and significant tectonic reorganization.
               </p>
               <p className="text-sm text-foreground">

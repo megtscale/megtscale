@@ -129,7 +129,7 @@ const TimelineView = () => {
               Major Events Timeline
             </CardTitle>
             <CardDescription>
-              Key tectonic, climatic, and biological events during the Ediacaran Period
+              Key tectonic, climatic, and biological events
             </CardDescription>
           </CardHeader>
           <CardContent className="p-8">

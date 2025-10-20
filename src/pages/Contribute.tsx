@@ -40,7 +40,7 @@ const Contribute = () => {
                 <h4 className="font-semibold mb-1">Interactive Map Display</h4>
                 <p className="text-sm opacity-90">
                   Each stratigraphic section appears as a georeferenced point on the interactive map,
-                  allowing users to explore spatial distributions of Ediacaran rocks across the region.
+                  allowing users to explore spatial distributions of rocks across the region.
                 </p>
               </div>
             </div>
@@ -232,7 +232,7 @@ const Contribute = () => {
               </li>
             </ul>
             <a 
-              href="https://github.com/yourusername/ediacaran-chronostrat/wiki/Data-Entry-Guide" 
+              href="#" 
               target="_blank" 
               rel="noopener noreferrer"
             >

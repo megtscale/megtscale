@@ -107,7 +107,7 @@ const Index = () => {
                   </div>
                   <CardTitle>Time Scale</CardTitle>
                   <CardDescription>
-                    Navigate through 97 million years of Ediacaran geological history
+                    Navigate through million years of Middle East geological history
                   </CardDescription>
                 </CardHeader>
               </Card>
