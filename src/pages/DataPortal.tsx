@@ -1,39 +1,101 @@
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Download, FileText, ExternalLink, Clock } from "lucide-react";
+import Papa from "papaparse";
+
+interface StratigraphicSection {
+  id: string;
+  name: string;
+  period: string;
+  ageMinMa: number;
+  ageMaxMa: number;
+  terrane: string;
+  rockType: string;
+  lat: number;
+  lng: number;
+  description: string;
+  photoUrl: string;
+  dataSourceDoi: string;
+}
+
+interface RadiometricData {
+  id: string;
+  sectionId: string;
+  isotopeSystem: string;
+  mineral: string;
+  ageMa: number;
+  errorMa: number;
+  labMethod: string;
+  reference: string;
+  doi: string;
+  notes: string;
+}
+
+interface CombinedData {
+  id: string;
+  name: string;
+  terrane: string;
+  ageMa: string;
+  isotopeSystem: string;
+  reference: string;
+  doi: string;
+}
 
 const DataPortal = () => {
-  const sampleData = [
-    {
-      id: "sec-om-001",
-      name: "Jabal Example Section",
-      terrane: "Oman Ophiolite margin",
-      ageMa: "602.4 ± 1.8",
-      isotopeSystem: "U-Pb",
-      reference: "Author et al. (2019)",
-      doi: "10.5678/example.doi",
-    },
-    {
-      id: "sec-uae-001",
-      name: "UAE Outcrop",
-      terrane: "Arabian Shield",
-      ageMa: "580 ± 3.0",
-      isotopeSystem: "Rb-Sr",
-      reference: "Smith et al. (2020)",
-      doi: "10.1234/uae.doi",
-    },
-    {
-      id: "sec-bh-001",
-      name: "Bahrain Site",
-      terrane: "Foreland Basin",
-      ageMa: "565 ± 2.5",
-      isotopeSystem: "U-Pb",
-      reference: "Jones et al. (2021)",
-      doi: "10.9876/bahrain.doi",
-    },
-  ];
+  const [combinedData, setCombinedData] = useState<CombinedData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const [sectionsRes, radiometricRes] = await Promise.all([
+          fetch("/data/stratigraphic_sections.csv"),
+          fetch("/data/radiometric_data.csv"),
+        ]);
+
+        const [sectionsText, radiometricText] = await Promise.all([
+          sectionsRes.text(),
+          radiometricRes.text(),
+        ]);
+
+        const parsedSections = Papa.parse<StratigraphicSection>(sectionsText, {
+          header: true,
+          dynamicTyping: true,
+          skipEmptyLines: true,
+        });
+
+        const parsedRadiometric = Papa.parse<RadiometricData>(radiometricText, {
+          header: true,
+          dynamicTyping: true,
+          skipEmptyLines: true,
+        });
+
+        // Combine the data
+        const combined: CombinedData[] = parsedRadiometric.data.map((rad) => {
+          const section = parsedSections.data.find((sec) => sec.id === rad.sectionId);
+          return {
+            id: rad.id,
+            name: section?.name || "Unknown",
+            terrane: section?.terrane || "Unknown",
+            ageMa: `${rad.ageMa} ± ${rad.errorMa}`,
+            isotopeSystem: rad.isotopeSystem,
+            reference: rad.reference,
+            doi: rad.doi,
+          };
+        });
+
+        setCombinedData(combined);
+      } catch (error) {
+        console.error("Error loading data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
 
   const downloadCSV = (filename: string, path: string) => {
     const link = document.createElement('a');
@@ -70,19 +132,23 @@ const DataPortal = () => {
         <div className="grid md:grid-cols-3 gap-6 mb-8">
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl text-copper">3</CardTitle>
-              <CardDescription>Total Sections</CardDescription>
+              <CardTitle className="text-2xl text-copper">{combinedData.length}</CardTitle>
+              <CardDescription>Total Samples</CardDescription>
             </CardHeader>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl text-copper">3</CardTitle>
+              <CardTitle className="text-2xl text-copper">
+                {new Set(combinedData.map(d => d.reference)).size}
+              </CardTitle>
               <CardDescription>Published References</CardDescription>
             </CardHeader>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle className="text-2xl text-copper">2</CardTitle>
+              <CardTitle className="text-2xl text-copper">
+                {new Set(combinedData.map(d => d.isotopeSystem)).size}
+              </CardTitle>
               <CardDescription>Isotope Systems</CardDescription>
             </CardHeader>
           </Card>
@@ -147,44 +213,48 @@ const DataPortal = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="rounded-lg border">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>ID</TableHead>
-                    <TableHead>Section Name</TableHead>
-                    <TableHead>Terrane</TableHead>
-                    <TableHead>Age (Ma)</TableHead>
-                    <TableHead>Method</TableHead>
-                    <TableHead>Reference</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {sampleData.map((row) => (
-                    <TableRow key={row.id}>
-                      <TableCell className="font-mono text-xs">{row.id}</TableCell>
-                      <TableCell className="font-medium">{row.name}</TableCell>
-                      <TableCell>{row.terrane}</TableCell>
-                      <TableCell className="font-mono">{row.ageMa}</TableCell>
-                      <TableCell>
-                        <Badge variant="secondary">{row.isotopeSystem}</Badge>
-                      </TableCell>
-                      <TableCell className="text-sm">
-                        <a
-                          href={`https://doi.org/${row.doi}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-copper hover:underline flex items-center gap-1"
-                        >
-                          {row.reference}
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
-                      </TableCell>
+            {loading ? (
+              <p className="text-center text-muted-foreground py-8">Loading data...</p>
+            ) : (
+              <div className="rounded-lg border">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>ID</TableHead>
+                      <TableHead>Section Name</TableHead>
+                      <TableHead>Terrane</TableHead>
+                      <TableHead>Age (Ma)</TableHead>
+                      <TableHead>Method</TableHead>
+                      <TableHead>Reference</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
+                  </TableHeader>
+                  <TableBody>
+                    {combinedData.map((row) => (
+                      <TableRow key={row.id}>
+                        <TableCell className="font-mono text-xs">{row.id}</TableCell>
+                        <TableCell className="font-medium">{row.name}</TableCell>
+                        <TableCell>{row.terrane}</TableCell>
+                        <TableCell className="font-mono">{row.ageMa}</TableCell>
+                        <TableCell>
+                          <Badge variant="secondary">{row.isotopeSystem}</Badge>
+                        </TableCell>
+                        <TableCell className="text-sm">
+                          <a
+                            href={`https://doi.org/${row.doi}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-copper hover:underline flex items-center gap-1"
+                          >
+                            {row.reference}
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            )}
           </CardContent>
         </Card>
 
