@@ -276,9 +276,11 @@ const MapView = () => {
         )
         .join("<hr class='my-1'/>");
 
+      const photoUrl = section.photoUrl || '/images/sections/default-section.jpg';
+      
       marker.bindPopup(`
         <div style="min-width: 250px; max-width: 300px;">
-          ${section.photoUrl ? `<img src="${section.photoUrl}" alt="${section.name}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 12px; cursor: pointer;" class="section-photo" data-photo-url="${section.photoUrl}" data-section-name="${section.name}" title="Click to enlarge" />` : ""}
+          <img src="${photoUrl}" alt="${section.name}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 12px; cursor: pointer;" class="section-photo" data-photo-url="${photoUrl}" data-section-name="${section.name}" title="Click to enlarge" onerror="this.src='/images/sections/default-section.jpg'" />
           <h3 class="font-bold text-base mb-2">${section.name}</h3>
           <p class="text-sm mb-1"><strong>Terrane:</strong> ${section.terrane}</p>
           <p class="text-sm mb-1"><strong>Rock Type:</strong> ${section.rockType}</p>
@@ -542,16 +544,18 @@ const MapView = () => {
                   <div className="space-y-2 text-sm pt-1">
                     <div className="flex gap-4">
                       {/* Left side - Photo */}
-                      {section.photoUrl && (
-                        <div className="flex-shrink-0 w-40">
-                          <img 
-                            src={section.photoUrl} 
-                            alt={section.name}
-                            className="w-full h-28 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
-                            onClick={() => setEnlargedImage({ url: section.photoUrl, title: section.name })}
-                          />
-                        </div>
-                      )}
+                      <div className="flex-shrink-0 w-40">
+                        <img 
+                          src={section.photoUrl || '/images/sections/default-section.jpg'} 
+                          alt={section.name}
+                          className="w-full h-28 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity"
+                          onClick={() => setEnlargedImage({ url: section.photoUrl || '/images/sections/default-section.jpg', title: section.name })}
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement;
+                            target.src = '/images/sections/default-section.jpg';
+                          }}
+                        />
+                      </div>
                       
                       {/* Right side - Content */}
                       <div className="flex-1 space-y-2">
@@ -620,6 +624,10 @@ const MapView = () => {
                 src={enlargedImage.url} 
                 alt={enlargedImage.title}
                 className="w-full h-auto rounded-lg"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/images/sections/default-section.jpg';
+                }}
               />
             </div>
           )}
