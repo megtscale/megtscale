@@ -242,7 +242,7 @@ const TimelineView = () => {
                                           </p>
                                         )}
                                       </div>
-                                      <Link to="/map">
+                                      <Link to="/">
                                         <Button 
                                           variant="outline" 
                                           size="sm" 
