@@ -132,27 +132,6 @@ const About = () => {
           </CardContent>
         </Card>
 
-        <Card className="mt-8 bg-muted/50">
-          <CardHeader>
-            <CardTitle className="text-lg">Key References</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2 text-sm">
-              <li className="text-muted-foreground">
-                • Hoffman, P.F., et al. (2017). Snowball Earth climate dynamics and Cryogenian
-                geology-geobiology. <em>Science Advances</em>, 3(11).
-              </li>
-              <li className="text-muted-foreground">
-                • Stern, R.J., et al. (2010). Distribution and significance of pre-Neoproterozoic
-                zircons in juvenile Neoproterozoic igneous rocks of the Arabian-Nubian Shield.
-                <em>American Journal of Science</em>, 310(9), 791-811.
-              </li>
-              <li className="text-muted-foreground">
-                • Additional references will be added as the database grows
-              </li>
-            </ul>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
