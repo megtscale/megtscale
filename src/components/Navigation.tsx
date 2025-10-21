@@ -30,7 +30,7 @@ const Navigation = () => {
             />
             <div>
               <span className="font-heading font-bold text-lg md:text-xl text-foreground block leading-tight">
-                MEGTScale
+                MEGTScale - Beta
               </span>
               <span className="hidden md:block text-xs text-muted-foreground">
                 Middle East Geologic Time Scale
