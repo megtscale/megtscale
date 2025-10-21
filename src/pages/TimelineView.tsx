@@ -32,6 +32,7 @@ interface TimelineEvent {
   referenceIds: string;
   period: string;
   description: string;
+  relatedSectionIds?: string;
 }
 
 interface Reference {
@@ -95,9 +96,16 @@ const TimelineView = () => {
   }, []);
 
   // Find related sections for each event
-  const getRelatedSections = (ageRangeMin: number, ageRangeMax: number) => {
+  const getRelatedSections = (event: TimelineEvent) => {
+    // If manual section IDs are specified, use those
+    if (event.relatedSectionIds && event.relatedSectionIds.trim()) {
+      const ids = event.relatedSectionIds.split(',').map(id => id.trim());
+      return sections.filter(section => ids.includes(section.id));
+    }
+    
+    // Otherwise, fall back to automatic age-based matching
     return sections.filter(section => 
-      (section.ageMinMa <= ageRangeMax && section.ageMaxMa >= ageRangeMin)
+      (section.ageMinMa <= event.ageRangeMax && section.ageMaxMa >= event.ageRangeMin)
     );
   };
 
@@ -140,7 +148,7 @@ const TimelineView = () => {
               {/* Events */}
               <div className="space-y-6">
                 {events.map((item) => {
-                  const relatedSections = getRelatedSections(item.ageRangeMin, item.ageRangeMax);
+                  const relatedSections = getRelatedSections(item);
                   const eventRefs = getEventReferences(item.referenceIds);
                   
                   return (
