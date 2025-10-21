@@ -22,17 +22,17 @@ const Navigation = () => {
     <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50 shadow-lg">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">
-          <Link to="/" className="flex items-center gap-4 group">
+          <Link to="/" className="flex items-center gap-3 group">
             <img 
               src={logo} 
               alt="MEGTScale Logo" 
-              className="w-12 h-12 rounded-xl shadow-elegant transition-transform group-hover:scale-105"
+              className="w-10 h-10 md:w-12 md:h-12 rounded-xl shadow-elegant transition-transform group-hover:scale-105"
             />
-            <div className="hidden md:block">
-              <span className="font-heading font-bold text-xl text-foreground block leading-tight">
+            <div>
+              <span className="font-heading font-bold text-lg md:text-xl text-foreground block leading-tight">
                 MEGTScale
               </span>
-              <span className="text-xs text-muted-foreground">
+              <span className="hidden md:block text-xs text-muted-foreground">
                 Middle East Geologic Time Scale
               </span>
             </div>
