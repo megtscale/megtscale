@@ -1,4 +1,41 @@
 id,sectionId,isotopeSystem,mineral,ageMa,errorMa,labMethod,reference,doi,notes
-rdt-0001,sec-om-001,U-Pb,Zircon,602.4,1.8,ID-TIMS,Author et al. (2019),10.5678/example.doi,Tonalite intrusion; concordant.
-rdt-0002,sec-uae-001,Rb-Sr,Whole Rock,580.0,3.0,TIMS,Smith et al. (2020),10.1234/uae.doi,Regional metamorphism event.
-rdt-0003,sec-bh-001,U-Pb,Zircon,565.0,2.5,LA-ICP-MS,Jones et al. (2021),10.9876/bahrain.doi,Volcanic ash layer.
+D1,S1,U-Pb,Zircon,576,7,LA-ICP-MS/MS,Collins et al. (2024),,Poster-corrected age
+D2,S2,U-Pb,Zircon,543,50,LA-ICP-MS/MS,Collins et al. (2024),,Poster-corrected age
+D3,S3,U-Pb,Zircon,705,5,LA-ICP-MS/MS,Collins et al. (2024),,Poster-corrected age
+D4,S3,U-Pb,Zircon,571,57,LA-ICP-MS/MS,Collins et al. (2024),,Poster-corrected age
+D5,S4,U-Pb,Detrital (MDA),559,7,LA-ICP-MS/MS,Collins et al. (2024),,Red arkose MDA
+D6,S4,U-Pb,Zircon,620,3,LA-ICP-MS/MS,Collins et al. (2024),,Granite age
+D7,S5,U-Pb,Zircon,716,7,LA-ICP-MS/MS,Collins et al. (2024),,Granodiorite age
+D8,S6,U-Pb,Zircon,744.5,3,LA-ICP-MS/MS,Collins et al. (2024),,Granite age
+D9,S6,U-Pb,Zircon,680,5,LA-ICP-MS/MS,Collins et al. (2024),,Younger granite
+D10,S7,U-Pb,Detrital (MDA),607,12,LA-ICP-MS/MS,Collins et al. (2024),,Sandstone MDA
+D11,S7,U-Pb,Detrital (MDA),618,3,LA-ICP-MS/MS,Collins et al. (2024),,Second MDA
+D12,S8,U-Pb,Zircon,681.3,3,LA-ICP-MS/MS,Collins et al. (2024),,Granite age
+D13,S9,U-Pb,Detrital (MDA),552,44,LA-ICP-MS/MS,Collins et al. (2024),,Conglomerate MDA
+D14,S10,U-Pb,Apatite,637,4,LA-ICP-MS/MS,Collins et al. (2024),,Metavolcanic apatite age
+D15,S11,U-Pb,Zircon,627,5.9,LA-ICP-MS/MS,Collins et al. (2024),,Metavolcanic age
+D16,S12,U-Pb,Zircon,537,20,LA-ICP-MS/MS,Collins et al. (2024),,Felsic volcanics
+D17,S13,U-Pb,Zircon,640,3,LA-ICP-MS/MS,Collins et al. (2024),,Granite crystallization
+D18,S13,U-Pb,Zircon,637,37,LA-ICP-MS/MS,Collins et al. (2024),,Granite variation
+D19,S13,Rb-Sr,Feldspar,196,68,LA-ICP-MS/MS,Collins et al. (2024),,Resetting age
+D20,S14,U-Pb,Zircon,603,2,LA-ICP-MS/MS,Collins et al. (2024),,Granite age
+D21,S14,U-Pb,Zircon,605,9,LA-ICP-MS/MS,Collins et al. (2024),,Duplicate analysis
+D22,S15,U-Pb,Zircon,626,1,LA-ICP-MS/MS,Collins et al. (2024),,Crystallization age
+D23,S15,Rb-Sr,Feldspar,540,20,LA-ICP-MS/MS,Collins et al. (2024),,Resetting
+D24,S16,U-Pb,Detrital (MDA),589,4,LA-ICP-MS/MS,Collins et al. (2024),,Sandstone MDA
+D25,S16,U-Pb,Detrital (MDA),569,33,LA-ICP-MS/MS,Collins et al. (2024),,Second MDA
+D26,S17,U-Pb,Zircon,837,89,LA-ICP-MS/MS,Collins et al. (2024),,Protolith age
+D27,S17,Rb-Sr,Mica,542,36,LA-ICP-MS/MS,Collins et al. (2024),,Resetting
+D28,S18,Rb-Sr,Volcanic matrix,523,28,LA-ICP-MS/MS,Collins et al. (2024),,Metavolcanic Cambrian
+D29,S19,U-Pb,Detrital (MDA),517,41,LA-ICP-MS/MS,Collins et al. (2024),,Cambrian siltstone
+D30,S20,U-Pb,Detrital (MDA),575,59,LA-ICP-MS/MS,Collins et al. (2024),,Ediacaran siltstone
+D31,S21,U-Pb,Zircon,794,61,LA-ICP-MS/MS,Collins et al. (2024),,Cryogenian volcanoclastic
+D32,S21,U-Pb,Zircon,603,29,LA-ICP-MS/MS,Collins et al. (2024),,Ediacaran volcanoclastic
+D33,S22,U-Pb,Zircon,603,67,LA-ICP-MS/MS,Collins et al. (2024),,Andesite age
+D34,S23,U-Pb,Apatite,612,2,LA-ICP-MS/MS,Collins et al. (2024),,Cooling age
+D35,S24,U-Pb,Zircon,627,2,LA-ICP-MS/MS,Collins et al. (2024),,Granodiorite crystallization
+D36,S25,U-Pb,Zircon,622,2,LA-ICP-MS/MS,Collins et al. (2024),,Older granite age
+D37,S25,Rb-Sr,Feldspar,406,22,LA-ICP-MS/MS,Collins et al. (2024),,Resetting
+D38,S26,U-Pb,Zircon,714,5,LA-ICP-MS/MS,Collins et al. (2024),,Granite age
+D39,S26,U-Pb,Zircon,688,54,LA-ICP-MS/MS,Collins et al. (2024),,Younger granite event
+D40,S10,Rb-Sr,,622,136,LA-ICP-MS/MS,Collins et al. (2024),,Metavolcanic resetting (poster)
