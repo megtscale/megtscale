@@ -85,21 +85,22 @@ const Contribute = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-accent flex items-center justify-center text-white font-bold">
+            <div className="flex gap-3 md:gap-4">
+              <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-accent flex items-center justify-center text-white font-bold text-sm md:text-base">
                 1
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-lg mb-2">Download CSV Template</h3>
-                <p className="text-sm text-muted-foreground mb-3">
+                <h3 className="font-semibold text-base md:text-lg mb-2">Download CSV Template</h3>
+                <p className="text-xs md:text-sm text-muted-foreground mb-3">
                   Use our standardized templates to ensure data compatibility. Templates include
                   detailed column descriptions and example entries.
                 </p>
-                <div className="flex gap-3">
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                   <Button 
                     variant="scientific" 
                     size="sm"
                     onClick={() => downloadTemplate('stratigraphic_sections_template.csv')}
+                    className="w-full sm:w-auto justify-center sm:justify-start"
                   >
                     <Download className="w-4 h-4" />
                     Stratigraphic Sections
@@ -108,6 +109,7 @@ const Contribute = () => {
                     variant="scientific" 
                     size="sm"
                     onClick={() => downloadTemplate('radiometric_data_template.csv')}
+                    className="w-full sm:w-auto justify-center sm:justify-start"
                   >
                     <Download className="w-4 h-4" />
                     Radiometric Data
@@ -116,26 +118,26 @@ const Contribute = () => {
               </div>
             </div>
 
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-accent flex items-center justify-center text-white font-bold">
+            <div className="flex gap-3 md:gap-4">
+              <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-accent flex items-center justify-center text-white font-bold text-sm md:text-base">
                 2
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-lg mb-2">Fill in Your Data</h3>
-                <p className="text-sm text-muted-foreground">
+<h3 className="font-semibold text-base md:text-lg mb-2">Fill in Your Data</h3>
+                <p className="text-xs md:text-sm text-muted-foreground">
                   Add your stratigraphic sections, radiometric ages, location data, and references.
                   Use any spreadsheet software (Excel, Google Sheets, LibreOffice).
                 </p>
               </div>
             </div>
 
-            <div className="flex gap-4">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-accent flex items-center justify-center text-white font-bold">
+            <div className="flex gap-3 md:gap-4">
+              <div className="flex-shrink-0 w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-accent flex items-center justify-center text-white font-bold text-sm md:text-base">
                 3
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-lg mb-2">Upload or Submit</h3>
-                <p className="text-sm text-muted-foreground mb-3">
+                <h3 className="font-semibold text-base md:text-lg mb-2">Upload or Submit</h3>
+                <p className="text-xs md:text-sm text-muted-foreground mb-3">
                   Upload your completed CSV file using the form below. We'll review and integrate
                   your data into the database with full attribution.
                 </p>

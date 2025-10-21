@@ -134,8 +134,8 @@ const TimelineView = () => {
           </CardHeader>
           <CardContent className="p-8">
             <div className="relative">
-              {/* Timeline line */}
-              <div className="absolute left-12 top-0 bottom-0 w-1 bg-gradient-to-b from-copper via-primary to-secondary rounded-full" />
+              {/* Timeline line - hidden on mobile, visible on md+ */}
+              <div className="hidden md:block absolute left-12 top-0 bottom-0 w-1 bg-gradient-to-b from-copper via-primary to-secondary rounded-full" />
 
               {/* Events */}
               <div className="space-y-6">
@@ -144,22 +144,22 @@ const TimelineView = () => {
                   const eventRefs = getEventReferences(item.referenceIds);
                   
                   return (
-                    <div key={item.id} className="relative pl-28">
-                      <div className="absolute left-9 w-7 h-7 rounded-full bg-gradient-to-br from-copper to-primary border-4 border-background shadow-lg" />
-                      <div className="flex items-start gap-6">
-                        <div className="min-w-[100px]">
-                          <span className="font-mono font-bold text-2xl text-copper">
+                    <div key={item.id} className="relative pl-0 md:pl-28">
+                      <div className="hidden md:block absolute left-9 w-7 h-7 rounded-full bg-gradient-to-br from-copper to-primary border-4 border-background shadow-lg" />
+                      <div className="flex flex-col md:flex-row md:items-start gap-3 md:gap-6">
+                        <div className="md:min-w-[100px]">
+                          <span className="font-mono font-bold text-xl md:text-2xl text-copper">
                             {item.age}
                           </span>
-                          <span className="font-mono text-lg text-muted-foreground ml-1">Ma</span>
+                          <span className="font-mono text-base md:text-lg text-muted-foreground ml-1">Ma</span>
                         </div>
                         <div className="flex-1">
                           <Accordion type="single" collapsible className="w-full">
                             <AccordionItem value={item.id} className="border-none">
-                              <div className="flex items-center justify-between gap-4 mb-2">
+                              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-4 mb-2">
                                 <div className="flex-1">
-                                  <h3 className="font-semibold text-xl text-foreground mb-2">{item.event}</h3>
-                                  <div className="flex items-center gap-2 mb-2">
+                                  <h3 className="font-semibold text-lg md:text-xl text-foreground mb-2">{item.event}</h3>
+                                  <div className="flex flex-wrap items-center gap-2 mb-2">
                                     <Badge variant="secondary" className="text-sm">
                                       {item.type}
                                     </Badge>
