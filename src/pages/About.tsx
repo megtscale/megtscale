@@ -1,6 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { BookOpen, Target, Users, Mail } from "lucide-react";
+import { BookOpen, Target, Users, Mail, FileText, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (
@@ -106,6 +107,51 @@ const About = () => {
                 terranes, building a coherent temporal framework for the entire region.
               </p>
             </div>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-elegant mb-8">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <FileText className="w-6 h-6" />
+              Radiometric Rock Dating Information
+            </CardTitle>
+            <CardDescription>
+              Comprehensive guide to isotope systems, laboratory methods, and best practices
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="mb-4 text-muted-foreground">
+              Our detailed documentation covers everything you need to know about radiometric dating:
+            </p>
+            <ul className="space-y-2 text-sm mb-4">
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-copper mt-0.5 flex-shrink-0" />
+                <span><strong>Isotope Systems:</strong> U-Pb, Rb-Sr, Ar-Ar, Sm-Nd - their applications and limitations</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-copper mt-0.5 flex-shrink-0" />
+                <span><strong>Laboratory Methods:</strong> LA-ICP-MS, SHRIMP, TIMS techniques and best practices</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-copper mt-0.5 flex-shrink-0" />
+                <span><strong>Data Standards:</strong> How to properly report ages, uncertainties, and metadata</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-copper mt-0.5 flex-shrink-0" />
+                <span><strong>Common Issues:</strong> Pb loss, Ar excess, inherited zircons, and alteration effects</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-copper mt-0.5 flex-shrink-0" />
+                <span><strong>Regional Applications:</strong> Middle East geology-specific considerations</span>
+              </li>
+            </ul>
+            <Link to="/docs/radiometric-dating-guide">
+              <Button variant="scientific" size="sm">
+                <FileText className="w-4 h-4 mr-2" />
+                Read Full Documentation
+              </Button>
+            </Link>
           </CardContent>
         </Card>
 
