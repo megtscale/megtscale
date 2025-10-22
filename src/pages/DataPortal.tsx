@@ -257,48 +257,6 @@ const DataPortal = () => {
             )}
           </CardContent>
         </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <FileText className="w-5 h-5 text-copper" />
-              Data Standards & Multiple Datasets
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <h4 className="font-semibold mb-2">CSV Format</h4>
-              <p className="text-sm text-muted-foreground">
-                All data is stored in UTF-8 encoded CSV files with standardized column headers.
-                Download the template from the Contribute page to ensure compatibility.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-2">Age Uncertainties</h4>
-              <p className="text-sm text-muted-foreground">
-                All radiometric ages include 2σ uncertainties. Ages are reported in millions of
-                years (Ma) before present.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-2">Multiple Dataset Support</h4>
-              <p className="text-sm text-muted-foreground">
-                This portal is designed to accommodate multiple datasets from various contributors.
-                Each dataset maintains its own CSV file with proper attribution and DOI links.
-                As more data is contributed, additional tables and visualizations will be generated
-                automatically to compare and analyze different studies.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-2">References with DOI Links</h4>
-              <p className="text-sm text-muted-foreground">
-                Each entry links directly to the original publication via DOI. All data
-                is citable and traceable to primary sources, ensuring scientific integrity
-                and enabling proper attribution.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );

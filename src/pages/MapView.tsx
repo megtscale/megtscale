@@ -7,7 +7,7 @@ import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Filter, X, ExternalLink, FileText } from "lucide-react";
+import { Filter, X, ExternalLink, FileText, MapPin } from "lucide-react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
@@ -33,6 +33,7 @@ interface StratigraphicSection {
   ageMaxMa: number;
   terrane: string;
   rockType: string;
+  sampleType: string;
   lat: number;
   lng: number;
   description: string;
@@ -73,6 +74,8 @@ const MapView = () => {
   const [ageRange, setAgeRange] = useState([538, 635]);
   const [selectedIsotopes, setSelectedIsotopes] = useState<string[]>([]);
   const [selectedTerranes, setSelectedTerranes] = useState<string[]>([]);
+  const [selectedRockTypes, setSelectedRockTypes] = useState<string[]>([]);
+  const [selectedSampleTypes, setSelectedSampleTypes] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
 
   // Load CSV data
@@ -122,6 +125,13 @@ const MapView = () => {
     return Array.from(terranes).sort();
   }, [sections]);
 
+  const rockTypeOptions = useMemo(() => {
+    const rockTypes = new Set(sections.map((s) => s.rockType));
+    return Array.from(rockTypes).sort();
+  }, [sections]);
+
+  const sampleTypeOptions = ["Outcrop", "Subsurface"];
+
   // Combine sections with radiometric data
   const enrichedSections = useMemo(() => {
     return sections.map((section) => {
@@ -163,9 +173,23 @@ const MapView = () => {
         return false;
       }
 
+      // Rock type filter
+      if (selectedRockTypes.length > 0 && !selectedRockTypes.includes(section.rockType)) {
+        return false;
+      }
+
+      // Sample type filter (outcrop vs subsurface)
+      if (selectedSampleTypes.length > 0) {
+        // Default to "Outcrop" if sampleType field is missing
+        const sampleType = section.sampleType || "Outcrop";
+        if (!selectedSampleTypes.includes(sampleType)) {
+          return false;
+        }
+      }
+
       return true;
     });
-  }, [enrichedSections, searchTerm, ageRange, selectedIsotopes, selectedTerranes]);
+  }, [enrichedSections, searchTerm, ageRange, selectedIsotopes, selectedTerranes, selectedRockTypes, selectedSampleTypes]);
 
   // Initialize map
   useEffect(() => {
@@ -299,6 +323,14 @@ const MapView = () => {
     setAgeRange([538, 635]);
     setSelectedIsotopes([]);
     setSelectedTerranes([]);
+    setSelectedRockTypes([]);
+    setSelectedSampleTypes([]);
+  };
+
+  const focusOnArabianPeninsula = () => {
+    if (map.current) {
+      map.current.setView([23, 45], 6);
+    }
   };
 
   // Handle hash navigation to expand accordion
@@ -357,7 +389,7 @@ const MapView = () => {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-4 gap-4">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
                 <div>
                   <Label htmlFor="search" className="text-sm font-medium">Search</Label>
                   <Input
@@ -468,9 +500,75 @@ const MapView = () => {
                     ))}
                   </div>
                 </div>
+
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Rock Types</Label>
+                  <div className="space-y-1 max-h-32 overflow-y-auto">
+                    {rockTypeOptions.map((rockType) => (
+                      <div key={rockType} className="flex items-center gap-2">
+                        <Checkbox
+                          id={`rocktype-${rockType}`}
+                          checked={selectedRockTypes.includes(rockType)}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setSelectedRockTypes([...selectedRockTypes, rockType]);
+                            } else {
+                              setSelectedRockTypes(
+                                selectedRockTypes.filter((r) => r !== rockType)
+                              );
+                            }
+                          }}
+                        />
+                        <Label
+                          htmlFor={`rocktype-${rockType}`}
+                          className="text-xs cursor-pointer"
+                        >
+                          {rockType}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <Label className="text-sm font-medium mb-2 block">Sample Type</Label>
+                  <div className="space-y-1">
+                    {sampleTypeOptions.map((sampleType) => (
+                      <div key={sampleType} className="flex items-center gap-2">
+                        <Checkbox
+                          id={`sampletype-${sampleType}`}
+                          checked={selectedSampleTypes.includes(sampleType)}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setSelectedSampleTypes([...selectedSampleTypes, sampleType]);
+                            } else {
+                              setSelectedSampleTypes(
+                                selectedSampleTypes.filter((s) => s !== sampleType)
+                              );
+                            }
+                          }}
+                        />
+                        <Label
+                          htmlFor={`sampletype-${sampleType}`}
+                          className="text-xs cursor-pointer"
+                        >
+                          {sampleType}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
 
-              <div className="flex justify-end mt-4">
+              <div className="flex justify-between mt-4">
+                <Button
+                  variant="scientific"
+                  size="sm"
+                  onClick={focusOnArabianPeninsula}
+                >
+                  <MapPin className="w-4 h-4 mr-2" />
+                  Focus on Arabian Peninsula
+                </Button>
                 <Button
                   variant="outline"
                   size="sm"

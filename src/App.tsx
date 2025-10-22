@@ -9,6 +9,7 @@ import DataPortal from "./pages/DataPortal";
 import Contribute from "./pages/Contribute";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import DocumentationView from "./pages/DocumentationView";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 
@@ -29,6 +30,7 @@ const App = () => (
               <Route path="/data" element={<DataPortal />} />
               <Route path="/contribute" element={<Contribute />} />
               <Route path="/about" element={<About />} />
+              <Route path="/docs/radiometric-dating-guide" element={<DocumentationView />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

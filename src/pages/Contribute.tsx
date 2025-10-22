@@ -208,40 +208,90 @@ const Contribute = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <FileText className="w-6 h-6" />
-              Data Entry Guidelines
+              Radiometric Rock Dating Information
             </CardTitle>
+            <CardDescription>
+              Comprehensive guide to isotope systems, laboratory methods, and best practices
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <p className="mb-4 text-muted-foreground">
-              Our comprehensive documentation provides detailed guidance on:
+              Our detailed documentation covers everything you need to know about radiometric dating:
             </p>
             <ul className="space-y-2 text-sm mb-4">
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-copper mt-0.5 flex-shrink-0" />
-                <span>CSV template structure and required fields</span>
+                <span><strong>Isotope Systems:</strong> U-Pb, Rb-Sr, Ar-Ar, Sm-Nd - their applications and limitations</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-copper mt-0.5 flex-shrink-0" />
-                <span>Data formatting standards and conventions</span>
+                <span><strong>Laboratory Methods:</strong> LA-ICP-MS, SHRIMP, TIMS techniques and best practices</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-copper mt-0.5 flex-shrink-0" />
-                <span>How to properly cite and reference your data sources</span>
+                <span><strong>Data Standards:</strong> How to properly report ages, uncertainties, and metadata</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-copper mt-0.5 flex-shrink-0" />
-                <span>Quality control procedures and best practices</span>
+                <span><strong>Common Issues:</strong> Pb loss, Ar excess, inherited zircons, and alteration effects</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle className="w-4 h-4 text-copper mt-0.5 flex-shrink-0" />
+                <span><strong>Regional Applications:</strong> Middle East geology-specific considerations</span>
               </li>
             </ul>
-            <a 
-              href="#" 
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
+            <Link to="/docs/radiometric-dating-guide">
               <Button variant="scientific" size="sm">
-                View Documentation Guide
+                <FileText className="w-4 h-4 mr-2" />
+                Read Full Documentation
               </Button>
-            </a>
+            </Link>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-elegant mt-8">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <CheckCircle className="w-6 h-6 text-copper" />
+              Data Standards & Best Practices
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <h4 className="font-semibold mb-2 flex items-center gap-2">
+                <FileText className="w-4 h-4 text-copper" />
+                CSV Format Standards
+              </h4>
+              <p className="text-sm text-muted-foreground">
+                All data is stored in UTF-8 encoded CSV files with standardized column headers.
+                Download the template above to ensure compatibility with the database structure.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-2">Age Uncertainty Reporting</h4>
+              <p className="text-sm text-muted-foreground">
+                All radiometric ages must include 2σ (95% confidence) uncertainties. Ages are reported 
+                in millions of years (Ma) before present. Both analytical and systematic uncertainties 
+                should be included when relevant.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-2">Multiple Dataset Support</h4>
+              <p className="text-sm text-muted-foreground">
+                The MEGTScale portal is designed to accommodate multiple datasets from various contributors.
+                Each dataset maintains its own CSV file with proper attribution and DOI links.
+                As more data is contributed, additional tables and visualizations will be generated
+                automatically to compare and analyze different studies.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-2">References with DOI Links</h4>
+              <p className="text-sm text-muted-foreground">
+                Each entry must link directly to the original publication via DOI. All data
+                is citable and traceable to primary sources, ensuring scientific integrity
+                and enabling proper attribution. Use the format: "Author et al. (Year)" in the reference field.
+              </p>
+            </div>
           </CardContent>
         </Card>
       </div>

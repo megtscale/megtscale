@@ -1,1 +1,1 @@
-id,name,period,ageMinMa,ageMaxMa,terrane,rockType,lat,lng,description,photoUrl,dataSourceDoi
+id,name,period,ageMinMa,ageMaxMa,terrane,rockType,sampleType,lat,lng,description,photoUrl,dataSourceDoi
