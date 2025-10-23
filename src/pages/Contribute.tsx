@@ -8,6 +8,9 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
+// Google Apps Script URL for form submission
+const GOOGLE_APPS_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+
 const Contribute = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
@@ -15,7 +18,6 @@ const Contribute = () => {
     email: "",
     institution: "",
     description: "",
-    appScriptUrl: "",
   });
   const [files, setFiles] = useState<FileList | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -40,15 +42,6 @@ const Contribute = () => {
       toast({
         title: "Missing Information",
         description: "Please fill in all required fields.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (!formData.appScriptUrl) {
-      toast({
-        title: "Missing App Script URL",
-        description: "Please enter your Google Apps Script URL.",
         variant: "destructive",
       });
       return;
@@ -79,7 +72,7 @@ const Contribute = () => {
         }
       }
 
-      const response = await fetch(formData.appScriptUrl, {
+      const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
         headers: {
@@ -106,7 +99,6 @@ const Contribute = () => {
         email: "",
         institution: "",
         description: "",
-        appScriptUrl: formData.appScriptUrl, // Keep the URL
       });
       setFiles(null);
       
@@ -329,21 +321,6 @@ const Contribute = () => {
                 />
                 <p className="text-xs text-muted-foreground">
                   You can attach multiple CSV files (stratigraphic sections, radiometric data, etc.)
-                </p>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="appScriptUrl">Google Apps Script URL *</Label>
-                <Input
-                  id="appScriptUrl"
-                  type="url"
-                  placeholder="https://script.google.com/macros/s/..."
-                  value={formData.appScriptUrl}
-                  onChange={(e) => setFormData({ ...formData, appScriptUrl: e.target.value })}
-                  required
-                />
-                <p className="text-xs text-muted-foreground">
-                  Enter your Google Apps Script web app URL to receive submissions
                 </p>
               </div>
 
