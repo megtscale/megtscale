@@ -39,10 +39,10 @@ const DocumentationView = () => {
   return (
     <div className="min-h-screen py-12 bg-gradient-subtle">
       <div className="container mx-auto px-4 max-w-4xl">
-        <Link to="/contribute">
+        <Link to="/data">
           <Button variant="outline" size="sm" className="mb-6">
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Contribute
+            Back to Data Portal
           </Button>
         </Link>
 
