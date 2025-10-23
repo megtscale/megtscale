@@ -15,7 +15,10 @@ const Contribute = () => {
     email: "",
     institution: "",
     description: "",
+    appScriptUrl: "",
   });
+  const [files, setFiles] = useState<FileList | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const downloadTemplate = (filename: string) => {
     const link = document.createElement('a');
@@ -26,7 +29,11 @@ const Contribute = () => {
     document.body.removeChild(link);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFiles(e.target.files);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!formData.name || !formData.email || !formData.description) {
@@ -38,22 +45,85 @@ const Contribute = () => {
       return;
     }
 
-    const subject = encodeURIComponent("MEGTScale Data Contribution");
-    const body = encodeURIComponent(
-      `Name: ${formData.name}\n` +
-      `Email: ${formData.email}\n` +
-      `Institution: ${formData.institution}\n\n` +
-      `Description:\n${formData.description}\n\n` +
-      `---\n` +
-      `Please attach your CSV files to this email.`
-    );
-    
-    window.location.href = `mailto:contact@megtscale.com?subject=${subject}&body=${body}`;
-    
-    toast({
-      title: "Opening Email Client",
-      description: "Your default email application will open with the form data.",
-    });
+    if (!formData.appScriptUrl) {
+      toast({
+        title: "Missing App Script URL",
+        description: "Please enter your Google Apps Script URL.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      // Convert files to base64
+      const fileData = [];
+      if (files) {
+        for (let i = 0; i < files.length; i++) {
+          const file = files[i];
+          const base64 = await new Promise<string>((resolve) => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              const result = reader.result as string;
+              resolve(result.split(',')[1]); // Remove data:*/*;base64, prefix
+            };
+            reader.readAsDataURL(file);
+          });
+          
+          fileData.push({
+            name: file.name,
+            mimeType: file.type,
+            data: base64,
+          });
+        }
+      }
+
+      const response = await fetch(formData.appScriptUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          institution: formData.institution,
+          description: formData.description,
+          files: fileData,
+          timestamp: new Date().toISOString(),
+        }),
+      });
+
+      toast({
+        title: "Submission Sent",
+        description: "Your data contribution has been submitted. Please check your Google Sheet to confirm receipt.",
+      });
+
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        institution: "",
+        description: "",
+        appScriptUrl: formData.appScriptUrl, // Keep the URL
+      });
+      setFiles(null);
+      
+      // Reset file input
+      const fileInput = document.getElementById("files") as HTMLInputElement;
+      if (fileInput) fileInput.value = "";
+
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Submission Error",
+        description: "Failed to submit the form. Please try again or contact us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -247,16 +317,45 @@ const Contribute = () => {
                 />
               </div>
 
-              <div className="bg-muted p-4 rounded-lg">
-                <p className="text-sm text-muted-foreground">
-                  <strong>Note:</strong> When you click "Send Email", your default email client will open 
-                  with the form data. Please attach your completed CSV files before sending the email.
+              <div className="space-y-2">
+                <Label htmlFor="files">Attach CSV Files</Label>
+                <Input
+                  id="files"
+                  type="file"
+                  accept=".csv"
+                  multiple
+                  onChange={handleFileChange}
+                  className="cursor-pointer"
+                />
+                <p className="text-xs text-muted-foreground">
+                  You can attach multiple CSV files (stratigraphic sections, radiometric data, etc.)
                 </p>
               </div>
 
-              <Button type="submit" variant="hero" size="lg" className="w-full">
+              <div className="space-y-2">
+                <Label htmlFor="appScriptUrl">Google Apps Script URL *</Label>
+                <Input
+                  id="appScriptUrl"
+                  type="url"
+                  placeholder="https://script.google.com/macros/s/..."
+                  value={formData.appScriptUrl}
+                  onChange={(e) => setFormData({ ...formData, appScriptUrl: e.target.value })}
+                  required
+                />
+                <p className="text-xs text-muted-foreground">
+                  Enter your Google Apps Script web app URL to receive submissions
+                </p>
+              </div>
+
+              <Button 
+                type="submit" 
+                variant="hero" 
+                size="lg" 
+                className="w-full"
+                disabled={isSubmitting}
+              >
                 <Mail className="w-4 h-4" />
-                Send Email to contact@megtscale.com
+                {isSubmitting ? "Submitting..." : "Submit Data Contribution"}
               </Button>
             </form>
           </CardContent>
