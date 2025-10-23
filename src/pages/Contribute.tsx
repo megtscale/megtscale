@@ -1,9 +1,22 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, Upload, FileText, CheckCircle, Map, Layers } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Download, Mail, FileText, CheckCircle, Map, Layers } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 const Contribute = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    institution: "",
+    description: "",
+  });
+
   const downloadTemplate = (filename: string) => {
     const link = document.createElement('a');
     link.href = `/data/templates/${filename}`;
@@ -11,6 +24,36 @@ const Contribute = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.email || !formData.description) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const subject = encodeURIComponent("MEGTScale Data Contribution");
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\n` +
+      `Email: ${formData.email}\n` +
+      `Institution: ${formData.institution}\n\n` +
+      `Description:\n${formData.description}\n\n` +
+      `---\n` +
+      `Please attach your CSV files to this email.`
+    );
+    
+    window.location.href = `mailto:contact@megtscale.com?subject=${subject}&body=${body}`;
+    
+    toast({
+      title: "Opening Email Client",
+      description: "Your default email application will open with the form data.",
+    });
   };
 
   return (
@@ -136,17 +179,86 @@ const Contribute = () => {
                 3
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold text-base md:text-lg mb-2">Upload or Submit</h3>
+                <h3 className="font-semibold text-base md:text-lg mb-2">Submit Your Data</h3>
                 <p className="text-xs md:text-sm text-muted-foreground mb-3">
-                  Upload your completed CSV file using the form below. We'll review and integrate
+                  Fill in the form below and submit your data via email. We'll review and integrate
                   your data into the database with full attribution.
                 </p>
-                <Button variant="hero" size="sm">
-                  <Upload className="w-4 h-4" />
-                  Upload CSV File
-                </Button>
               </div>
             </div>
+          </CardContent>
+        </Card>
+
+        <Card className="shadow-elegant mb-8">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Mail className="w-6 h-6 text-copper" />
+              Submit Your Data
+            </CardTitle>
+            <CardDescription>
+              Fill in the form below to submit your data contribution
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Name *</Label>
+                  <Input
+                    id="name"
+                    placeholder="Your full name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email *</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="your.email@institution.edu"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    required
+                  />
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="institution">Institution / Organization</Label>
+                <Input
+                  id="institution"
+                  placeholder="University or research institution"
+                  value={formData.institution}
+                  onChange={(e) => setFormData({ ...formData, institution: e.target.value })}
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="description">Data Description *</Label>
+                <Textarea
+                  id="description"
+                  placeholder="Describe the data you're contributing (e.g., number of stratigraphic sections, radiometric ages, study area, publication status)"
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  rows={5}
+                  required
+                />
+              </div>
+
+              <div className="bg-muted p-4 rounded-lg">
+                <p className="text-sm text-muted-foreground">
+                  <strong>Note:</strong> When you click "Send Email", your default email client will open 
+                  with the form data. Please attach your completed CSV files before sending the email.
+                </p>
+              </div>
+
+              <Button type="submit" variant="hero" size="lg" className="w-full">
+                <Mail className="w-4 h-4" />
+                Send Email to contact@megtscale.com
+              </Button>
+            </form>
           </CardContent>
         </Card>
 
