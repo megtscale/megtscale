@@ -77,6 +77,7 @@ const MapView = () => {
   const [selectedRockTypes, setSelectedRockTypes] = useState<string[]>([]);
   const [selectedSampleTypes, setSelectedSampleTypes] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
+  const [showDatasetUpdates, setShowDatasetUpdates] = useState(false);
 
   // Load CSV data
   useEffect(() => {
@@ -360,7 +361,7 @@ const MapView = () => {
 
   return (
     <div className="min-h-screen py-12 bg-gradient-subtle">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <div className="mb-8">
           <h1 className="font-heading text-4xl font-bold mb-4">
             Interactive Geological Map
@@ -595,17 +596,28 @@ const MapView = () => {
           </div>
         )}
 
-        {/* Map - Full Width */}
+        {/* Map - Responsive Height */}
         <Card className="overflow-hidden shadow-elegant mb-6">
-          <div ref={mapContainer} className="w-full h-[600px]" />
+          <div ref={mapContainer} className="w-full h-[400px] md:h-[600px]" />
         </Card>
 
-        {/* Data Updates & Sources */}
+        {/* Data Updates & Sources - Collapsible */}
         <div className="space-y-4" id="dataset-info">
-          <h2 className="text-2xl font-bold">Dataset Updates & Sources</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold">Dataset Updates & Sources</h2>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setShowDatasetUpdates(!showDatasetUpdates)}
+            >
+              {showDatasetUpdates ? "Hide" : "Show"} Dataset Updates
+            </Button>
+          </div>
           
-          {/* Individual Section Details */}
-          <Accordion 
+          {showDatasetUpdates && (
+            <>
+              {/* Individual Section Details */}
+              <Accordion
             type="single" 
             collapsible 
             className="space-y-4"
@@ -709,6 +721,8 @@ const MapView = () => {
               </AccordionItem>
             ))}
           </Accordion>
+            </>
+          )}
         </div>
       </div>
 
