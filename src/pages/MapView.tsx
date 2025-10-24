@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -341,6 +342,7 @@ const MapView = () => {
       if (hash.startsWith('#section-')) {
         const sectionId = hash.replace('#section-', '');
         setExpandedSection(sectionId);
+        setShowDatasetUpdates(true); // Auto-show dataset updates when navigating to a section
         // Small delay to ensure accordion expands before scrolling
         setTimeout(() => {
           const element = document.getElementById(hash.substring(1));
@@ -360,7 +362,7 @@ const MapView = () => {
   }, []);
 
   return (
-    <div className="min-h-screen py-12 bg-gradient-subtle">
+    <div className="py-12 bg-gradient-subtle">
       <div className="container mx-auto">
         <div className="mb-8">
           <h1 className="font-heading text-4xl font-bold mb-4">
@@ -639,14 +641,14 @@ const MapView = () => {
                         {section.ageMinMa}–{section.ageMaxMa} Ma • {section.rockType}
                       </span>
                     </div>
-                    <a
-                      href="/data"
+                    <Link
+                      to="/data"
                       className="flex items-center gap-1 text-blue-600 hover:underline text-xs font-medium"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <FileText className="w-3 h-3" />
                       Data Portal
-                    </a>
+                    </Link>
                   </div>
                 </AccordionTrigger>
                 
