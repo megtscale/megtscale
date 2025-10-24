@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
 // Google Apps Script URL for form submission
-const GOOGLE_APPS_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyz3pEoQcBuHMqJb1GvheHWW8SdOCxGeiwHkt_YLgX0hJ7OxWWgdmdJTTYDKziQMQHAwg/exec";
 
 const Contribute = () => {
   const { toast } = useToast();
