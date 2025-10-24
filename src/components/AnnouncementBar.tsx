@@ -44,7 +44,7 @@ const AnnouncementBar = () => {
   }
 
   return (
-    <div className="bg-gradient-accent text-primary-foreground py-3 px-4 relative">
+    <div className="bg-red-600 text-white py-3 px-4 relative">
       <div className="container mx-auto flex items-center justify-center gap-4">
         <p className="text-sm md:text-base text-center flex-1">
           {announcement.message}
@@ -63,7 +63,7 @@ const AnnouncementBar = () => {
           variant="ghost"
           size="sm"
           onClick={handleClose}
-          className="absolute right-2 top-1/2 -translate-y-1/2 text-primary-foreground hover:bg-white/20"
+          className="absolute right-2 top-1/2 -translate-y-1/2 text-white hover:bg-white/20"
         >
           <X className="w-4 h-4" />
         </Button>
