@@ -1,4 +1,5 @@
 import { Github, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -19,24 +20,24 @@ const Footer = () => {
             <h4 className="font-heading font-semibold mb-3">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="/" className="hover:text-copper transition-smooth">
+                <Link to="/" className="hover:text-copper transition-smooth">
                   Interactive Map
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/timeline" className="hover:text-copper transition-smooth">
+                <Link to="/timeline" className="hover:text-copper transition-smooth">
                   Time Scale
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/data" className="hover:text-copper transition-smooth">
+                <Link to="/data" className="hover:text-copper transition-smooth">
                   Data Portal
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="/contribute" className="hover:text-copper transition-smooth">
+                <Link to="/contribute" className="hover:text-copper transition-smooth">
                   Contribute Data
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

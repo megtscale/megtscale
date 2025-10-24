@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 interface Announcement {
   enabled: boolean;
@@ -49,14 +50,23 @@ const AnnouncementBar = () => {
         <p className="text-sm md:text-base text-center flex-1">
           {announcement.message}
           {announcement.link && announcement.linkText && (
-            <a
-              href={announcement.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="ml-2 underline font-semibold hover:opacity-80 transition-smooth"
-            >
-              {announcement.linkText}
-            </a>
+            announcement.link.startsWith('/') ? (
+              <Link
+                to={announcement.link}
+                className="ml-2 underline font-semibold hover:opacity-80 transition-smooth"
+              >
+                {announcement.linkText}
+              </Link>
+            ) : (
+              <a
+                href={announcement.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ml-2 underline font-semibold hover:opacity-80 transition-smooth"
+              >
+                {announcement.linkText}
+              </a>
+            )
           )}
         </p>
         <Button
