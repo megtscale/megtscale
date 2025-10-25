@@ -197,10 +197,10 @@ const TimelineView = () => {
                         <div className="flex-1">
                           <Accordion type="single" collapsible className="w-full">
                             <AccordionItem value={item.id} className="border-none">
-                              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-4 mb-2">
+                              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-1 mb-1">
                                 <div className="flex-1">
-                                  <h3 className="font-semibold text-lg md:text-xl text-foreground mb-2">{item.event}</h3>
-                                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                                  <h3 className="font-semibold text-lg md:text-xl text-foreground mb-1">{item.event}</h3>
+                                  <div className="flex flex-wrap items-center gap-2">
                                     <Badge variant="secondary" className="text-sm">
                                       {item.type}
                                     </Badge>
@@ -215,8 +215,8 @@ const TimelineView = () => {
                                     )}
                                   </div>
                                 </div>
-                                <AccordionTrigger className="hover:no-underline">
-                                  <span className="text-xs text-muted-foreground mr-2">Details</span>
+                                <AccordionTrigger className="hover:no-underline mt-1">
+                                  <span className="text-xs text-muted-foreground mr-2">Show Details</span>
                                 </AccordionTrigger>
                               </div>
 
