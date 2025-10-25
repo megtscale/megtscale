@@ -1,31 +1,78 @@
 import { Github, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+
+interface Sponsor {
+  id: string;
+  name: string;
+  logo: string;
+  url: string;
+  active: boolean;
+}
 
 const Footer = () => {
+  const [sponsors, setSponsors] = useState<Sponsor[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadSponsors = async () => {
+      try {
+        const response = await fetch("/data/sponsors.json");
+        const data = await response.json();
+        setSponsors(data.filter((sponsor: Sponsor) => sponsor.active));
+      } catch (error) {
+        console.error("Error loading sponsors:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadSponsors();
+  }, []);
+
   return (
     <footer className="bg-primary text-primary-foreground">
       {/* Sponsor Banner Section */}
-      <div className="bg-secondary/10 py-6 border-b border-primary-foreground/10">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center gap-8 flex-wrap">
-            <span className="text-sm font-semibold text-primary-foreground/60">
-              Sponsored by:
-            </span>
-            <div className="flex items-center gap-6 flex-wrap justify-center">
-              {/* Placeholder sponsor banners - replace with actual sponsor logos/links */}
-              <div className="bg-primary-foreground/5 border border-primary-foreground/20 rounded px-6 py-3 text-sm hover:bg-primary-foreground/10 transition-smooth">
-                <span className="text-primary-foreground/80">Sponsor 1</span>
-              </div>
-              <div className="bg-primary-foreground/5 border border-primary-foreground/20 rounded px-6 py-3 text-sm hover:bg-primary-foreground/10 transition-smooth">
-                <span className="text-primary-foreground/80">Sponsor 2</span>
-              </div>
-              <div className="bg-primary-foreground/5 border border-primary-foreground/20 rounded px-6 py-3 text-sm hover:bg-primary-foreground/10 transition-smooth">
-                <span className="text-primary-foreground/80">Sponsor 3</span>
+      {!loading && sponsors.length > 0 && (
+        <div className="bg-secondary/10 py-6 border-b border-primary-foreground/10">
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-center gap-8 flex-wrap">
+              <span className="text-sm font-semibold text-primary-foreground/60">
+                Sponsored by:
+              </span>
+              <div className="flex items-center gap-6 flex-wrap justify-center">
+                {sponsors.map((sponsor) => (
+                  <a
+                    key={sponsor.id}
+                    href={sponsor.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-primary-foreground/5 border border-primary-foreground/20 rounded px-6 py-3 hover:bg-primary-foreground/10 transition-smooth"
+                    title={sponsor.name}
+                  >
+                    <img
+                      src={sponsor.logo}
+                      alt={sponsor.name}
+                      className="h-8 max-w-[150px] object-contain"
+                      onError={(e) => {
+                        // Fallback to text if image fails to load
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const parent = target.parentElement;
+                        if (parent) {
+                          const span = document.createElement('span');
+                          span.className = 'text-primary-foreground/80 text-sm';
+                          span.textContent = sponsor.name;
+                          parent.appendChild(span);
+                        }
+                      }}
+                    />
+                  </a>
+                ))}
               </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-3 gap-8">

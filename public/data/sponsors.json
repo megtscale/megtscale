@@ -1,0 +1,23 @@
+[
+  {
+    "id": "sponsor1",
+    "name": "Sponsor 1",
+    "logo": "/images/sponsors/sponsor1-logo.png",
+    "url": "https://example.com/sponsor1",
+    "active": true
+  },
+  {
+    "id": "sponsor2",
+    "name": "Sponsor 2",
+    "logo": "/images/sponsors/sponsor2-logo.png",
+    "url": "https://example.com/sponsor2",
+    "active": true
+  },
+  {
+    "id": "sponsor3",
+    "name": "Sponsor 3",
+    "logo": "/images/sponsors/sponsor3-logo.png",
+    "url": "https://example.com/sponsor3",
+    "active": true
+  }
+]
