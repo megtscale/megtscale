@@ -31,9 +31,9 @@ const Footer = () => {
 
   return (
     <footer className="bg-primary text-primary-foreground">
-      {/* Sponsor Banner Section */}
+      {/* Sponsor Banner Section - Hidden when no active sponsors */}
       {!loading && sponsors.length > 0 && (
-        <div className="bg-secondary/10 py-6 border-b border-primary-foreground/10">
+        <div className="py-6 border-b border-primary-foreground/10">
           <div className="container mx-auto px-4">
             <div className="flex items-center justify-center gap-8 flex-wrap">
               <span className="text-sm font-semibold text-primary-foreground/60">
@@ -46,7 +46,7 @@ const Footer = () => {
                     href={sponsor.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-primary-foreground/5 border border-primary-foreground/20 rounded px-6 py-3 hover:bg-primary-foreground/10 transition-smooth"
+                    className="rounded px-4 py-2 hover:opacity-80 transition-smooth"
                     title={sponsor.name}
                   >
                     <img
