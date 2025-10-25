@@ -305,7 +305,7 @@ const MapView = () => {
       const photoUrl = section.photoUrl || '/images/sections/default-section.jpg';
       
       marker.bindPopup(`
-        <div style="min-width: 250px; max-width: 300px;">
+        <div style="min-width: 250px; max-width: 90vw;">
           <img src="${photoUrl}" alt="${section.name}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; margin-bottom: 12px; cursor: pointer;" class="section-photo" data-photo-url="${photoUrl}" data-section-name="${section.name}" title="Click to enlarge" onerror="this.src='/images/sections/default-section.jpg'" />
           <h3 class="font-bold text-base mb-2">${section.name}</h3>
           <p class="text-sm mb-1"><strong>Terrane:</strong> ${section.terrane}</p>
@@ -314,7 +314,7 @@ const MapView = () => {
           <a href="#section-${section.id}" class="text-blue-600 hover:underline text-xs block mb-2">📊 View Full Details</a>
           ${radiometricInfo ? `<hr class="my-2"/><div class="text-xs font-semibold mb-1">Radiometric Data:</div>${radiometricInfo}` : ""}
         </div>
-      `);
+      `, { maxWidth: 300 });
 
       markersLayer.current!.addLayer(marker);
     });
@@ -605,14 +605,14 @@ const MapView = () => {
 
         {/* Data Updates & Sources - Collapsible */}
         <div className="space-y-4" id="dataset-info">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
             <h2 className="text-2xl font-bold">Dataset Updates & Sources</h2>
             <Button
               variant="outline"
               size="sm"
               onClick={() => setShowDatasetUpdates(!showDatasetUpdates)}
             >
-              {showDatasetUpdates ? "Hide" : "Show"} Dataset Updates
+              {showDatasetUpdates ? "Hide" : "Show"}
             </Button>
           </div>
           
