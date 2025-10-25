@@ -64,11 +64,11 @@ const Contribute = () => {
     }
 
     // ✅ Send directly — no headers, no "no-cors"
-    await fetch(GOOGLE_APPS_SCRIPT_URL, {
+    await fetch(GOOGLE_APPS_SCRIPT_URL + "?nocache=" + Date.now(), {
       method: "POST",
       body: form,
+      redirect: "follow",
       mode: "cors",
-      credentials: "omit",
     });
 
     toast({
