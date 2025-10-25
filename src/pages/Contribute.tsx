@@ -119,7 +119,7 @@ const Contribute = () => {
   };
 
   return (
-    <div className="min-h-screen py-12 bg-gradient-subtle">
+    <div className="py-12 bg-gradient-subtle">
       <div className="container mx-auto px-4">
         <div className="mb-8">
           <h1 className="font-heading text-4xl font-bold mb-4">

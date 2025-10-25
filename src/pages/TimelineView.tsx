@@ -149,8 +149,8 @@ const TimelineView = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-subtle">
-      <div className="container mx-auto px-4 py-16">
+    <div className="py-12 bg-gradient-subtle">
+      <div className="container mx-auto px-4">
         {/* Enhanced Header */}
         <div className="mb-16 text-center">
           <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-copper to-secondary bg-clip-text text-transparent">
