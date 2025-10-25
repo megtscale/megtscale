@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
 // Google Apps Script URL for form submission
-const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyz3pEoQcBuHMqJb1GvheHWW8SdOCxGeiwHkt_YLgX0hJ7OxWWgdmdJTTYDKziQMQHAwg/exec";
+const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwJTmsjK4435edJkd84ZIj_0jton30DE_7QLeYJ18CEJZvYaFodUzzKA8jKxcqNTL4p-w/exec";
 
 const Contribute = () => {
   const { toast } = useToast();
@@ -36,87 +36,66 @@ const Contribute = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!formData.name || !formData.email || !formData.description) {
-      toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
-      });
-      return;
-    }
+  e.preventDefault();
 
-    setIsSubmitting(true);
+  if (!formData.name || !formData.email || !formData.description) {
+    toast({
+      title: "Missing Information",
+      description: "Please fill in all required fields.",
+      variant: "destructive",
+    });
+    return;
+  }
 
-    try {
-      // Convert files to base64
-      const fileData = [];
-      if (files) {
-        for (let i = 0; i < files.length; i++) {
-          const file = files[i];
-          const base64 = await new Promise<string>((resolve) => {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-              const result = reader.result as string;
-              resolve(result.split(',')[1]); // Remove data:*/*;base64, prefix
-            };
-            reader.readAsDataURL(file);
-          });
-          
-          fileData.push({
-            name: file.name,
-            mimeType: file.type,
-            data: base64,
-          });
-        }
+  setIsSubmitting(true);
+
+  try {
+    // ✅ Build a FormData payload
+    const form = new FormData();
+    form.append("name", formData.name);
+    form.append("email", formData.email);
+    form.append("institution", formData.institution);
+    form.append("description", formData.description);
+
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        form.append(`file${i}`, files[i], files[i].name);
       }
-
-      const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          institution: formData.institution,
-          description: formData.description,
-          files: fileData,
-          timestamp: new Date().toISOString(),
-        }),
-      });
-
-      toast({
-        title: "Submission Sent",
-        description: "Your data contribution has been submitted. Please check your Google Sheet to confirm receipt.",
-      });
-
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        institution: "",
-        description: "",
-      });
-      setFiles(null);
-      
-      // Reset file input
-      const fileInput = document.getElementById("files") as HTMLInputElement;
-      if (fileInput) fileInput.value = "";
-
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      toast({
-        title: "Submission Error",
-        description: "Failed to submit the form. Please try again or contact us directly.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
     }
-  };
+
+    // ✅ Send directly — no headers, no "no-cors"
+    await fetch(GOOGLE_APPS_SCRIPT_URL, {
+      method: "POST",
+      body: form,
+    });
+
+    toast({
+      title: "Submission Sent",
+      description: "Your data contribution has been submitted successfully.",
+    });
+
+    // Reset form
+    setFormData({
+      name: "",
+      email: "",
+      institution: "",
+      description: "",
+    });
+    setFiles(null);
+
+    const fileInput = document.getElementById("files") as HTMLInputElement;
+    if (fileInput) fileInput.value = "";
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    toast({
+      title: "Submission Error",
+      description: "Failed to submit the form. Please try again or contact us directly.",
+      variant: "destructive",
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <div className="py-12 bg-gradient-subtle">
