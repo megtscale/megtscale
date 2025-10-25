@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 
 // Google Apps Script URL for form submission
-const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwJTmsjK4435edJkd84ZIj_0jton30DE_7QLeYJ18CEJZvYaFodUzzKA8jKxcqNTL4p-w/exec";
+const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxt0djGiBcz3kiK74kIqcZWJSyngc6bjgc6A2ygj4FrKOV8XdR5gLogYn5wtS0p_UAYOQ/exec";
 
 const Contribute = () => {
   const { toast } = useToast();
@@ -59,7 +59,7 @@ const Contribute = () => {
 
     if (files) {
       for (let i = 0; i < files.length; i++) {
-        form.append(`file${i}`, files[i], files[i].name);
+        form.append("file", files[i]);
       }
     }
 
@@ -67,6 +67,8 @@ const Contribute = () => {
     await fetch(GOOGLE_APPS_SCRIPT_URL, {
       method: "POST",
       body: form,
+      mode: "cors",
+      credentials: "omit",
     });
 
     toast({
@@ -244,7 +246,7 @@ const Contribute = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Name *</Label>
+                  <Label htmlFor="name">Full Name *</Label>
                   <Input
                     id="name"
                     placeholder="Your full name"
